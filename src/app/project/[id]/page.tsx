@@ -4,11 +4,51 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { projectDetails, projectIds, footerInfo } from "@/data/data";
 import { useParams } from "next/navigation";
+import Image from "next/image";
+
+// 프로젝트 데이터 인터페이스 정의
+interface ProjectData {
+  title: string;
+  period: string;
+  tags: string[];
+  mainImage: string;
+  overview: string[];
+  links: {
+    github: string;
+    demo: string;
+  };
+  goals: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
+  screenshots: string[];
+  technologies: {
+    category: string;
+    items: {
+      name: string;
+      description: string;
+    }[];
+  }[];
+  challenges: {
+    title: string;
+    challenge: string;
+    solution: string;
+  }[];
+  outcome: string[];
+}
+
+// 링크 정보 인터페이스
+interface LinkInfo {
+  url: string;
+  icon: string;
+  text: string;
+}
 
 export default function ProjectDetail() {
   const params = useParams();
   const [projectId, setProjectId] = useState<string>("");
-  const [projectData, setProjectData] = useState<any>(null);
+  const [projectData, setProjectData] = useState<ProjectData | null>(null);
   const [prevProject, setPrevProject] = useState<{ id: string; title: string }>(
     { id: "", title: "" }
   );
@@ -263,7 +303,7 @@ export default function ProjectDetail() {
             <i className="fas fa-arrow-left"></i>
             <span>돌아가기</span>
           </Link>
-          <div className="logo">SangHun's Portfolio</div>
+          <div className="logo">SangHun&apos;s Portfolio</div>
         </nav>
       </header>
 
@@ -284,7 +324,7 @@ export default function ProjectDetail() {
 
         <div className="project-overview">
           <div className="overview-image">
-            <img
+            <Image
               src={projectData.mainImage}
               alt={`${projectData.title} 프로젝트 이미지`}
               className="main-project-image"
@@ -314,7 +354,7 @@ export default function ProjectDetail() {
         <div className="project-goals">
           <h2 className="section-heading">프로젝트 목표</h2>
           <div className="goals-container">
-            {projectData.goals.map((goal: any, index: number) => (
+            {projectData.goals.map((goal, index: number) => (
               <div className="goal-item" key={index}>
                 <div className="goal-icon">
                   <i className={goal.icon}></i>
@@ -332,7 +372,7 @@ export default function ProjectDetail() {
             {projectData.screenshots.map(
               (screenshot: string, index: number) => (
                 <div className="screenshot" key={index}>
-                  <img
+                  <Image
                     src={screenshot}
                     alt={`${projectData.title} 스크린샷 ${index + 1}`}
                   />
@@ -345,11 +385,11 @@ export default function ProjectDetail() {
         <div className="project-technologies">
           <h2 className="section-heading">사용 기술</h2>
           <div className="technologies-container">
-            {projectData.technologies.map((tech: any, index: number) => (
+            {projectData.technologies.map((tech, index: number) => (
               <div className="tech-category" key={index}>
                 <h3>{tech.category}</h3>
                 <ul className="tech-list">
-                  {tech.items.map((item: any, itemIndex: number) => (
+                  {tech.items.map((item, itemIndex: number) => (
                     <li key={itemIndex}>
                       <span className="tech-name">{item.name}</span> -{" "}
                       {item.description}
@@ -364,7 +404,7 @@ export default function ProjectDetail() {
         <div className="project-challenges">
           <h2 className="section-heading">도전 과제 및 해결책</h2>
           <div className="challenges-container">
-            {projectData.challenges.map((challenge: any, index: number) => (
+            {projectData.challenges.map((challenge, index: number) => (
               <div className="challenge-item" key={index}>
                 <h3>{challenge.title}</h3>
                 <p>
@@ -424,7 +464,7 @@ export default function ProjectDetail() {
         </div>
 
         <div className="footer-links">
-          {footerInfo.links.map((link: any, index: number) => (
+          {footerInfo.links.map((link: LinkInfo, index: number) => (
             <a
               href={link.url}
               target="_blank"
