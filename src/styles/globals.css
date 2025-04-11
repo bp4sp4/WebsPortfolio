@@ -779,6 +779,9 @@ section {
     transition: 0.3s;
     position: relative;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .project-card:hover {
@@ -809,6 +812,10 @@ section {
 
 .project-content {
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
 }
 
 .project-header {
@@ -855,6 +862,8 @@ section {
 .project-links {
     display: flex;
     gap: 20px;
+    margin-top: auto;
+    padding-top: 30px;
 }
 
 .project-link {

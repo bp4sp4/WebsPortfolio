@@ -80,10 +80,10 @@ export const projects = [
     date: "25.01.15 ~ 25.02.01",
     description:
       "개인 포트폴리오 웹사이트 디자인 및 개발. 모던한 UI와 인터랙티브 요소를 활용하여 개성을 표현했습니다.",
-    tags: ["React", "GSAP", "Styled Components"],
-    image: "/api/placeholder/500/300",
-    gifImage: "/api/placeholder/500/300?text=Portfolio+GIF",
-    github: "#",
+    tags: ["React", "Magic UI", "Aceternity UI", "Vercel", "Interactui UI"],
+    image: "/main/work__gif/uidesign.gif",
+    gifImage: "/main/work__gif/uidesign.gif",
+    github: "https://github.com/bp4sp4/notinghomepage",
     demo: "https://notinghomepage.vercel.app/",
   },
   {
