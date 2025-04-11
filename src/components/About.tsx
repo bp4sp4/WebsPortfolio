@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import { experiences } from "@/data/data";
 
 export default function About() {

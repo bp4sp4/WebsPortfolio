@@ -60,7 +60,6 @@ export default function ProjectDetail() {
     // 현재 프로젝트 ID 가져오기
     const id = Array.isArray(params.id) ? params.id[0] : params.id;
     setProjectId(id as string);
-    console.log("현재 프로젝트 ID:", projectId);
 
     // 현재 프로젝트 데이터 설정
     if (id && projectDetails[id as string]) {
@@ -289,7 +288,7 @@ export default function ProjectDetail() {
       document.removeEventListener("mouseup", handleMouseUp);
       fadeObserver.disconnect();
     };
-  }, [params]);
+  }, [params, projectId]);
 
   // 프로젝트 데이터가 없는 경우 로딩 표시
   if (!projectData) {
