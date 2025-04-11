@@ -60,6 +60,7 @@ export default function ProjectDetail() {
     // 현재 프로젝트 ID 가져오기
     const id = Array.isArray(params.id) ? params.id[0] : params.id;
     setProjectId(id as string);
+    console.log("현재 프로젝트 ID:", projectId);
 
     // 현재 프로젝트 데이터 설정
     if (id && projectDetails[id as string]) {
@@ -323,11 +324,16 @@ export default function ProjectDetail() {
         </div>
 
         <div className="project-overview">
-          <div className="overview-image">
+          <div
+            className="overview-image"
+            style={{ position: "relative", width: "100%", height: "400px" }}
+          >
             <Image
               src={projectData.mainImage}
               alt={`${projectData.title} 프로젝트 이미지`}
               className="main-project-image"
+              fill
+              style={{ objectFit: "cover" }} // 또는 'contain'
             />
           </div>
           <div className="overview-content">
@@ -371,10 +377,21 @@ export default function ProjectDetail() {
           <div className="screenshots-container">
             {projectData.screenshots.map(
               (screenshot: string, index: number) => (
-                <div className="screenshot" key={index}>
+                <div
+                  key={index}
+                  className="overview-image"
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "400px",
+                  }}
+                >
                   <Image
-                    src={screenshot}
-                    alt={`${projectData.title} 스크린샷 ${index + 1}`}
+                    src={projectData.mainImage}
+                    alt={`${projectData.title} 프로젝트 이미지`}
+                    className="main-project-image"
+                    fill
+                    style={{ objectFit: "cover" }} // 또는 'contain'
                   />
                 </div>
               )

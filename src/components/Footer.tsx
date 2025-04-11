@@ -1,7 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { footerInfo } from '@/data/data';
+import { footerInfo } from "@/data/data";
 
 export default function Footer() {
   return (

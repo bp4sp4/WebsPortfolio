@@ -30,7 +30,7 @@ export default function Header() {
   return (
     <header id="home">
       <nav className={`nav-container ${scrolled ? "scrolled" : ""}`}>
-        <div className="logo">SangHun's Portfolio</div>
+        <div className="logo">SangHun&apos;s Portfolio</div>
         <div className={`nav-links ${mobileMenuOpen ? "active" : ""}`}>
           <Link href="#home" className="active">
             홈
