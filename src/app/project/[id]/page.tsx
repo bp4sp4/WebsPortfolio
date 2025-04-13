@@ -154,14 +154,44 @@ export default function ProjectDetail() {
 
     // 스크린샷 이미지 확대 모달 기능
     const setupScreenshotModal = () => {
+      // 기존 이벤트 리스너 제거 및 초기화
+      document.querySelectorAll(".image-modal").forEach((modal) => {
+        if (modal.parentNode) modal.parentNode.removeChild(modal);
+      });
+
       const screenshots = document.querySelectorAll(".screenshot img");
       const body = document.body;
+
+      // 안전하게 요소 제거하는 함수
+      const safelyRemoveElement = (
+        element: HTMLElement,
+        parent: HTMLElement
+      ) => {
+        if (element && parent && parent.contains(element)) {
+          parent.removeChild(element);
+        }
+      };
+
+      // 모달 닫기 함수
+      const closeModal = (modal: HTMLDivElement, style: HTMLStyleElement) => {
+        // 중복 호출 방지를 위한 플래그 추가
+        if (modal.dataset.closing === "true") return;
+
+        modal.dataset.closing = "true";
+        modal.classList.remove("show");
+
+        setTimeout(() => {
+          safelyRemoveElement(modal, body);
+          safelyRemoveElement(style, document.head);
+        }, 300);
+      };
 
       screenshots.forEach((img) => {
         img.addEventListener("click", () => {
           // 모달 생성
           const modal = document.createElement("div");
           modal.className = "image-modal";
+          modal.dataset.closing = "false"; // 닫기 진행 중 플래그
 
           // 닫기 버튼
           const closeBtn = document.createElement("span");
@@ -180,44 +210,45 @@ export default function ProjectDetail() {
           // 모달 스타일 추가
           const style = document.createElement("style");
           style.textContent = `
-            .image-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.9);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            .image-modal.show {
-                opacity: 1;
-            }
-            .image-modal img {
-                max-width: 90%;
-                max-height: 90%;
-                object-fit: contain;
-                border-radius: 5px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            }
-            .close-modal {
-                position: absolute;
-                top: 20px;
-                right: 30px;
-                color: white;
-                font-size: 40px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: color 0.3s ease;
-            }
-            .close-modal:hover {
-                color: var(--primary);
-            }
-          `;
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .image-modal.show {
+            opacity: 1;
+        }
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 1001; /* 이미지보다 위에 오도록 */
+        }
+        .close-modal:hover {
+            color: var(--primary);
+        }
+      `;
           document.head.appendChild(style);
 
           // 모달 표시 애니메이션
@@ -225,35 +256,29 @@ export default function ProjectDetail() {
             modal.classList.add("show");
           }, 10);
 
-          // 닫기 버튼 이벤트
-          closeBtn.addEventListener("click", () => {
-            modal.classList.remove("show");
-            setTimeout(() => {
-              body.removeChild(modal);
-              document.head.removeChild(style);
-            }, 300);
-          });
+          // 닫기 함수를 한 번만 호출하는 래퍼 함수
+          const closeOnce = () => {
+            closeModal(modal, style);
+          };
+
+          // 닫기 버튼 이벤트 - 이벤트 격리
+          closeBtn.onclick = (e) => {
+            e.stopPropagation();
+            closeOnce();
+          };
 
           // 모달 영역 클릭 시 닫기
-          modal.addEventListener("click", (e) => {
+          modal.onclick = (e) => {
             if (e.target === modal) {
-              modal.classList.remove("show");
-              setTimeout(() => {
-                body.removeChild(modal);
-                document.head.removeChild(style);
-              }, 300);
+              closeOnce();
             }
-          });
+          };
 
           // ESC 키 누를 때 닫기
           const closeOnEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
-              modal.classList.remove("show");
-              setTimeout(() => {
-                body.removeChild(modal);
-                document.head.removeChild(style);
-                document.removeEventListener("keydown", closeOnEsc);
-              }, 300);
+              closeOnce();
+              document.removeEventListener("keydown", closeOnEsc);
             }
           };
 
@@ -378,7 +403,7 @@ export default function ProjectDetail() {
               (screenshot: string, index: number) => (
                 <div
                   key={index}
-                  className="overview-image"
+                  className="screenshot"
                   style={{
                     position: "relative",
                     width: "100%",
@@ -386,11 +411,11 @@ export default function ProjectDetail() {
                   }}
                 >
                   <Image
-                    src={projectData.mainImage}
-                    alt={`${projectData.title} 프로젝트 이미지`}
-                    className="main-project-image"
+                    src={screenshot}
+                    alt={`${projectData.title} 스크린샷 ${index + 1}`}
+                    className="screenshot-image"
                     fill
-                    style={{ objectFit: "cover" }} // 또는 'contain'
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
               )
@@ -469,30 +494,6 @@ export default function ProjectDetail() {
       </main>
 
       <footer className="footer">
-        <div className="footer-question">{footerInfo.question}</div>
-        <div className="footer-email">{footerInfo.email}</div>
-
-        <div className="footer-brand">
-          <h2 className="footer-title">
-            {footerInfo.brand}
-            <span className="footer-comma">,</span>
-          </h2>
-        </div>
-
-        <div className="footer-links">
-          {footerInfo.links.map((link: LinkInfo, index: number) => (
-            <a
-              href={link.url}
-              target="_blank"
-              className="footer-link"
-              key={index}
-            >
-              <i className={link.icon}></i>
-              <span>{link.text}</span>
-            </a>
-          ))}
-        </div>
-
         <div className="footer-bottom">
           <div className="footer-copyright">{footerInfo.copyright}</div>
           <div className="footer-credit">{footerInfo.credit}</div>

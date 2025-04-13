@@ -77,25 +77,25 @@ export const projects = [
   {
     id: "interactui",
     title: "InteractUI,",
-    date: "25.01.15 ~ 25.02.01",
+    date: "25.03.04 ~ 25.03.12",
     description:
-      "개인 포트폴리오 웹사이트 디자인 및 개발. 모던한 UI와 인터랙티브 요소를 활용하여 개성을 표현했습니다.",
-    tags: ["React", "Magic UI", "Aceternity UI", "Vercel", "Interactui UI"],
+      "InteractUI는 사용자 경험을 극대화하는 인터랙티브한 홈페이지입니다. 최신 기술과 트렌드를 반영하여 직관적이고 감각적인 웹 인터페이스를 구축하는 데 집중하고 있으며, 반응형 디자인과 동적인 인터랙션을 통해 사용자와 웹 간의 자연스러운 상호작용을 제공합니다.",
+    tags: ["React", "Magic UI", "Aceternity UI", "Vercel", "Framer Motion"],
     image: "/main/work__gif/uidesign.gif",
     gifImage: "/main/work__gif/uidesign.gif",
     github: "https://github.com/bp4sp4/notinghomepage",
     demo: "https://notinghomepage.vercel.app/",
   },
   {
-    id: "community",
-    title: "커뮤니티 플랫폼",
-    date: "24.10.10 ~ 24.12.05",
+    id: "Relux",
+    title: "Relux",
+    date: "24.09.27 ~ 24.11.03",
     description:
-      "사용자 중심의 커뮤니티 웹 애플리케이션 개발. 실시간 채팅, 게시물 작성, 댓글 기능 등을 구현했습니다.",
-    tags: ["Next.js", "Node.js", "MongoDB", "Socket.io"],
-    image: "/api/placeholder/500/300",
-    gifImage: "/api/placeholder/500/300?text=Community+GIF",
-    github: "#",
+      "개인 프로젝트로 리럭스 홈페이지는 명품 소개 사이트이고, 명품에 조금 더 관심을 줄 수 있는 사이트 입니다. UX/UI를 디자인을 논의하기 위해 Figma를 활용했으며, Java, swiper.js, Html5/Css3 이용하여 UI 개발을 진행했습니다.",
+    tags: ["SpringBoot", "HTML5", "CSS3", "MySQL", "AWS"],
+    image: "/main/work__gif/relux.gif",
+    gifImage: "/main/work__gif/relux.gif",
+    github: "https://github.com/bp4sp4/ReLux",
     demo: "#",
   },
   {
@@ -245,15 +245,15 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
   interactui: {
     id: "interactui",
     title: "InteractUI,",
-    period: "25.01.15 ~ 25.02.01",
-    tags: ["React", "GSAP", "Styled Components"],
-    mainImage: "/detail__main/main__page__img/portfolio__main.png",
+    period: "25.03.04 ~ 25.03.12",
+    tags: ["React", "Magic UI", "Aceternity UI", "Vercel", "Framer Motion"],
+    mainImage: "/detail__main/main__page__img/InteractUI__main.png",
     overview: [
-      "개인 포트폴리오 웹사이트 디자인 및 개발 프로젝트입니다. 모던한 UI와 인터랙티브 요소를 활용하여 개성을 표현했습니다.",
-      "React와 GSAP를 활용한 애니메이션 효과로 사용자 경험을 향상시키고, Styled Components를 통해 유지보수가 용이한 스타일 시스템을 구축했습니다.",
+      "InteractUI는 사용자 경험을 극대화하는 인터랙티브한 홈페이지입니다. 최신 기술과 트렌드를 반영하여 직관적이고 감각적인 웹 인터페이스를 구축했습니다.",
+      "반응형 디자인과 동적인 인터랙션을 통해 사용자와 웹 간의 자연스러운 상호작용을 제공합니다.",
     ],
     links: {
-      github: "#",
+      github: "https://github.com/bp4sp4/notinghomepage",
       demo: "https://notinghomepage.vercel.app/",
     },
     goals: [
@@ -279,9 +279,9 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
       },
     ],
     screenshots: [
-      "/detail__main/page3imgs/portfolio__main.png",
-      "/detail__main/page3imgs/portfolio__about.png",
-      "/detail__main/page3imgs/portfolio__projects.png",
+      "/detail__main/page3imgs/UI__main.png",
+      "/detail__main/page3imgs/UI__contents.png",
+      "/detail__main/page3imgs/UI__footer.png",
     ],
     technologies: [
       {
@@ -291,12 +291,18 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
             name: "React",
             description: "사용자 인터페이스 구축을 위한 JavaScript 라이브러리",
           },
-          { name: "GSAP", description: "고성능 애니메이션 라이브러리" },
           {
-            name: "Styled Components",
-            description: "컴포넌트 기반 CSS-in-JS 라이브러리",
+            name: "Framer Motion",
+            description: "React 애니메이션 라이브러리",
           },
-          { name: "Framer Motion", description: "React 애니메이션 라이브러리" },
+          {
+            name: "Magic UI",
+            description: "현대적인 UI 컴포넌트 및 애니메이션 효과 라이브러리",
+          },
+          {
+            name: "Aceternity UI",
+            description: "인터랙티브한 웹 경험을 위한 UI 컴포넌트 모음",
+          },
         ],
       },
       {
@@ -306,39 +312,46 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
             name: "Vercel",
             description: "프론트엔드 애플리케이션 호스팅 플랫폼",
           },
-          { name: "GitHub", description: "버전 관리 및 협업" },
+          {
+            name: "GitHub",
+            description: "버전 관리 및 협업",
+          },
         ],
       },
       {
         category: "디자인 도구",
         items: [
-          { name: "Figma", description: "UI/UX 디자인 및 프로토타이핑" },
-          { name: "Adobe Illustrator", description: "벡터 그래픽 디자인" },
+          {
+            name: "Figma",
+            description: "UI/UX 디자인 및 프로토타이핑",
+          },
         ],
       },
     ],
     challenges: [
       {
-        title: "복잡한 애니메이션 구현",
+        title: "복잡한 인터랙션 구현",
         challenge:
-          "다양한 인터랙티브 애니메이션을 구현하면서 성능 저하 문제가 발생했습니다.",
+          "다양한 인터랙티브 요소를 구현하면서 성능과 사용자 경험 간의 균형 유지가 어려웠습니다.",
         solution:
-          "GSAP 라이브러리를 활용하여 하드웨어 가속을 최대한 활용하고, 애니메이션 타이밍과 이징 함수를 최적화하여 부드러운 사용자 경험을 제공했습니다.",
+          "Framer Motion과 최적화된 컴포넌트 구조를 활용하여 성능을 유지하면서도 부드러운 애니메이션을 구현했습니다.",
       },
       {
-        title: "일관된 디자인 시스템 구축",
+        title: "반응형 디자인 최적화",
         challenge:
-          "창의적인 디자인을 유지하면서도 일관된 사용자 경험을 제공하는 디자인 시스템 구축이 필요했습니다.",
+          "복잡한 인터랙티브 요소들이 모든 디바이스에서 일관되게 작동하도록 만드는 것이 과제였습니다.",
         solution:
-          "Styled Components의 테마 기능을 활용하여 디자인 토큰을 정의하고, 컴포넌트 라이브러리를 구축하여 일관된 시각적 언어를 유지했습니다.",
+          "세밀한 미디어 쿼리와 디바이스별 최적화를 통해 모든 화면 크기에서 완벽하게 작동하는 인터페이스를 구현했습니다.",
       },
     ],
     outcome: [
-      "이 프로젝트를 통해 모던 웹 애니메이션 기술과 컴포넌트 기반 디자인 시스템을 구축하는 역량을 향상시켰습니다. 특히 사용자 경험을 중심으로 한 인터랙티브 요소 개발에 집중하여 방문자들에게 인상적인 포트폴리오 경험을 제공할 수 있었습니다.",
-      "React와 GSAP의 조합으로 복잡한 애니메이션을 효율적으로 구현하는 방법을 습득했으며, 이는 향후 인터랙티브 웹 프로젝트에 큰 도움이 될 것입니다.",
+      "핑크숍 프로젝트는 Figma 기반의 디자인을 정교하게 코드로 구현하며 퍼블리싱 역량을 강화하는 데 중점을 두었습니다.",
+      "반응형 웹 디자인을 통해 모바일, 태블릿, 데스크톱 등 다양한 기기에서 최적의 사용자 경험을 제공하며, 픽셀 완벽한 구현을 목표로 작업했습니다.",
+
+      "이를 통해 디자인과 기술적 구현의 균형을 맞추며 퍼블리셔로서의 종합적인 역량을 증진했습니다.",
+      "Vercel 배포까지 경험하며 실제 운영 가능한 수준의 웹사이트를 완성했고, 성능 최적화와 SEO 개선을 통해 사용자 중심의 서비스를 제공했습니다.",
     ],
   },
-
   // 커뮤니티 플랫폼 프로젝트 상세 정보
   community: {
     id: "community",
