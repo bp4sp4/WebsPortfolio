@@ -71,6 +71,8 @@ export const projects = [
     gifImage: "/main/work__gif/pinkshop.gif",
     github: "https://github.com/bp4sp4/pinkshoppingmall",
     demo: "https://pinkshoppingmall.vercel.app/",
+    figma:
+      "https://www.figma.com/design/7dPx5W1nz4VdLMgs84G4Z8/%ED%95%91%ED%81%AC%EC%88%8D?node-id=0-1&p=f&t=fziTtiQUrxhBWbrc-0",
     detailDescription:
       "Figma의 디자인 시스템을 코드로 구현하는 과정에서 디자인 일관성을 유지하면서도 웹 접근성과 사용자 경험을 최적화하는 데 중점을 두었습니다. 이를 통해 퍼블리셔의 새로운 기술력을 발전시킬 수 있었습니다.",
   },
@@ -109,6 +111,7 @@ export const projects = [
     gifImage: "/main/work__gif/wedding-main.gif",
     github: "https://github.com/bp4sp4/WeddingVideoPage",
     demo: "https://bp4sp4.github.io/WeddingVideoPage/",
+    figma: "",
   },
   {
     id: "htmlstudy",
@@ -147,6 +150,7 @@ export type ProjectDetailType = {
   links: {
     github: string;
     demo: string;
+    figma?: string;
   };
   goals: {
     icon: string;
@@ -185,6 +189,8 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
     links: {
       github: "https://github.com/bp4sp4/pinkshoppingmall",
       demo: "https://pinkshoppingmall.vercel.app/",
+      figma:
+        "https://www.figma.com/design/7dPx5W1nz4VdLMgs84G4Z8/%ED%95%91%ED%81%AC%EC%88%8D?node-id=0-1&p=f&t=fziTtiQUrxhBWbrc-0",
     },
     goals: [
       {
@@ -280,6 +286,7 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
     links: {
       github: "https://github.com/bp4sp4/notinghomepage",
       demo: "https://notinghomepage.vercel.app/",
+      figma: "",
     },
     goals: [
       {

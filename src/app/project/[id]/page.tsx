@@ -16,6 +16,7 @@ interface ProjectData {
   links: {
     github: string;
     demo: string;
+    figma?: string;
   };
   goals: {
     icon: string;
@@ -335,6 +336,16 @@ export default function ProjectDetail() {
               <a href={projectData.links.demo} target="_blank" className="btn">
                 <i className="fas fa-external-link-alt"></i> 데모 사이트
               </a>
+              {projectData.links && projectData.links.figma && (
+                <a
+                  href={projectData.links.figma}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                >
+                  <i className="fab fa-figma"></i> Figma 디자인
+                </a>
+              )}
             </div>
           </div>
         </div>

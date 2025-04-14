@@ -181,6 +181,11 @@ body {
     transform: translateY(-3px);
 }
 
+.project-links .btn:nth-child(2) {
+    background-color: var(--green);
+    color: black;
+}
+
 .project-links .btn:last-child {
     background-color: var(--primary);
     color: white;

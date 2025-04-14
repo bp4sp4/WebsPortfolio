@@ -91,6 +91,16 @@ export default function Projects() {
                     Demo Site <i className="fas fa-external-link-alt"></i>
                   </a>
                 )}
+                {project.figma && project.figma !== "#" && (
+                  <a
+                    href={project.figma}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link"
+                  >
+                    Figma <i className="fas fa-external-link-alt"></i>
+                  </a>
+                )}
                 <Link
                   href={`/project/${project.id}`}
                   className="project-link detail-link"
