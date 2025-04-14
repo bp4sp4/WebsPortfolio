@@ -56,9 +56,11 @@ export default function Header() {
             </h1>
           </div>
           <p className="subtitle">
-            <span className="tag-item">#꿈입없는!</span>
-            <span className="tag-item">#노력하는!</span>
-            <span className="tag-item">#배움에끝은없다!</span>
+            <span className="tag-item"># 프론트엔드</span>
+            <span className="tag-item"># 퍼블리싱</span>
+            <span className="tag-item"># 웹개발</span>
+            <span className="tag-item"># UI구현</span>
+            <span className="tag-item"># 인터랙션개발</span>
           </p>
           <div className="intro-description">
             <p>
