@@ -6,7 +6,7 @@ import "@/styles/project-detail.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MZ 포트폴리오",
+  title: "SangHUnSangHun's Portfolio",
   description: "웹 개발자 박상훈의 포트폴리오 사이트입니다.",
 };
 

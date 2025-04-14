@@ -152,65 +152,20 @@ export default function ProjectDetail() {
       }, 300);
     }
 
-    // 스크린샷 이미지 확대 모달 기능
+    // 스크린샷 이미지 확대 모달 기능 - 완전히 단순화된 접근 방식
     const setupScreenshotModal = () => {
-      // 기존 이벤트 리스너 제거 및 초기화
+      // 기존 모달 제거
       document.querySelectorAll(".image-modal").forEach((modal) => {
         if (modal.parentNode) modal.parentNode.removeChild(modal);
       });
 
-      const screenshots = document.querySelectorAll(".screenshot img");
-      const body = document.body;
-
-      // 안전하게 요소 제거하는 함수
-      const safelyRemoveElement = (
-        element: HTMLElement,
-        parent: HTMLElement
-      ) => {
-        if (element && parent && parent.contains(element)) {
-          parent.removeChild(element);
-        }
-      };
-
-      // 모달 닫기 함수
-      const closeModal = (modal: HTMLDivElement, style: HTMLStyleElement) => {
-        // 중복 호출 방지를 위한 플래그 추가
-        if (modal.dataset.closing === "true") return;
-
-        modal.dataset.closing = "true";
-        modal.classList.remove("show");
-
-        setTimeout(() => {
-          safelyRemoveElement(modal, body);
-          safelyRemoveElement(style, document.head);
-        }, 300);
-      };
-
-      screenshots.forEach((img) => {
-        img.addEventListener("click", () => {
-          // 모달 생성
-          const modal = document.createElement("div");
-          modal.className = "image-modal";
-          modal.dataset.closing = "false"; // 닫기 진행 중 플래그
-
-          // 닫기 버튼
-          const closeBtn = document.createElement("span");
-          closeBtn.className = "close-modal";
-          closeBtn.innerHTML = "&times;";
-
-          // 확대된 이미지
-          const modalImg = document.createElement("img");
-          modalImg.src = (img as HTMLImageElement).src;
-
-          // 모달에 요소 추가
-          modal.appendChild(closeBtn);
-          modal.appendChild(modalImg);
-          body.appendChild(modal);
-
-          // 모달 스타일 추가
-          const style = document.createElement("style");
-          style.textContent = `
-        .image-modal {
+      // 스타일 추가
+      let modalStyle = document.getElementById("modal-style");
+      if (!modalStyle) {
+        modalStyle = document.createElement("style");
+        modalStyle.id = "modal-style";
+        modalStyle.textContent = `
+          .image-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -223,18 +178,20 @@ export default function ProjectDetail() {
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
-        }
-        .image-modal.show {
+            pointer-events: none;
+          }
+          .image-modal.active {
             opacity: 1;
-        }
-        .image-modal img {
+            pointer-events: auto;
+          }
+          .image-modal img {
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
             border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        .close-modal {
+          }
+          .close-modal {
             position: absolute;
             top: 20px;
             right: 30px;
@@ -243,47 +200,55 @@ export default function ProjectDetail() {
             font-weight: bold;
             cursor: pointer;
             transition: color 0.3s ease;
-            z-index: 1001; /* 이미지보다 위에 오도록 */
-        }
-        .close-modal:hover {
+            z-index: 1001;
+          }
+          .close-modal:hover {
             color: var(--primary);
-        }
-      `;
-          document.head.appendChild(style);
+          }
+        `;
+        document.head.appendChild(modalStyle);
+      }
 
-          // 모달 표시 애니메이션
-          setTimeout(() => {
-            modal.classList.add("show");
-          }, 10);
+      // 모달 생성 (미리 DOM에 추가)
+      const modal = document.createElement("div");
+      modal.className = "image-modal";
 
-          // 닫기 함수를 한 번만 호출하는 래퍼 함수
-          const closeOnce = () => {
-            closeModal(modal, style);
-          };
+      const closeBtn = document.createElement("span");
+      closeBtn.className = "close-modal";
+      closeBtn.innerHTML = "&times;";
 
-          // 닫기 버튼 이벤트 - 이벤트 격리
-          closeBtn.onclick = (e) => {
-            e.stopPropagation();
-            closeOnce();
-          };
+      const modalImg = document.createElement("img");
+      modalImg.alt = "확대 이미지";
 
-          // 모달 영역 클릭 시 닫기
-          modal.onclick = (e) => {
-            if (e.target === modal) {
-              closeOnce();
-            }
-          };
+      modal.appendChild(closeBtn);
+      modal.appendChild(modalImg);
+      document.body.appendChild(modal);
 
-          // ESC 키 누를 때 닫기
-          const closeOnEsc = (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-              closeOnce();
-              document.removeEventListener("keydown", closeOnEsc);
-            }
-          };
-
-          document.addEventListener("keydown", closeOnEsc);
+      // 스크린샷 클릭 이벤트 설정
+      document.querySelectorAll(".screenshot img").forEach((img) => {
+        img.addEventListener("click", (e) => {
+          modalImg.src = (e.target as HTMLImageElement).src;
+          modal.classList.add("active");
         });
+      });
+
+      // 닫기 버튼 클릭 이벤트 - 단순화
+      closeBtn.onclick = function () {
+        modal.classList.remove("active");
+      };
+
+      // 모달 배경 클릭 이벤트 - 단순화
+      modal.onclick = function (e) {
+        if (e.target === modal) {
+          modal.classList.remove("active");
+        }
+      };
+
+      // ESC 키 이벤트 - 단순화
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("active")) {
+          modal.classList.remove("active");
+        }
       });
     };
 
@@ -374,7 +339,7 @@ export default function ProjectDetail() {
               >
                 <i className="fab fa-github"></i> GitHub
               </a>
-              <a href={projectData.links.demo} className="btn">
+              <a href={projectData.links.demo} target="_blank" className="btn">
                 <i className="fas fa-external-link-alt"></i> 데모 사이트
               </a>
             </div>

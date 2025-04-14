@@ -51,7 +51,8 @@ export default function Header() {
             <h1>
               안녕하세요,
               <br />
-              저는 <span className="highlight">크리에이티브</span> 개발자입니다.
+              저는 <span className="highlight">경험을 디자인</span> 하는
+              개발자입니다.
             </h1>
           </div>
           <p className="subtitle">

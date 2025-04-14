@@ -55,7 +55,11 @@ export default function Contact() {
         ))}
       </div>
 
-      <Link href="#" className="contact-more-btn contact-container">
+      <Link
+        href="https://github.com/bp4sp4"
+        target="_blank"
+        className="contact-more-btn contact-container"
+      >
         <span>자세히보기</span>
         <i className="fas fa-arrow-right"></i>
       </Link>
