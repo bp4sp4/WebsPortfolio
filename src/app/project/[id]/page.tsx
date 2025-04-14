@@ -38,13 +38,6 @@ interface ProjectData {
   outcome: string[];
 }
 
-// 링크 정보 인터페이스
-interface LinkInfo {
-  url: string;
-  icon: string;
-  text: string;
-}
-
 export default function ProjectDetail() {
   const params = useParams();
   const [projectId, setProjectId] = useState<string>("");
