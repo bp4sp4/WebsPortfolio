@@ -145,7 +145,6 @@ header {
 .intro-text {
     flex: 1;
     min-width: 300px;
-    max-width: 600px;
     position: relative;
     z-index: 2;
 }
