@@ -173,7 +173,12 @@ export type ProjectDetailType = {
   period: string;
   tags: string[];
   mainImage: string;
+  images: string[];
   overview: string[];
+  role: {
+    type: string;
+    parts: string[];
+  };
   links: {
     github: string;
     demo: string;
@@ -184,13 +189,18 @@ export type ProjectDetailType = {
     title: string;
     description: string;
   }[];
-  screenshots: string[];
   technologies: {
     category: string;
     items: {
       name: string;
       description: string;
     }[];
+  }[];
+  keyFeatures?: {
+    icon: string;
+    title: string;
+    description: string;
+    gif?: string;
   }[];
   challenges: {
     title: string;
@@ -208,10 +218,19 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
     period: "2025. 08. 26 ~ 현재",
     tags: ["React", "Tailwind CSS 4", "TypeScript", "Supabase (PostgreSQL)"],
     mainImage: "/detail__main/main__page__img/pinkshop__main.png",
+    images: [
+      "/detail__main/page3imgs/pinkshop__main.png",
+      "/detail__main/page3imgs/pinkshop__contents.png",
+      "/detail__main/page3imgs/pinkshopdetail.png",
+    ],
     overview: [
    "기존 영업팀이 개별적으로 관리하던 수십 개의 엑셀 파일 기반 보고 체계를 전면 디지털화하여, 데이터의 파편화와 수동 취합 과정에서 발생하는 비효율을 근본적으로 해결했습니다. 영업 현장에서 발생하는 실시간 데이터를 통합 플랫폼에 즉각 기록하게 함으로써 업무 누락을 방지하고, 인사 담당자가 즉시 데이터를 검토하여 정산까지 원스톱으로 처리할 수 있는 전사적 행정 워크플로우를 구축하는 데 집중했습니다.",
    "단순한 데이터 저장소를 넘어, 인사 팀의 정산 업무를 지원하기 위한 데이터 검증 및 관리 시스템 설계를 주도했습니다. QA 마인드셋을 바탕으로 입력 단계부터 엄격한 유효성 검사 로직을 적용하여 휴먼 에러를 차단했으며, 복잡한 정산 프로세스를 자동화된 대시보드로 시각화하여 행정 처리의 정확도와 속도를 동시에 확보했습니다. 이는 결과적으로 수기 관리의 불확실성을 없애고, 데이터에 기반한 신뢰도 높은 의사결정 환경을 제공하는 성과로 이어졌습니다."
     ],
+    role: {
+      type: "실무 프로젝트 (사내)",
+      parts: ["프론트엔드 개발 100%", "DB 설계 및 API 연동", "UI/UX 설계"],
+    },
     links: {
       github: "https://github.com/bp4sp4/NMS-System",
       demo: "https://nms-system.vercel.app",
@@ -240,10 +259,28 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
           "Next.js와 TypeScript를 활용하여 대량의 비즈니스 데이터를 안전하게 처리하고, 유지보수가 용이한 코드를 구축합니다.",
       },
     ],
-    screenshots: [
-      "/detail__main/page3imgs/pinkshop__main.png",
-      "/detail__main/page3imgs/pinkshop__contents.png",
-      "/detail__main/page3imgs/pinkshopdetail.png",
+    keyFeatures: [
+      {
+        icon: "fas fa-users-cog",
+        title: "권한별 대시보드",
+        description: "관리자, 매니저, 영업사원 등 직급별 Role 기반 접근 제어로 민감 데이터 보호 및 맞춤형 화면 제공",
+        gif: "/main/work__gif/pinkshop.gif",
+      },
+      {
+        icon: "fas fa-file-excel",
+        title: "엑셀 데이터 일괄 업로드",
+        description: "CSV/엑셀 파일의 대량 고객 데이터를 실시간 진행 상태와 함께 일괄 등록하는 벌크 임포트 기능",
+      },
+      {
+        icon: "fas fa-file-pdf",
+        title: "PDF 문서 미리보기",
+        description: "PDF.js 기반의 브라우저 내 계약서 뷰어로, 지연 로딩을 적용해 초기 로딩 성능 최적화",
+      },
+      {
+        icon: "fas fa-chart-line",
+        title: "실시간 정산 관리",
+        description: "영업 데이터의 자동 집계 및 시각화 대시보드로 인사팀의 정산 업무를 원스톱 처리",
+      },
     ],
     technologies: [
       {
@@ -308,12 +345,21 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
     period: "25.03.25 ~ 25.04.01",
     tags: ["Next.js", "Vercel", "TypeScript", "UI/UX"],
     mainImage: "/detail__main/main__page__img/pinkshop__main.png",
+    images: [
+      "/detail__main/page3imgs/pinkshop__main.png",
+      "/detail__main/page3imgs/pinkshop__contents.png",
+      "/detail__main/page3imgs/pinkshopdetail.png",
+    ],
     overview: [
     "[Next.js 기반의 고효율 확장형 아키텍처 구축] 본 프로젝트는 '한평생 요양보호사교육원'의 웹 서비스를 구축함과 동시에, 향후 다양한 파트너사에 신속하게 대응할 수 있는 화이트 라벨(White-label) 템플릿 제작을 목표로 진행되었습니다.",
     "핵심 전략: 동일한 로직의 코드베이스를 유지하되 데이터 주입만으로 브랜드 아이덴티티(로고, 컬러, 텍스트)를 즉각 변경할 수 있는 구조 설계에 집중했습니다.",
     "기술적 이점: * Next.js의 서버 사이드 렌더링(SSR) 및 정적 재생성(ISR)을 활용하여 교육원 노출을 위한 SEO(검색 최적화)를 극대화했습니다.",
     "공통 컴포넌트 구조화와 테마 시스템(Theming)을 적용하여, 신규 납품 시 개발 공수를 최소화하고 유지보수 효율을 높였습니다.",
     ],
+    role: {
+      type: "실무 프로젝트 (사내)",
+      parts: ["프론트엔드 개발 100%", "UI/UX 디자인", "반응형 퍼블리싱"],
+    },
     links: {
       github: "https://github.com/bp4sp4/caving_demo",
       demo: "https://caving-demo.vercel.app/",
@@ -342,10 +388,27 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
           "Next.js와 TypeScript를 활용한 안정적이고 유지보수가 용이한 코드베이스 구축",
       },
     ],
-    screenshots: [
-      "/detail__main/page3imgs/pinkshop__main.png",
-      "/detail__main/page3imgs/pinkshop__contents.png",
-      "/detail__main/page3imgs/pinkshopdetail.png",
+    keyFeatures: [
+      {
+        icon: "fas fa-palette",
+        title: "화이트 라벨 템플릿",
+        description: "JSON Config 파일 교체만으로 로고, 컬러, 텍스트 등 브랜드 아이덴티티를 즉각 변경 가능한 구조",
+      },
+      {
+        icon: "fas fa-search",
+        title: "SEO 최적화",
+        description: "Next.js SSR/ISR을 활용한 검색엔진 최적화로 교육원 노출도 극대화",
+      },
+      {
+        icon: "fas fa-mobile-alt",
+        title: "모바일 퍼스트 반응형",
+        description: "요양 서비스 특성상 높은 모바일 사용 비중에 맞춘 Mobile-first 접근의 반응형 UI",
+      },
+      {
+        icon: "fas fa-puzzle-piece",
+        title: "컴포넌트 모듈화",
+        description: "공통 컴포넌트 구조화와 테마 시스템으로 신규 납품 시 개발 공수 최소화",
+      },
     ],
     technologies: [
       {
@@ -402,10 +465,19 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
     period: "25.03.25 ~ 25.04.01",
     tags: ["Next.js", "Vercel", "TypeScript", "UI/UX"],
     mainImage: "/detail__main/main__page__img/pinkshop__main.png",
+    images: [
+      "/detail__main/page3imgs/pinkshop__main.png",
+      "/detail__main/page3imgs/pinkshop__contents.png",
+      "/detail__main/page3imgs/pinkshopdetail.png",
+    ],
     overview: [
       "핑크숍은 Figma 기반의 디자인을 정교하게 구현하여 퍼블리싱 작업을 진행하는 데 중점을 두었습니다. 반응형 레이아웃과 시멘틱 HTML, CSS 모듈을 활용해 UI를 완성했고 퍼블리싱 작업을 진행했습니다.",
       "Figma의 디자인 시스템을 코드로 구현하는 과정에서 디자인 일관성을 유지하면서도 웹 접근성과 사용자 경험을 최적화하는 데 중점을 두었습니다. 이를 통해 퍼블리셔의 새로운 기술력을 발전시킬 수 있었습니다.",
     ],
+    role: {
+      type: "개인 프로젝트",
+      parts: ["프론트엔드 개발 100%", "Figma 디자인", "반응형 퍼블리싱"],
+    },
     links: {
       github: "https://github.com/bp4sp4/pinkshoppingmall",
       demo: "https://pinkshoppingmall.vercel.app/",
@@ -436,10 +508,27 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
           "Next.js와 TypeScript를 활용한 안정적이고 유지보수가 용이한 코드베이스 구축",
       },
     ],
-    screenshots: [
-      "/detail__main/page3imgs/pinkshop__main.png",
-      "/detail__main/page3imgs/pinkshop__contents.png",
-      "/detail__main/page3imgs/pinkshopdetail.png",
+    keyFeatures: [
+      {
+        icon: "fas fa-ruler-combined",
+        title: "Pixel Perfect 구현",
+        description: "Figma 디자인을 픽셀 단위로 정교하게 코드로 변환하여 디자인 의도를 100% 재현",
+      },
+      {
+        icon: "fas fa-th-large",
+        title: "디자인 토큰 시스템",
+        description: "CSS 변수 기반의 디자인 토큰으로 색상, 타이포그래피, 간격을 체계적으로 관리",
+      },
+      {
+        icon: "fas fa-expand-arrows-alt",
+        title: "반응형 레이아웃",
+        description: "CSS Grid와 Flexbox 조합으로 모바일부터 데스크톱까지 유연한 레이아웃 대응",
+      },
+      {
+        icon: "fas fa-layer-group",
+        title: "재사용 컴포넌트",
+        description: "시멘틱 HTML과 CSS Modules 기반의 재사용 가능한 UI 컴포넌트 라이브러리 구축",
+      },
     ],
     technologies: [
       {
@@ -499,10 +588,19 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
     period: "25.03.04 ~ 25.03.12",
     tags: ["React", "Magic UI", "Aceternity UI", "Vercel", "Framer Motion"],
     mainImage: "/detail__main/main__page__img/InteractUI__main.png",
+    images: [
+      "/detail__main/page3imgs/UI__main.png",
+      "/detail__main/page3imgs/UI__contents.png",
+      "/detail__main/page3imgs/UI__footer.png",
+    ],
     overview: [
       "InteractUI는 사용자 경험을 극대화하는 인터랙티브한 홈페이지입니다. 최신 기술과 트렌드를 반영하여 직관적이고 감각적인 웹 인터페이스를 구축했습니다.",
       "반응형 디자인과 동적인 인터랙션을 통해 사용자와 웹 간의 자연스러운 상호작용을 제공합니다.",
     ],
+    role: {
+      type: "개인 프로젝트",
+      parts: ["프론트엔드 개발 100%", "인터랙션 디자인", "애니메이션 구현"],
+    },
     links: {
       github: "https://github.com/bp4sp4/notinghomepage",
       demo: "https://notinghomepage.vercel.app/",
@@ -530,10 +628,27 @@ export const projectDetails: { [key: string]: ProjectDetailType } = {
         description: "모든 디바이스에서 완벽하게 작동하는 반응형 레이아웃 구현",
       },
     ],
-    screenshots: [
-      "/detail__main/page3imgs/UI__main.png",
-      "/detail__main/page3imgs/UI__contents.png",
-      "/detail__main/page3imgs/UI__footer.png",
+    keyFeatures: [
+      {
+        icon: "fas fa-wand-magic-sparkles",
+        title: "인터랙티브 애니메이션",
+        description: "Framer Motion을 활용한 스크롤 기반 트리거 애니메이션과 부드러운 전환 효과",
+      },
+      {
+        icon: "fas fa-cube",
+        title: "3D 시각 효과",
+        description: "Magic UI와 Aceternity UI 컴포넌트를 조합한 몰입감 있는 3D 인터랙션",
+      },
+      {
+        icon: "fas fa-bolt",
+        title: "성능 최적화 애니메이션",
+        description: "GPU 가속과 requestAnimationFrame 기반의 60fps 부드러운 애니메이션 구현",
+      },
+      {
+        icon: "fas fa-hand-pointer",
+        title: "마이크로 인터랙션",
+        description: "호버, 클릭, 스크롤 등 사용자 행동에 즉각 반응하는 세밀한 UI 피드백",
+      },
     ],
     technologies: [
       {

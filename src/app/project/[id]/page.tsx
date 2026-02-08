@@ -12,7 +12,12 @@ interface ProjectData {
   period: string;
   tags: string[];
   mainImage: string;
+  images: string[];
   overview: string[];
+  role: {
+    type: string;
+    parts: string[];
+  };
   links: {
     github: string;
     demo: string;
@@ -23,13 +28,18 @@ interface ProjectData {
     title: string;
     description: string;
   }[];
-  screenshots: string[];
   technologies: {
     category: string;
     items: {
       name: string;
       description: string;
     }[];
+  }[];
+  keyFeatures?: {
+    icon: string;
+    title: string;
+    description: string;
+    gif?: string;
   }[];
   challenges: {
     title: string;
@@ -48,6 +58,7 @@ export default function ProjectDetail() {
   const [nextProject, setNextProject] = useState<{ id: string; title: string }>(
     { id: "", title: "" }
   );
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (!params.id) return;
@@ -81,27 +92,45 @@ export default function ProjectDetail() {
       });
     }
 
-    // 커스텀 커서 효과
-    const cursor = document.querySelector(".cursor");
+    // 커스텀 커서 효과 (smooth follow)
+    const cursor = document.querySelector(".cursor") as HTMLElement;
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let animationId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (cursor) {
-        (cursor as HTMLElement).style.left = e.clientX + "px";
-        (cursor as HTMLElement).style.top = e.clientY + "px";
-      }
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     };
+
+    const animate = () => {
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+      cursorX += dx * 0.15;
+      cursorY += dy * 0.15;
+
+      if (cursor) {
+        cursor.style.left = cursorX + "px";
+        cursor.style.top = cursorY + "px";
+      }
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
 
     const handleMouseDown = () => {
       if (cursor) {
-        (cursor as HTMLElement).style.transform =
-          "translate(-50%, -50%) scale(0.7)";
+        cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
+        cursor.style.borderColor = "#fd79a8";
       }
     };
 
     const handleMouseUp = () => {
       if (cursor) {
-        (cursor as HTMLElement).style.transform =
-          "translate(-50%, -50%) scale(1)";
+        cursor.style.transform = "translate(-50%, -50%) scale(1)";
+        cursor.style.borderColor = "#6c5ce7";
       }
     };
 
@@ -112,7 +141,7 @@ export default function ProjectDetail() {
     };
 
     const fadeElements = document.querySelectorAll(
-      ".project_overview, .project_goals, .project_screenshots, .project_technologies, .project_challenges, .project_outcome, .more_projects"
+      ".project_overview, .project_role, .project_key_features, .project_goals, .project_technologies, .project_challenges, .project_outcome, .more_projects"
     );
 
     const fadeObserver = new IntersectionObserver((entries) => {
@@ -146,109 +175,6 @@ export default function ProjectDetail() {
       }, 300);
     }
 
-    // 스크린샷 이미지 확대 모달 기능 - 완전히 단순화된 접근 방식
-    const setupScreenshotModal = () => {
-      // 기존 모달 제거
-      document.querySelectorAll(".image_modal").forEach((modal) => {
-        if (modal.parentNode) modal.parentNode.removeChild(modal);
-      });
-
-      // 스타일 추가
-      let modalStyle = document.getElementById("modal-style");
-      if (!modalStyle) {
-        modalStyle = document.createElement("style");
-        modalStyle.id = "modal-style";
-        modalStyle.textContent = `
-          .image_modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-          }
-          .image_modal.active {
-            opacity: 1;
-            pointer-events: auto;
-          }
-          .image_modal img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-          }
-          .close_modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            z-index: 1001;
-          }
-          .close_modal:hover {
-            color: var(--primary);
-          }
-        `;
-        document.head.appendChild(modalStyle);
-      }
-
-      // 모달 생성 (미리 DOM에 추가)
-      const modal = document.createElement("div");
-      modal.className = "image_modal";
-
-      const closeBtn = document.createElement("span");
-      closeBtn.className = "close_modal";
-      closeBtn.innerHTML = "&times;";
-
-      const modalImg = document.createElement("img");
-      modalImg.alt = "확대 이미지";
-
-      modal.appendChild(closeBtn);
-      modal.appendChild(modalImg);
-      document.body.appendChild(modal);
-
-      // 스크린샷 클릭 이벤트 설정
-      document.querySelectorAll(".screenshot img").forEach((img) => {
-        img.addEventListener("click", (e) => {
-          modalImg.src = (e.target as HTMLImageElement).src;
-          modal.classList.add("active");
-        });
-      });
-
-      // 닫기 버튼 클릭 이벤트 - 단순화
-      closeBtn.onclick = function () {
-        modal.classList.remove("active");
-      };
-
-      // 모달 배경 클릭 이벤트 - 단순화
-      modal.onclick = function (e) {
-        if (e.target === modal) {
-          modal.classList.remove("active");
-        }
-      };
-
-      // ESC 키 이벤트 - 단순화
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && modal.classList.contains("active")) {
-          modal.classList.remove("active");
-        }
-      });
-    };
-
-    // 스크린샷 모달 설정
-    setTimeout(setupScreenshotModal, 1000);
-
     // 네비게이션 스크롤 이벤트 처리
     const handleScroll = () => {
       const nav = document.querySelector(".nav_container");
@@ -270,6 +196,7 @@ export default function ProjectDetail() {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mousedown", handleMouseDown);
       document.removeEventListener("mouseup", handleMouseUp);
+      cancelAnimationFrame(animationId);
       fadeObserver.disconnect();
     };
   }, [params.id]);
@@ -307,17 +234,38 @@ export default function ProjectDetail() {
         </div>
 
         <div className="project_overview">
-          <div
-            className="overview_image"
-            style={{ position: "relative", width: "100%", height: "400px" }}
-          >
-            <Image
-              src={projectData.mainImage}
-              alt={`${projectData.title} 프로젝트 이미지`}
-              className="main_project_image"
-              fill
-              style={{ objectFit: "cover" }}
-            />
+          <div className="overview_gallery">
+            <div
+              className="overview_image"
+              style={{ position: "relative", width: "100%", height: "400px" }}
+            >
+              <Image
+                src={projectData.images[currentImageIndex] || projectData.mainImage}
+                alt={`${projectData.title} 프로젝트 이미지 ${currentImageIndex + 1}`}
+                className="main_project_image"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            {projectData.images.length > 1 && (
+              <div className="gallery_thumbnails">
+                {projectData.images.map((img, index) => (
+                  <button
+                    key={index}
+                    className={`gallery_thumb ${index === currentImageIndex ? "active" : ""}`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    style={{ position: "relative", width: "100%", height: "80px" }}
+                  >
+                    <Image
+                      src={img}
+                      alt={`썸네일 ${index + 1}`}
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <div className="overview_content">
             <h2 className="section_heading">Overview</h2>
@@ -350,6 +298,55 @@ export default function ProjectDetail() {
           </div>
         </div>
 
+        <div className="project_role">
+          <h2 className="section_heading">나의 역할</h2>
+          <div className="role_container">
+            <div className="role_type">
+              <i className="fas fa-user-tag"></i>
+              <span>{projectData.role.type}</span>
+            </div>
+            <div className="role_parts">
+              {projectData.role.parts.map((part, index: number) => (
+                <div className="role_part_item" key={index}>
+                  <i className="fas fa-check"></i>
+                  <span>{part}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (
+          <div className="project_key_features">
+            <h2 className="section_heading">핵심 기능</h2>
+            <div className="key_features_container">
+              {projectData.keyFeatures.map((feature, index: number) => (
+                <div className="key_feature_item" key={index}>
+                  <div className="key_feature_number">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  {feature.gif && (
+                    <div className="key_feature_gif">
+                      <Image
+                        src={feature.gif}
+                        alt={`${feature.title} 시연`}
+                        width={600}
+                        height={340}
+                        style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                      />
+                    </div>
+                  )}
+                  <div className="key_feature_icon">
+                    <i className={feature.icon}></i>
+                  </div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="project_goals">
           <h2 className="section_heading">프로젝트 목표</h2>
           <div className="goals_container">
@@ -362,33 +359,6 @@ export default function ProjectDetail() {
                 <p>{goal.description}</p>
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="project_screenshots">
-          <h2 className="section_heading">스크린샷</h2>
-          <div className="screenshots_container">
-            {projectData.screenshots.map(
-              (screenshot: string, index: number) => (
-                <div
-                  key={index}
-                  className="screenshot"
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "400px",
-                  }}
-                >
-                  <Image
-                    src={screenshot}
-                    alt={`${projectData.title} 스크린샷 ${index + 1}`}
-                    className="screenshot_image"
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              )
-            )}
           </div>
         </div>
 
