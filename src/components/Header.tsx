@@ -111,7 +111,7 @@ export default function Header() {
   return (
     <header id="home" className={styles.header}>
       <nav className={`${styles.nav_container} ${scrolled ? styles.nav_container_scrolled : ""}`}>
-        <div className={styles.nav_logo}>SangHun's Web Portfolio</div>
+        <div className={styles.nav_logo}>SangHun&apos;s Web Portfolio</div>
         <div className={`${styles.nav_links} ${mobileMenuOpen ? styles.nav_links_active : ""}`}>
           <Link href="#home" className={styles.nav_link_active}>
             홈
