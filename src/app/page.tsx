@@ -77,9 +77,9 @@ export default function Home() {
     document.addEventListener("mouseup", handleMouseUp);
     animate();
 
-    // Add hover effects to links and buttons
+    // Add hover effects to links, buttons, and interactive cards/tags
     const interactiveElements = document.querySelectorAll(
-      "a, button, .project_card, .skill_card, .tag_item, .tag"
+      "a, button, [data-interactive]"
     );
     interactiveElements.forEach((el) => {
       el.addEventListener("mouseenter", handleLinkEnter);
@@ -88,7 +88,10 @@ export default function Home() {
 
     // Active nav link tracking
     const sections = document.querySelectorAll("section, header");
-    const navLinks = document.querySelectorAll(".nav_links a");
+    const navContainer = document.querySelector("nav");
+    const navLinks = navContainer
+      ? navContainer.querySelectorAll("a")
+      : [];
 
     const navObserver = new IntersectionObserver(
       (entries) => {
