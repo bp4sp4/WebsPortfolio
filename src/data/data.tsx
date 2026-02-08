@@ -91,7 +91,7 @@ export const projects = [
     date: "25.03.25 ~ 25.04.01",
     description:
       "핑크숍은 Figma 기반의 디자인을 정교하게 구현하여 퍼블리싱 작업을 진행하는 데 중점을 두었습니다. 반응형 레이아웃과 시멘틱 HTML, CSS 모듈을 활용해 UI를 완성했고 퍼블리싱 작업을 진행했습니다.",
-    tags: ["Next.js", "Vercel", "TypeScript", "UI/UX"],
+    tags: ["React", "CSS Modules", "TypeScript", "UI/UX"],
     image: "/main/work__gif/pinkshop.gif",
     gifImage: "/main/work__gif/pinkshop.gif",
     github: "https://github.com/bp4sp4/caving_demo",

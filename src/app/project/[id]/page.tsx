@@ -41,7 +41,6 @@ interface ProjectData {
 
 export default function ProjectDetail() {
   const params = useParams();
-  const [projectId, setProjectId] = useState<string>("");
   const [projectData, setProjectData] = useState<ProjectData | null>(null);
   const [prevProject, setPrevProject] = useState<{ id: string; title: string }>(
     { id: "", title: "" }
@@ -55,7 +54,6 @@ export default function ProjectDetail() {
 
     // 현재 프로젝트 ID 가져오기
     const id = Array.isArray(params.id) ? params.id[0] : params.id;
-    setProjectId(id as string);
 
     // 현재 프로젝트 데이터 설정
     if (id && projectDetails[id as string]) {
