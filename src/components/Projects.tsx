@@ -1,60 +1,67 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { projects } from "@/data/data";
 import styles from "@/styles/main.module.css";
 
+type TabType = "all" | "company" | "personal";
+
+const TABS: { key: TabType; label: string }[] = [
+  { key: "all",      label: "전체" },
+  { key: "company",  label: "회사" },
+  { key: "personal", label: "개인" },
+];
+
 export default function Projects() {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState<TabType>("all");
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const router = useRouter();
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          }
-        });
-      },
-      { threshold: 0.05 }
-    );
+  const filtered = projects.filter(
+    (p) => activeTab === "all" || p.type === activeTab
+  );
 
-    cardsRef.current.forEach((el, index) => {
-      if (el) {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(40px)";
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(el);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const countOf = (tab: TabType) =>
+    tab === "all" ? projects.length : projects.filter((p) => p.type === tab).length;
 
   return (
     <section id="projects" className={`${styles.section} ${styles.projects}`}>
-      <h2 className={styles.section_title}>Projects</h2>
+      {/* 헤더 + 탭 */}
+      <div className={styles.projects_header_row}>
+        <h2 className={styles.section_title}>Projects</h2>
+
+        <div className={styles.projects_tabs}>
+          {TABS.map((tab) => (
+            <button
+              key={tab.key}
+              className={`${styles.projects_tab} ${activeTab === tab.key ? styles.projects_tab_active : ""}`}
+              onClick={() => setActiveTab(tab.key)}
+              data-interactive
+            >
+              {tab.label}
+              <span className={styles.projects_tab_count}>{countOf(tab.key)}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 카드 그리드 */}
       <div className={styles.projects_grid}>
-        {projects.map((project, index) => (
+        {filtered.map((project, index) => (
           <div
-            className={styles.projects_card}
-            key={index}
-            ref={(el) => { cardsRef.current[index] = el; }}
+            className={`${styles.projects_card} ${styles.projects_card_visible}`}
+            key={`${activeTab}-${project.id}-${index}`}
+            style={{ animationDelay: `${index * 0.06}s` }}
             onClick={() => router.push(`/project/${project.id}`)}
-            style={{ cursor: 'pointer' }}
           >
             <div className={styles.projects_img}>
               <img
-                src={hoveredProject === index ? project.gifImage : project.image}
+                src={hoveredProject === project.id ? project.gifImage : project.image}
                 alt={`${project.title} 프로젝트`}
                 className={styles.projects_gif}
-                onMouseEnter={() => setHoveredProject(index)}
+                onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               />
             </div>

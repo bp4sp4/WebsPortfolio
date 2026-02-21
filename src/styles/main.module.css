@@ -766,6 +766,93 @@
     background: var(--dark);
 }
 
+/* 토스 스타일 탭 필터 */
+.projects_header_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.projects_header_row .section_title {
+    margin-bottom: 0;
+}
+
+.projects_tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.projects_tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gray-light);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+}
+
+.projects_tab:hover {
+    color: white;
+    border-color: rgba(108, 92, 231, 0.3);
+    background: rgba(108, 92, 231, 0.08);
+}
+
+.projects_tab_active {
+    background: var(--gradient-1);
+    border-color: transparent;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.35);
+}
+
+.projects_tab_active:hover {
+    background: var(--gradient-1);
+    border-color: transparent;
+}
+
+.projects_tab_count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+}
+
+.projects_tab_active .projects_tab_count {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+/* 카드 페이드 애니메이션 */
+.projects_card_visible {
+    animation: cardFadeIn 0.35s ease forwards;
+}
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .projects_grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));

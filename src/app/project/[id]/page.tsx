@@ -41,6 +41,7 @@ interface ProjectData {
     title: string;
     description: string;
     gif?: string;
+    link?: string;
   }[];
   challenges: {
     title: string;
@@ -257,39 +258,41 @@ export default function ProjectDetail() {
         </div>
 
         <div className={styles.project_overview} ref={overviewRef}>
-          <div className={styles.overview_gallery}>
-            <div
-              className={styles.overview_image}
-              style={{ position: "relative", width: "100%", height: "400px" }}
-            >
-              <Image
-                src={projectData.images[currentImageIndex] || projectData.mainImage}
-                alt={`${projectData.title} 프로젝트 이미지 ${currentImageIndex + 1}`}
-                className={styles.main_project_image}
-                fill
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-            {projectData.images.length > 1 && (
-              <div className={styles.gallery_thumbnails}>
-                {projectData.images.map((img, index) => (
-                  <button
-                    key={index}
-                    className={`${styles.gallery_thumb} ${index === currentImageIndex ? styles.gallery_thumb_active : ""}`}
-                    onClick={() => setCurrentImageIndex(index)}
-                    style={{ position: "relative", width: "100%", height: "80px" }}
-                  >
-                    <Image
-                      src={img}
-                      alt={`썸네일 ${index + 1}`}
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
-                  </button>
-                ))}
+          {projectData.mainImage && (
+            <div className={styles.overview_gallery}>
+              <div
+                className={styles.overview_image}
+                style={{ position: "relative", width: "100%", height: "400px" }}
+              >
+                <Image
+                  src={projectData.images[currentImageIndex] || projectData.mainImage}
+                  alt={`${projectData.title} 프로젝트 이미지 ${currentImageIndex + 1}`}
+                  className={styles.main_project_image}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
               </div>
-            )}
-          </div>
+              {projectData.images.length > 1 && (
+                <div className={styles.gallery_thumbnails}>
+                  {projectData.images.map((img, index) => (
+                    <button
+                      key={index}
+                      className={`${styles.gallery_thumb} ${index === currentImageIndex ? styles.gallery_thumb_active : ""}`}
+                      onClick={() => setCurrentImageIndex(index)}
+                      style={{ position: "relative", width: "100%", height: "80px" }}
+                    >
+                      <Image
+                        src={img}
+                        alt={`썸네일 ${index + 1}`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           <div className={styles.overview_content}>
             <h2 className={styles.section_heading}>Overview</h2>
             {projectData.overview.map((paragraph: string, index: number) => (
@@ -297,13 +300,15 @@ export default function ProjectDetail() {
             ))}
 
             <div className={styles.project_links}>
-              <a
-                href={projectData.links.github}
-                target="_blank"
-                className={`${styles.btn} ${styles.btn_github}`}
-              >
-                <i className="fab fa-github"></i> GitHub
-              </a>
+              {projectData.links.github && projectData.links.github !== "#" && (
+                <a
+                  href={projectData.links.github}
+                  target="_blank"
+                  className={`${styles.btn} ${styles.btn_github}`}
+                >
+                  <i className="fab fa-github"></i> GitHub
+                </a>
+              )}
               <a
                 href={projectData.links.demo}
                 target="_blank"
@@ -368,6 +373,17 @@ export default function ProjectDetail() {
                   </div>
                   <h3>{feature.title}</h3>
                   <p>{feature.description}</p>
+                  {feature.link && (
+                    <a
+                      href={feature.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.key_feature_link}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      사이트 방문 <i className="fas fa-external-link-alt"></i>
+                    </a>
+                  )}
                 </div>
               ))}
             </div>

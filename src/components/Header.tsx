@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { developerInfo } from "@/data/data";
 import styles from "@/styles/main.module.css";
@@ -8,9 +8,7 @@ import styles from "@/styles/main.module.css";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const typingDone = useRef(false);
 
   const fullText = `const developer = {
   name: "${developerInfo.name}",
@@ -81,28 +79,14 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (typingDone.current) return;
-    typingDone.current = true;
-
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < fullText.length) {
-        setTypedText(fullText.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(timer);
-      }
-    }, developerInfo.typingSpeed ?? 30);
-
     const cursorTimer = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 530);
 
     return () => {
-      clearInterval(timer);
       clearInterval(cursorTimer);
     };
-  }, [fullText]);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -160,7 +144,7 @@ export default function Header() {
              QA 경험을 바탕으로 예외 케이스까지 치밀하게 고려하며
             </p>
             <p>
-              테스트를 중시하는 사용자 경험 중심 개발자 입니다..
+              테스트를 중시하는 사용자 경험 중심 개발자 입니다.
             </p>
           </div>
         </div>
@@ -179,7 +163,7 @@ export default function Header() {
             </div>
             <pre>
               <code>
-                {highlightCode(typedText)}
+                {highlightCode(fullText)}
                 <span
                   style={{
                     opacity: showCursor ? 1 : 0,
