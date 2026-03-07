@@ -128,6 +128,7 @@ type ProjectDetail = {
     description: string;
     gif?: string;
     link?: string;
+    category?: string;
   }[];
   technologies: {
     category: string;
@@ -135,6 +136,11 @@ type ProjectDetail = {
       name: string;
       description: string;
     }[];
+  }[];
+  metrics?: {
+    value: string;
+    label: string;
+    icon: string;
   }[];
   challenges: {
     title: string;
@@ -164,27 +170,226 @@ type ProjectEntry = {
 // 순서 = 카드 목록 순서 + 상세 페이지 이전/다음 프로젝트 순서
 // ─────────────────────────────────────────────────────────────────────────
 const allProjects: ProjectEntry[] = [
+    {
+    id: "allcare",
+    type: "company",
+    title: "한평생 올케어",
+    date: "2025. 08. 26 ~ 현재",
+    description:
+      "엑셀과 수기 문서에 의존하던 복잡한 사내 행정 프로세스를 전사적 디지털 환경으로 전환했습니다. 파편화된 영업 및 인사 데이터를 하나의 시스템으로 통합 관리함으로써 수동 입력의 번거로움과 데이터 누락 가능성을 근본적으로 제거했으며, 결과적으로 업무의 정확도를 높이고 투명한 관리 체계를 확립했습니다.",
+    tags: ["React", "Tailwind CSS 4", "TypeScript", "Supabase (PostgreSQL)"],
+    gifImage: "/main/work__gif/pinkshop.gif",
+    github: "https://github.com/bp4sp4/NMS-System",
+    demo: "#",
+    detail: {
+      period: "2025. 08. 26 ~ 현재",
+      mainImage: "/detail__main/main__page__img/crm_main.png",
+      images: [
+        "/detail__main/page3imgs/pinkshop__main.png",
+        "/detail__main/page3imgs/pinkshop__contents.png",
+        "/detail__main/page3imgs/pinkshopdetail.png",
+      ],
+      overview: [
+        "기존 영업팀이 개별적으로 관리하던 수십 개의 엑셀 파일 기반 보고 체계를 전면 디지털화하여, 데이터의 파편화와 수동 취합 과정에서 발생하는 비효율을 근본적으로 해결했습니다. 영업 현장에서 발생하는 실시간 데이터를 통합 플랫폼에 즉각 기록하게 함으로써 업무 누락을 방지하고, 인사 담당자가 즉시 데이터를 검토하여 정산까지 원스톱으로 처리할 수 있는 전사적 행정 워크플로우를 구축하는 데 집중했습니다.",
+        "단순한 데이터 저장소를 넘어, 인사 팀의 정산 업무를 지원하기 위한 데이터 검증 및 관리 시스템 설계를 주도했습니다. QA 마인드셋을 바탕으로 입력 단계부터 엄격한 유효성 검사 로직을 적용하여 휴먼 에러를 차단했으며, 복잡한 정산 프로세스를 자동화된 대시보드로 시각화하여 행정 처리의 정확도와 속도를 동시에 확보했습니다.",
+      ],
+      role: {
+        type: "실무 프로젝트 (사내)",
+        parts: ["프론트엔드 개발 100%", "DB 설계 및 API 연동", "UI/UX 설계"],
+      },
+      links: {
+        github: "https://github.com/bp4sp4/NMS-System",
+        demo: "#",
+      },
+      goals: [
+        {
+          icon: "fas fa-database",
+          title: "데이터 무결성 확보",
+          description:
+            "설계 바탕으로 철저한 예외 처리를 적용하여, 고객관리 시 데이터 누락이나 휴먼 에러가 없는 완벽한 무결성을 지향합니다.",
+        },
+        {
+          icon: "fas fa-sync-alt",
+          title: "워크플로우 자동화",
+          description: "엑셀 기반의 반복적인 수기 보고 체계를 디지털화하여, 데이터 입력부터 정산까지 이어지는 업무 효율을 극대화합니다.",
+        },
+        {
+          icon: "fas fa-chart-pie",
+          title: "직관적인 관리 대시보드",
+          description: "인사 팀, 영업팀 등 사용자 권한별로 필요한 핵심 지표를 한눈에 파악할 수 있는 직관적인 인터페이스를 제공합니다.",
+        },
+        {
+          icon: "fas fa-shield-alt",
+          title: "안정적인 아키텍처",
+          description:
+            "Next.js와 TypeScript를 활용하여 대량의 비즈니스 데이터를 안전하게 처리하고, 유지보수가 용이한 코드를 구축합니다.",
+        },
+      ],
+      keyFeatures: [
+        {
+          icon: "fas fa-users-cog",
+          title: "권한별 대시보드",
+          description: "관리자, 매니저, 영업사원 등 직급별 Role 기반 접근 제어로 민감 데이터 보호 및 맞춤형 화면 제공",
+          category: "영업 관리",
+        },
+        {
+          icon: "fas fa-address-book",
+          title: "고객 관리 (CRM)",
+          description: "고객 정보 등록·수정·검색 및 상담 이력 관리. 영업사원별 담당 고객 배정과 상태 추적으로 체계적인 고객 관계 관리",
+          category: "영업 관리",
+        },
+        {
+          icon: "fas fa-chart-bar",
+          title: "영업 실적 대시보드",
+          description: "팀별·개인별 영업 실적을 차트로 시각화하고, 월별·분기별 목표 대비 달성률을 실시간으로 모니터링",
+          category: "영업 관리",
+        },
+        {
+          icon: "fas fa-chart-line",
+          title: "실시간 정산 관리",
+          description: "영업 데이터의 자동 집계 및 시각화 대시보드로 인사팀의 정산 업무를 원스톱 처리",
+          category: "인사·정산",
+        },
+        {
+          icon: "fas fa-calendar-check",
+          title: "근태·출퇴근 관리",
+          description: "직원별 출퇴근 기록 및 근무 시간 자동 계산. 지각·조퇴·결근 현황을 한눈에 파악하는 관리 인터페이스",
+          category: "인사·정산",
+        },
+        {
+          icon: "fas fa-won-sign",
+          title: "급여·수당 정산",
+          description: "영업 실적 기반 인센티브 자동 계산과 급여 명세서 생성. 정산 이력을 월별로 아카이빙하여 투명한 급여 관리",
+          category: "인사·정산",
+        },
+        {
+          icon: "fas fa-file-excel",
+          title: "엑셀 데이터 일괄 업로드",
+          description: "CSV/엑셀 파일의 대량 고객 데이터를 실시간 진행 상태와 함께 일괄 등록하는 벌크 임포트 기능",
+          category: "문서 관리",
+        },
+        {
+          icon: "fas fa-file-pdf",
+          title: "PDF 문서 미리보기",
+          description: "PDF.js 기반의 브라우저 내 계약서 뷰어로, 지연 로딩을 적용해 초기 로딩 성능 최적화",
+          category: "문서 관리",
+        },
+        {
+          icon: "fas fa-file-export",
+          title: "데이터 엑셀 내보내기",
+          description: "필터링된 고객·정산 데이터를 엑셀 파일로 즉시 다운로드. 보고서 작성 및 외부 공유용 데이터 추출 지원",
+          category: "문서 관리",
+        },
+        {
+          icon: "fas fa-user-shield",
+          title: "역할 기반 접근 제어",
+          description: "관리자·매니저·사원 3단계 권한 체계로 페이지 접근과 데이터 조작 범위를 서버사이드에서 엄격히 제한",
+          category: "시스템 관리",
+        },
+        {
+          icon: "fas fa-history",
+          title: "활동 로그 & 감사 추적",
+          description: "주요 데이터 변경 이력을 자동 기록하여 누가 언제 어떤 작업을 했는지 추적 가능한 감사 시스템",
+          category: "시스템 관리",
+        },
+      ],
+      technologies: [
+        {
+          category: "프론트엔드",
+          items: [
+            { name: "Next.js", description: "React 기반의 풀스택 프레임워크" },
+            { name: "TypeScript", description: "타입 안정성을 높인 자바스크립트" },
+            { name: "Tailwind CSS", description: "유틸리티 기반 CSS 프레임워크" },
+            { name: "PostCSS", description: "CSS 후처리기" },
+          ],
+        },
+        {
+          category: "배포 환경 및 데이터베이스",
+          items: [
+            { name: "Vercel", description: "Next.js 애플리케이션 호스팅 플랫폼" },
+            { name: "Supabase", description: "PostgreSQL 기반의 백엔드 서비스" },
+          ],
+        },
+        {
+          category: "파일 및 유틸리티 도구",
+          items: [
+            { name: "PDF.js", description: "PDF 렌더링 및 뷰어 라이브러리" },
+            { name: "XLSX", description: "엑셀 파일 처리 라이브러리" },
+          ],
+        },
+      ],
+      challenges: [
+        {
+          title: "대용량 파일 업로드 / 일괄처리 최적화",
+          challenge:
+            "엑셀(CSV) 형태의 대량 고객 데이터를 한 번에 등록할 때, 데이터가 정확히 입력되고 있는지 사용자가 확인하기 어렵고 대기 시간이 길어지는 불편함이 있었습니다.",
+          solution:
+            "서버사이드에서 데이터를 안정적으로 처리하도록 설계하고, 클라이언트에서는 현재 어떤 정보가 입력되고 있는지 실시간 상태를 화면에 노출했습니다.",
+        },
+        {
+          title: "DB Role 기반의 세분화된 직급 권한 체계 구축",
+          challenge:
+            "관리자, 매니저, 영업사원 등 사용자 역할에 따라 접근 권한과 노출되는 데이터의 범위가 엄격히 제한되어야 했습니다.",
+          solution:
+            "데이터베이스의 Role 필드를 활용하여 직급별 권한을 정의하고, 이를 기반으로 페이지 접근을 제어하는 보안 가직을 구현했습니다.",
+        },
+        {
+          title: "PDF 미리보기 도입 및 로딩 지연 방지",
+          challenge:
+            "웹에서 계약서 등 PDF 문서를 확인할 때 브라우저 호환성 문제로 내용이 깨지거나, 문서 로딩 중 화면이 일시적으로 멈추는 현상이 있었습니다.",
+          solution:
+            "PDF.js 라이브러리를 활용해 어떤 브라우저에서도 동일하게 문서가 보이도록 구현했으며, 지연 로딩(Lazy-loading) 방식을 적용했습니다.",
+        },
+      ],
+      metrics: [
+        {
+          value: "100%",
+          label: "엑셀 → 디지털 전환율",
+          icon: "fas fa-exchange-alt",
+        },
+        {
+          value: "3단계",
+          label: "권한 체계 (관리자·매니저·사원)",
+          icon: "fas fa-user-shield",
+        },
+        {
+          value: "0건",
+          label: "정산 데이터 누락",
+          icon: "fas fa-check-circle",
+        },
+        {
+          value: "6개월+",
+          label: "실서비스 운영 중",
+          icon: "fas fa-clock",
+        },
+      ],
+      outcome: [
+        "본 프로젝트를 통해 엑셀 기반의 방대한 과거 데이터를 유실 없이 통합하고, 이를 연도별·월별로 체계적으로 관리할 수 있는 그룹웨어 구조를 구축했습니다.",
+        "QA 경험을 녹여낸 치밀한 예외 처리와 유효성 검사 로직을 도입하여 정산 프로세스에서 데이터 누락이나 휴먼 에러를 근본적으로 방지했습니다.",
+      ],
+    },
+  },
   {
     id: "BaroCompany",
     type: "company",
-    title: "바로기업",
+    title: "한평생 바로기업",
     date: "2025. 12 ~ 2026. 01.21",
     description:
       "정책자금·투자유치·창업 컨설팅 서비스를 소개하는 마케팅 사이트와 사내 상담 관리 어드민을 하나의 Next.js 플랫폼으로 통합했습니다. 광고 채널별 상담 유입 추적부터 이메일 자동 알림, 역할 기반 어드민까지 비즈니스 운영 전반을 디지털화했습니다.",
     tags: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Supabase", "GSAP"],
-    gifImage: "/main/work__gif/파일명.gif",
+    gifImage: "/main/work__gif/barocompany.gif",
     github: "https://github.com/bp4sp4/BaroCompany",
     demo: "https://xn--ok0bx6qu3cv5m.com/",
     detail: {
       period: "2025. 08 ~ 현재",
-      mainImage: "/detail__main/main__page__img/파일명.png",
-      images: [],
+      mainImage: "/detail__main/main__page__img/baro_main.png",
+      images: ["/detail__main/page3imgs/baro_main.png", "/detail__main/page3imgs/baro_02.png", "/detail__main/page3imgs/baro_03.png", "/detail__main/page3imgs/baro_04.png"],
       overview: [
         "한평생 바로기업은 정책자금·투자유치·경영지원·창업교육 분야의 컨설팅 서비스를 제공하는 기업의 공개 마케팅 사이트와 사내 어드민 대시보드를 단일 Next.js 16 App Router 프로젝트로 통합한 플랫폼입니다. 당근·인스타그램 등 광고 채널에서 유입된 상담 신청자의 소스를 자동으로 추적하여 채널별 전환 효과를 측정할 수 있도록 설계했습니다.",
         "상담 신청이 접수되면 Brevo SMTP를 통해 담당자에게 HTML 이메일이 즉시 발송되고, 어드민 대시보드에서 상태·채널·날짜별로 필터링하며 관리할 수 있습니다. super_admin/admin 두 단계 권한 체계로 민감한 데이터 삭제 권한을 분리하여 운영 안전성을 확보했습니다.",
       ],
       role: {
-        type: "실무 프로젝트 (사내) · 단독 개발",
+        type: "실무 프로젝트 (사내) · 1인 개발,   디자이너 협업 (시안 제공)",
         parts: [
           "프론트엔드 개발 100%",
           "마케팅 사이트 기획 및 퍼블리싱",
@@ -313,7 +518,7 @@ const allProjects: ProjectEntry[] = [
     description:
       "당근·페이스북·인스타그램 광고와 연결되는 모바일 전용 랜딩페이지 8종입니다. 디자이너와 협업하여 주부·청년·여성 사장님·소상공인 등 타겟별 맞춤 메시지와 CTA를 구성, 실제 상담 전환을 극대화하는 퍼포먼스 마케팅 페이지들입니다.",
     tags: ["Next.js", "TypeScript", "모바일 전용", "마케팅 랜딩페이지", "Vercel"],
-    gifImage: "/main/work__gif/파일명.gif",
+    gifImage: "/main/work__gif/landing_page.gif",
     github: "#",
     demo: "https://recruit-jubu.vercel.app/",
     detail: {
@@ -456,13 +661,14 @@ const allProjects: ProjectEntry[] = [
     description:
       "교육기관의 홍보 사이트와 사내 운영 관리를 하나로 합친 풀스택 플랫폼입니다. 비개발자 직원도 팝업·상담·채용 공고를 직접 관리할 수 있는 어드민 대시보드를 구축하여 운영 효율을 크게 높였습니다.",
     tags: ["Next.js 15", "TypeScript", "Tailwind CSS 4", "Supabase", "Zustand"],
-    gifImage: "/main/work__gif/파일명.gif",
+    gifImage: "/main/work__gif/eduvisor.gif",
     github: "https://github.com/bp4sp4/korhrdbusiness",
     demo: "https://www.eduvisor.kr/",
     detail: {
       period: "2025. 06. 09 ~ 2025. 12. 24",
-      mainImage: "/detail__main/main__page__img/파일명.png",
-      images: ["/detail__main/page3imgs/파일명1.png"],
+      mainImage: "/detail__main/main__page__img/eduvisor_main.png",
+      images: ["/detail__main/page3imgs/eduvisor_main.png","/detail__main/page3imgs/eduvisor_01.png", "/detail__main/page3imgs/eduvisor_02.png", "/detail__main/page3imgs/eduvisor_03.png"],
+
       overview: [
         "한평생 에듀바이저스는 교육기관의 공개 마케팅 사이트와 사내 운영 어드민을 하나의 Next.js 15 App Router 프로젝트로 통합한 풀스택 플랫폼입니다. 홈페이지·서비스 소개·채용 공고 등 공개 페이지와, 팝업·상담·공고를 관리하는 어드민 대시보드가 하나의 코드베이스에서 운영됩니다.",
         "비개발자 직원도 복잡한 배포 과정 없이 콘텐츠를 직접 수정할 수 있도록 TinyMCE 리치 에디터와 직관적인 CRUD 인터페이스를 제공했습니다. Slack 알림 연동으로 신규 상담 접수 시 담당자에게 실시간으로 통보되는 운영 자동화 워크플로우도 구현했습니다.",
@@ -589,10 +795,10 @@ const allProjects: ProjectEntry[] = [
     tags: ["React", "Tailwind CSS 4", "TypeScript", "Supabase (PostgreSQL)"],
     gifImage: "/main/work__gif/pinkshop.gif",
     github: "https://github.com/bp4sp4/NMS-System",
-    demo: "https://nms-system.vercel.app",
+    demo: "#",
     detail: {
       period: "2025. 08. 26 ~ 현재",
-      mainImage: "/detail__main/main__page__img/pinkshop__main.png",
+      mainImage: "/detail__main/main__page__img/crm_main.png",
       images: [
         "/detail__main/page3imgs/pinkshop__main.png",
         "/detail__main/page3imgs/pinkshop__contents.png",
@@ -608,7 +814,7 @@ const allProjects: ProjectEntry[] = [
       },
       links: {
         github: "https://github.com/bp4sp4/NMS-System",
-        demo: "https://nms-system.vercel.app",
+        demo: "#",
       },
       goals: [
         {
@@ -639,22 +845,67 @@ const allProjects: ProjectEntry[] = [
           icon: "fas fa-users-cog",
           title: "권한별 대시보드",
           description: "관리자, 매니저, 영업사원 등 직급별 Role 기반 접근 제어로 민감 데이터 보호 및 맞춤형 화면 제공",
-          gif: "/main/work__gif/pinkshop.gif",
+          category: "영업 관리",
         },
         {
-          icon: "fas fa-file-excel",
-          title: "엑셀 데이터 일괄 업로드",
-          description: "CSV/엑셀 파일의 대량 고객 데이터를 실시간 진행 상태와 함께 일괄 등록하는 벌크 임포트 기능",
+          icon: "fas fa-address-book",
+          title: "고객 관리 (CRM)",
+          description: "고객 정보 등록·수정·검색 및 상담 이력 관리. 영업사원별 담당 고객 배정과 상태 추적으로 체계적인 고객 관계 관리",
+          category: "영업 관리",
         },
         {
-          icon: "fas fa-file-pdf",
-          title: "PDF 문서 미리보기",
-          description: "PDF.js 기반의 브라우저 내 계약서 뷰어로, 지연 로딩을 적용해 초기 로딩 성능 최적화",
+          icon: "fas fa-chart-bar",
+          title: "영업 실적 대시보드",
+          description: "팀별·개인별 영업 실적을 차트로 시각화하고, 월별·분기별 목표 대비 달성률을 실시간으로 모니터링",
+          category: "영업 관리",
         },
         {
           icon: "fas fa-chart-line",
           title: "실시간 정산 관리",
           description: "영업 데이터의 자동 집계 및 시각화 대시보드로 인사팀의 정산 업무를 원스톱 처리",
+          category: "인사·정산",
+        },
+        {
+          icon: "fas fa-calendar-check",
+          title: "근태·출퇴근 관리",
+          description: "직원별 출퇴근 기록 및 근무 시간 자동 계산. 지각·조퇴·결근 현황을 한눈에 파악하는 관리 인터페이스",
+          category: "인사·정산",
+        },
+        {
+          icon: "fas fa-won-sign",
+          title: "급여·수당 정산",
+          description: "영업 실적 기반 인센티브 자동 계산과 급여 명세서 생성. 정산 이력을 월별로 아카이빙하여 투명한 급여 관리",
+          category: "인사·정산",
+        },
+        {
+          icon: "fas fa-file-excel",
+          title: "엑셀 데이터 일괄 업로드",
+          description: "CSV/엑셀 파일의 대량 고객 데이터를 실시간 진행 상태와 함께 일괄 등록하는 벌크 임포트 기능",
+          category: "문서 관리",
+        },
+        {
+          icon: "fas fa-file-pdf",
+          title: "PDF 문서 미리보기",
+          description: "PDF.js 기반의 브라우저 내 계약서 뷰어로, 지연 로딩을 적용해 초기 로딩 성능 최적화",
+          category: "문서 관리",
+        },
+        {
+          icon: "fas fa-file-export",
+          title: "데이터 엑셀 내보내기",
+          description: "필터링된 고객·정산 데이터를 엑셀 파일로 즉시 다운로드. 보고서 작성 및 외부 공유용 데이터 추출 지원",
+          category: "문서 관리",
+        },
+        {
+          icon: "fas fa-user-shield",
+          title: "역할 기반 접근 제어",
+          description: "관리자·매니저·사원 3단계 권한 체계로 페이지 접근과 데이터 조작 범위를 서버사이드에서 엄격히 제한",
+          category: "시스템 관리",
+        },
+        {
+          icon: "fas fa-history",
+          title: "활동 로그 & 감사 추적",
+          description: "주요 데이터 변경 이력을 자동 기록하여 누가 언제 어떤 작업을 했는지 추적 가능한 감사 시스템",
+          category: "시스템 관리",
         },
       ],
       technologies: [
@@ -705,6 +956,28 @@ const allProjects: ProjectEntry[] = [
             "PDF.js 라이브러리를 활용해 어떤 브라우저에서도 동일하게 문서가 보이도록 구현했으며, 지연 로딩(Lazy-loading) 방식을 적용했습니다.",
         },
       ],
+      metrics: [
+        {
+          value: "100%",
+          label: "엑셀 → 디지털 전환율",
+          icon: "fas fa-exchange-alt",
+        },
+        {
+          value: "3단계",
+          label: "권한 체계 (관리자·매니저·사원)",
+          icon: "fas fa-user-shield",
+        },
+        {
+          value: "0건",
+          label: "정산 데이터 누락",
+          icon: "fas fa-check-circle",
+        },
+        {
+          value: "6개월+",
+          label: "실서비스 운영 중",
+          icon: "fas fa-clock",
+        },
+      ],
       outcome: [
         "본 프로젝트를 통해 엑셀 기반의 방대한 과거 데이터를 유실 없이 통합하고, 이를 연도별·월별로 체계적으로 관리할 수 있는 그룹웨어 구조를 구축했습니다.",
         "QA 경험을 녹여낸 치밀한 예외 처리와 유효성 검사 로직을 도입하여 정산 프로세스에서 데이터 누락이나 휴먼 에러를 근본적으로 방지했습니다.",
@@ -720,19 +993,19 @@ const allProjects: ProjectEntry[] = [
     description:
       "본 프로젝트는 동일한 코드베이스를 유지한 채 회사명·로고·텍스트·이미지 등 일부 데이터만 교체하여 다른 요양회사에 빠르게 납품할 수 있도록 템플릿화할 계획인 프로젝트입니다.",
     tags: ["React", "CSS Modules", "TypeScript", "UI/UX"],
-    gifImage: "/main/work__gif/pinkshop.gif",
+    gifImage: "/main/work__gif/caving.gif",
     github: "https://github.com/bp4sp4/caving_demo",
     demo: "https://caving-demo.vercel.app/",
     detail: {
       period: "25.03.25 ~ 25.04.01",
-      mainImage: "/detail__main/main__page__img/pinkshop__main.png",
+      mainImage: "/detail__main/main__page__img/caving_01.png",
       images: [
-        "/detail__main/page3imgs/pinkshop__main.png",
-        "/detail__main/page3imgs/pinkshop__contents.png",
-        "/detail__main/page3imgs/pinkshopdetail.png",
+        "/detail__main/page3imgs/caving_02.png",
+        "/detail__main/page3imgs/caving_03.png",
+        "/detail__main/page3imgs/caving_04.png",
       ],
       overview: [
-        "[Next.js 기반의 고효율 확장형 아키텍처 구축] 본 프로젝트는 '한평생 요양보호사교육원'의 웹 서비스를 구축함과 동시에, 향후 다양한 파트너사에 신속하게 대응할 수 있는 화이트 라벨(White-label) 템플릿 제작을 목표로 진행되었습니다.",
+        "본 프로젝트는 '한평생 요양보호사교육원'의 웹 서비스를 구축함과 동시에, 향후 다양한 파트너사에 신속하게 대응할 수 있는 화이트 라벨(White-label) 템플릿 제작을 목표로 진행되었습니다.",
         "핵심 전략: 동일한 로직의 코드베이스를 유지하되 데이터 주입만으로 브랜드 아이덴티티(로고, 컬러, 텍스트)를 즉각 변경할 수 있는 구조 설계에 집중했습니다.",
       ],
       role: {
@@ -1083,31 +1356,7 @@ const allProjects: ProjectEntry[] = [
   },
   // ──────────────────────────────────────────
   // 🆕 새 프로젝트 추가 예시 (복사해서 위에 붙여넣고 내용 채우기)
-  {
-    id: "my-new-project",          // URL: /project/my-new-project
-    type: "company",               // "company" 또는 "personal"
-    title: "프로젝트 이름",
-    date: "2026.01 ~ 2026.02",
-    description: "카드에 표시될 한 두 줄 설명",
-    tags: ["React", "TypeScript"],
-    gifImage: "/main/work__gif/파일명.gif",
-    github: "https://github.com/...",
-    demo: "https://...",
-    figma: "https://...",           // 선택 사항
-    detail: {                       // 없으면 상세 페이지 없이 카드만 표시
-      period: "2026.01 ~ 2026.02",
-      mainImage: "/detail__main/main__page__img/파일명.png",
-      images: ["/detail__main/page3imgs/파일명1.png"],
-      overview: ["프로젝트 개요 문단1", "문단2"],
-      role: { type: "개인 프로젝트", parts: ["프론트엔드 개발 100%"] },
-      links: { github: "https://...", demo: "https://..." },
-      goals: [{ icon: "fas fa-code", title: "목표", description: "설명" }],
-      keyFeatures: [{ icon: "fas fa-star", title: "기능", description: "설명" }],
-      technologies: [{ category: "프론트엔드", items: [{ name: "React", description: "UI 라이브러리" }] }],
-      challenges: [{ title: "도전", challenge: "문제", solution: "해결" }],
-      outcome: ["결과 문단1"],
-    },
-  },
+ 
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -1145,6 +1394,7 @@ export const projectDetails: Record<string, ProjectDetailType> = Object.fromEntr
         links: p.detail!.links,
         goals: p.detail!.goals,
         ...(p.detail!.keyFeatures ? { keyFeatures: p.detail!.keyFeatures } : {}),
+        ...(p.detail!.metrics ? { metrics: p.detail!.metrics } : {}),
         technologies: p.detail!.technologies,
         challenges: p.detail!.challenges,
         outcome: p.detail!.outcome,
@@ -1186,6 +1436,12 @@ export type ProjectDetailType = {
     description: string;
     gif?: string;
     link?: string;
+    category?: string;
+  }[];
+  metrics?: {
+    value: string;
+    label: string;
+    icon: string;
   }[];
   technologies: {
     category: string;

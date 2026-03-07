@@ -495,6 +495,44 @@
     transform: translateY(-1px);
 }
 
+/* ===== TAB GROUP ===== */
+.tab_group {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.tab_button {
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    color: var(--gray-light);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab_button:hover {
+    border-color: var(--primary);
+    color: var(--light);
+    background: rgba(162, 155, 254, 0.08);
+}
+
+.tab_button_active {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-color: var(--primary);
+    color: white;
+}
+
+.tab_button_active:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: white;
+}
+
 /* ===== PROJECT GOALS ===== */
 .project_goals {
     margin-bottom: 120px;
@@ -668,6 +706,56 @@
 .challenge_item strong {
     color: var(--primary);
     font-weight: 700;
+}
+
+/* ===== PROJECT METRICS ===== */
+.project_metrics {
+    margin-bottom: 120px;
+}
+
+.metrics_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+}
+
+.metric_item {
+    text-align: center;
+    padding: 40px 24px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.metric_item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(108, 92, 231, 0.15);
+}
+
+.metric_icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.metric_value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.metric_label {
+    font-size: 0.95rem;
+    color: var(--gray-light);
+    line-height: 1.4;
 }
 
 /* ===== PROJECT OUTCOME ===== */
@@ -886,6 +974,25 @@
         align-items: flex-start;
     }
 
+    .tab_group {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 8px;
+    }
+
+    .tab_group::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab_button {
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
     .key_features_container {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
@@ -893,6 +1000,15 @@
 
     .key_feature_item {
         padding: 30px 28px 28px;
+    }
+
+    .metrics_container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .metric_value {
+        font-size: 2rem;
     }
 
     .goals_container {
@@ -915,6 +1031,7 @@
 
     .project_role,
     .project_key_features,
+    .project_metrics,
     .project_goals,
     .project_technologies,
     .project_challenges,
@@ -1039,6 +1156,16 @@
         height: 60px !important;
     }
 
+    .tab_group {
+        gap: 6px;
+        margin-top: 20px;
+    }
+
+    .tab_button {
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+
     .key_features_container {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -1064,6 +1191,23 @@
 
     .key_feature_item h3 {
         font-size: 1.15rem;
+    }
+
+    .metrics_container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .metric_item {
+        padding: 24px 16px;
+    }
+
+    .metric_value {
+        font-size: 1.8rem;
+    }
+
+    .metric_label {
+        font-size: 0.85rem;
     }
 
     .goals_container {
@@ -1117,6 +1261,7 @@
 
     .project_role,
     .project_key_features,
+    .project_metrics,
     .project_goals,
     .project_technologies,
     .project_challenges,

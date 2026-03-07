@@ -42,6 +42,12 @@ interface ProjectData {
     description: string;
     gif?: string;
     link?: string;
+    category?: string;
+  }[];
+  metrics?: {
+    value: string;
+    label: string;
+    icon: string;
   }[];
   challenges: {
     title: string;
@@ -61,11 +67,13 @@ export default function ProjectDetail() {
     { id: "", title: "" }
   );
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<string>("");
 
   const heroRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
   const keyFeaturesRef = useRef<HTMLDivElement>(null);
+  const metricsRef = useRef<HTMLDivElement>(null);
   const goalsRef = useRef<HTMLDivElement>(null);
   const technologiesRef = useRef<HTMLDivElement>(null);
   const challengesRef = useRef<HTMLDivElement>(null);
@@ -84,6 +92,7 @@ export default function ProjectDetail() {
       overviewRef.current,
       roleRef.current,
       keyFeaturesRef.current,
+      metricsRef.current,
       goalsRef.current,
       technologiesRef.current,
       challengesRef.current,
@@ -309,13 +318,15 @@ export default function ProjectDetail() {
                   <i className="fab fa-github"></i> GitHub
                 </a>
               )}
-              <a
-                href={projectData.links.demo}
-                target="_blank"
-                className={`${styles.btn} ${styles.btn_demo}`}
-              >
-                <i className="fas fa-external-link-alt"></i> 데모 사이트
-              </a>
+              {projectData.links.demo && projectData.links.demo !== "#" && (
+                <a
+                  href={projectData.links.demo}
+                  target="_blank"
+                  className={`${styles.btn} ${styles.btn_demo}`}
+                >
+                  <i className="fas fa-external-link-alt"></i> 데모 사이트
+                </a>
+              )}
               {projectData.links && projectData.links.figma && (
                 <a
                   href={projectData.links.figma}
@@ -348,42 +359,83 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (
-          <div className={styles.project_key_features} ref={keyFeaturesRef}>
-            <h2 className={styles.section_heading}>핵심 기능</h2>
-            <div className={styles.key_features_container}>
-              {projectData.keyFeatures.map((feature, index: number) => (
-                <div className={styles.key_feature_item} key={index}>
-                  <div className={styles.key_feature_number}>
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  {feature.gif && (
-                    <div className={styles.key_feature_gif}>
-                      <Image
-                        src={feature.gif}
-                        alt={`${feature.title} 시연`}
-                        width={600}
-                        height={340}
-                        style={{ objectFit: "cover", width: "100%", height: "auto" }}
-                      />
-                    </div>
-                  )}
-                  <div className={styles.key_feature_icon}>
-                    <i className={feature.icon}></i>
-                  </div>
-                  <h3>{feature.title}</h3>
-                  <p>{feature.description}</p>
-                  {feature.link && (
-                    <a
-                      href={feature.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.key_feature_link}
-                      onClick={(e) => e.stopPropagation()}
+        {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (() => {
+          const hasCategories = projectData.keyFeatures!.some((f) => f.category);
+          const categories = hasCategories
+            ? Array.from(new Set(projectData.keyFeatures!.map((f) => f.category).filter(Boolean))) as string[]
+            : [];
+          const currentTab = activeTab || categories[0] || "";
+          const displayedFeatures = hasCategories
+            ? projectData.keyFeatures!.filter((f) => f.category === currentTab)
+            : projectData.keyFeatures!;
+
+          return (
+            <div className={styles.project_key_features} ref={keyFeaturesRef}>
+              <h2 className={styles.section_heading}>핵심 기능</h2>
+              {hasCategories && (
+                <div className={styles.tab_group}>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      className={`${styles.tab_button} ${currentTab === cat ? styles.tab_button_active : ""}`}
+                      onClick={() => setActiveTab(cat)}
                     >
-                      사이트 방문 <i className="fas fa-external-link-alt"></i>
-                    </a>
-                  )}
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className={styles.key_features_container}>
+                {displayedFeatures.map((feature, index: number) => (
+                  <div className={styles.key_feature_item} key={index}>
+                    <div className={styles.key_feature_number}>
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+                    {feature.gif && (
+                      <div className={styles.key_feature_gif}>
+                        <Image
+                          src={feature.gif}
+                          alt={`${feature.title} 시연`}
+                          width={600}
+                          height={340}
+                          style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                        />
+                      </div>
+                    )}
+                    <div className={styles.key_feature_icon}>
+                      <i className={feature.icon}></i>
+                    </div>
+                    <h3>{feature.title}</h3>
+                    <p>{feature.description}</p>
+                    {feature.link && (
+                      <a
+                        href={feature.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.key_feature_link}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        사이트 방문 <i className="fas fa-external-link-alt"></i>
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
+        {projectData.metrics && projectData.metrics.length > 0 && (
+          <div className={styles.project_metrics} ref={metricsRef}>
+            <h2 className={styles.section_heading}>숫자로 보는 성과</h2>
+            <div className={styles.metrics_container}>
+              {projectData.metrics.map((metric, index: number) => (
+                <div className={styles.metric_item} key={index}>
+                  <div className={styles.metric_icon}>
+                    <i className={metric.icon}></i>
+                  </div>
+                  <div className={styles.metric_value}>{metric.value}</div>
+                  <div className={styles.metric_label}>{metric.label}</div>
                 </div>
               ))}
             </div>
