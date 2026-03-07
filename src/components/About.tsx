@@ -46,7 +46,7 @@ export default function About() {
             박상훈입니다.
           </p>
           <div className={styles.about_desc}>
-            <p>좋아하는 것이기에 재미있게 항상 웹 개발을 진행해왔습니다.</p>
+            <p>좋아하는 것이기에 재미있게 항상 웹 개발을 진행하고 있습니다.</p>
             <p>
               어디에서도 잘 보이는{" "}
               <span className={styles.about_emphasis}>반응형 웹 접근성</span>과{" "}

@@ -269,14 +269,16 @@
 }
 
 .btn_demo {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    background: var(--dark-soft);
     color: white;
-    border-color: var(--primary);
+    border-color: var(--glass-border);
 }
 
 .btn_demo:hover {
+    background: #222;
+    border-color: var(--primary);
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(162, 155, 254, 0.4);
+    box-shadow: 0 10px 30px rgba(162, 155, 254, 0.3);
 }
 
 .btn_figma {

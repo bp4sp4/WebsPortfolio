@@ -38,40 +38,76 @@ export default function Contact() {
 
   return (
     <section id="contact" className={styles.contact}>
+      <div className={styles.contact_glow} />
+
       <div
         className={styles.contact_header}
         ref={(el) => { animateRefs.current[0] = el; }}
       >
-        <h2 className={styles.section_title}>Get In Touch</h2>
-        <p className={styles.contact_tagline}>{contactInfo.tagline}</p>
+        <span className={styles.contact_label}>Contact</span>
+        <h2 className={styles.contact_title}>
+          Let&apos;s Work<br />
+          <span className={styles.contact_title_gradient}>Together</span>
+        </h2>
+        <p className={styles.contact_subtitle}>{contactInfo.tagline}</p>
+      </div>
+
+      <div className={styles.contact_grid}>
+        <a
+          href={`mailto:${contactInfo.email}`}
+          className={styles.contact_card}
+          ref={(el) => { animateRefs.current[1] = el as HTMLAnchorElement; }}
+        >
+          <div className={styles.contact_card_icon}>
+            <i className="fas fa-envelope" />
+          </div>
+          <div className={styles.contact_card_content}>
+            <span className={styles.contact_card_label}>Email</span>
+            <span className={styles.contact_card_value}>{contactInfo.email}</span>
+          </div>
+          <i className="fas fa-arrow-right" />
+        </a>
+
+        <Link
+          href="https://github.com/bp4sp4"
+          target="_blank"
+          className={styles.contact_card}
+          ref={(el) => { animateRefs.current[2] = el; }}
+        >
+          <div className={styles.contact_card_icon}>
+            <i className="fab fa-github" />
+          </div>
+          <div className={styles.contact_card_content}>
+            <span className={styles.contact_card_label}>GitHub</span>
+            <span className={styles.contact_card_value}>bp4sp4</span>
+          </div>
+          <i className="fas fa-arrow-right" />
+        </Link>
       </div>
 
       <div
-        className={styles.contact_email_wrap}
-        ref={(el) => { animateRefs.current[1] = el; }}
-      >
-        <h3 className={styles.contact_email}>{contactInfo.email}</h3>
-      </div>
-
-      <div
-        className={styles.contact_desc}
-        ref={(el) => { animateRefs.current[2] = el; }}
+        className={styles.contact_message}
+        ref={(el) => { animateRefs.current[3] = el; }}
       >
         {contactInfo.description.map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
       </div>
 
-      <Link
-        href="https://github.com/bp4sp4"
-        target="_blank"
-        className={styles.contact_btn}
-        ref={(el) => { animateRefs.current[3] = el; }}
+      <div
+        className={styles.contact_cta}
+        ref={(el) => { animateRefs.current[4] = el; }}
       >
-        <i className="fab fa-github"></i>
-        <span>GitHub Profile</span>
-        <i className="fas fa-arrow-right"></i>
-      </Link>
+        <a
+          href={`mailto:${contactInfo.email}`}
+          className={styles.contact_cta_btn}
+        >
+          <span>Say Hello</span>
+          <div className={styles.contact_cta_arrow}>
+            <i className="fas fa-paper-plane" />
+          </div>
+        </a>
+      </div>
     </section>
   );
 }
