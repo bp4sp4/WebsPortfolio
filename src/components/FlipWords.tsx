@@ -17,7 +17,7 @@ export default function FlipWords({ words, interval = 3000 }: FlipWordsProps) {
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % words.length);
       setIsAnimating(false);
-    }, 500);
+    }, 400);
   }, [words.length]);
 
   useEffect(() => {
