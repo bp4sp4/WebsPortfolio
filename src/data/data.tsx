@@ -27,23 +27,34 @@ export const developerInfo = {
 export const experiences = [
   {
     date: "2025. 04 — 현재 재직 중",
-    info: "한평생교육원 개발본부 | 웹 개발자 (25.04 ~ 26.02)",
+    info: "한평생교육원 개발본부 | 웹 개발자",
+    type: "work" as const,
+    icon: "fas fa-briefcase",
+    current: true,
   },
   {
     date: "2023. 02 — 2023. 05",
-    info: "새롱정보시스템 빅데이터그룹파트원 (23.02 ~ 23.05)",
+    info: "새롱정보시스템 빅데이터그룹파트원",
+    type: "work" as const,
+    icon: "fas fa-briefcase",
   },
   {
     date: "2022. 05 — 2022. 12",
-    info: "한국 ICT인재개발원 (22.05 ~ 22.12)",
+    info: "한국 ICT인재개발원",
+    type: "education" as const,
+    icon: "fas fa-laptop-code",
   },
   {
     date: "2021. 04 — 2022. 04",
-    info: "와이즈스터디 앱,웹 QA테스터 근무 (21.10 ~ 22.04)",
+    info: "와이즈스터디 앱,웹 QA테스터 근무",
+    type: "work" as const,
+    icon: "fas fa-briefcase",
   },
   {
     date: "2022. 02",
     info: "대림대학교 컴퓨터정보학부 졸업",
+    type: "education" as const,
+    icon: "fas fa-graduation-cap",
   },
 ];
 
@@ -170,19 +181,203 @@ type ProjectEntry = {
 // 순서 = 카드 목록 순서 + 상세 페이지 이전/다음 프로젝트 순서
 // ─────────────────────────────────────────────────────────────────────────
 const allProjects: ProjectEntry[] = [
+      {
+    id: "korhrdDev",
+    type: "company",
+    title: "한평생 개발 가이드",
+    date: "2026. 01. 04 ~ 2026. 01. 26",
+    description:
+      "회사 프론트엔드 개발 표준 및 베스트 프랙티스를 안내하는 가이드입니다. Next.js 기반 프로젝트에서 일관된 코드 스타일과 디자인 시스템을 적용하기 위한 사내 문서 사이트입니다.",
+    tags: ["Next.js 14", "TypeScript", "Tailwind CSS", "shadcn UI"],
+    gifImage: "/main/work__gif/korhrddev.gif",
+    github: "https://github.com/bp4sp4/KorhrdDev",
+    demo: "https://korhrd-dev.vercel.app/",
+    detail: {
+      period: "2026. 01. 04 ~ 2026. 01. 26",
+      mainImage: "/detail__main/main__page__img/korhrddev_main.png",
+      images: [
+        "/detail__main/page3imgs/korhrdDev_main.png",
+        "/detail__main/page3imgs/korhrdDev_01.png",
+        "/detail__main/page3imgs/korhrdDev_02.png",
+        "/detail__main/page3imgs/korhrdDev_03.png",
+      ],
+      overview: [
+        "회사 프론트엔드 개발 표준과 베스트 프랙티스를 안내하는 가이드 사이트를 Next.js 14 App Router 기반으로 구축했습니다. CSS 기초, 클래스 네이밍 컨벤션, 컬러 팔레트, 로고 가이드라인, 반응형 디자인 등 11개 섹션으로 구성된 종합 개발 문서를 제공합니다.",
+        "토스 스타일의 미니멀하고 현대적인 디자인을 적용하여 좌측 사이드바 + 우측 콘텐츠 레이아웃으로 직관적인 탐색을 지원합니다. 코드 예제 복사, 컬러 코드 복사, 타이포그래피 미리보기 등 개발자 편의 기능을 갖추었습니다.",
+      ],
+      role: {
+        type: "실무 프로젝트 (사내)",
+        parts: ["프론트엔드 개발 100%", "디자인 시스템 설계", "문서 구조 기획", "디자이너님 이미지 리소스 제공 협업"],
+      },
+      links: {
+        github: "https://github.com/bp4sp4/KorhrdDev",
+        demo: "https://korhrd-dev.vercel.app/",
+      },
+      goals: [
+        {
+          icon: "fas fa-book",
+          title: "개발 표준 문서화",
+          description:
+            "CSS 기초부터 반응형 디자인까지, 프론트엔드 개발에 필요한 표준과 컨벤션을 체계적으로 문서화하여 팀 내 일관된 코드 품질을 확보합니다.",
+        },
+        {
+          icon: "fas fa-palette",
+          title: "디자인 시스템 가이드",
+          description: "컬러 팔레트, 타이포그래피, 로고 가이드라인 등 디자인 토큰과 시각적 규칙을 정의하여 일관된 UI를 유지합니다.",
+        },
+        {
+          icon: "fas fa-code",
+          title: "코드 컨벤션 정립",
+          description: "BEM 기반 클래스 네이밍, 파일 구조, 환경 변수 관리 등 코딩 규칙을 명확히 정의하여 협업 효율을 높입니다.",
+        },
+        {
+          icon: "fas fa-mobile-alt",
+          title: "반응형 디자인 가이드",
+          description:
+            "다양한 디바이스에 대응하는 반응형 디자인 원칙과 구현 방법을 문서화하여 모든 환경에서 최적의 사용자 경험을 제공합니다.",
+        },
+      ],
+      keyFeatures: [
+        {
+          icon: "fas fa-copy",
+          title: "코드 예제 복사",
+          description: "CopyableCodeBlock 컴포넌트를 통해 가이드 내 모든 코드 예제를 클릭 한 번으로 클립보드에 복사",
+          category: "개발자 편의",
+        },
+        {
+          icon: "fas fa-bars",
+          title: "사이드바 아코디언 네비게이션",
+          description: "11개 섹션을 아코디언 형태로 구성하여 원하는 가이드 항목을 빠르게 탐색하고 이동",
+          category: "네비게이션",
+        },
+        {
+          icon: "fas fa-palette",
+          title: "컬러 팔레트 & Hex 코드 복사",
+          description: "프로젝트 공식 컬러 팔레트를 시각적으로 제공하고, Hex 코드를 클릭하여 즉시 복사",
+          category: "디자인 시스템",
+        },
+        {
+          icon: "fas fa-font",
+          title: "타이포그래피 미리보기",
+          description: "Pretendard 폰트 기반 타이포그래피 스타일을 실시간으로 미리보기하여 적용 결과를 즉시 확인",
+          category: "디자인 시스템",
+        },
+        {
+          icon: "fas fa-download",
+          title: "로고 다운로드",
+          description: "가이드 페이지에서 프로젝트 공식 로고 이미지를 직접 다운로드할 수 있는 기능 제공",
+          category: "에셋 관리",
+        },
+        {
+          icon: "fas fa-file-code",
+          title: "CSS 기초 가이드",
+          description: "Normalize, Pretendard 폰트, 디자인 토큰, 베이스 스타일, 레이아웃 등 CSS 기반 구조를 체계적으로 안내",
+          category: "문서",
+        },
+        {
+          icon: "fas fa-tags",
+          title: "클래스 네이밍 컨벤션",
+          description: "BEM 기반 클래스 네이밍 규칙을 정의하고 올바른 사용 예시와 안티패턴을 함께 제공",
+          category: "문서",
+        },
+        {
+          icon: "fas fa-history",
+          title: "변경 이력 관리",
+          description: "Changelog 섹션을 통해 가이드 문서의 업데이트 내역과 변경 사항을 추적하고 관리",
+          category: "문서",
+        },
+      ],
+      technologies: [
+        {
+          category: "프론트엔드",
+          items: [
+            { name: "Next.js 14", description: "App Router 기반 프레임워크" },
+            { name: "TypeScript", description: "타입 안정성을 높인 자바스크립트" },
+            { name: "Tailwind CSS", description: "유틸리티 기반 CSS 프레임워크" },
+          ],
+        },
+        {
+          category: "UI 컴포넌트",
+          items: [
+            { name: "shadcn UI", description: "Radix UI 기반 컴포넌트 라이브러리" },
+            { name: "Radix UI", description: "접근성 기반 헤드리스 UI 프리미티브" },
+            { name: "Lucide React", description: "아이콘 라이브러리" },
+          ],
+        },
+        {
+          category: "유틸리티 & 빌드",
+          items: [
+            { name: "clsx", description: "조건부 클래스명 유틸리티" },
+            { name: "tailwind-merge", description: "Tailwind 클래스 충돌 해결" },
+            { name: "CVA", description: "Class Variance Authority 변형 관리" },
+          ],
+        },
+      ],
+      challenges: [
+        {
+          title: "11개 섹션의 체계적 문서 구조 설계",
+          challenge:
+            "CSS 기초부터 반응형 디자인까지 다양한 주제를 하나의 가이드로 통합해야 했으며, 개발자가 원하는 내용을 빠르게 찾을 수 있는 구조가 필요했습니다.",
+          solution:
+            "좌측 사이드바 아코디언 네비게이션을 도입하고, 각 섹션을 독립적인 페이지로 분리하여 직관적인 탐색 구조를 구현했습니다.",
+        },
+        {
+          title: "코드 예제의 실용적 제공 방식",
+          challenge:
+            "가이드에 포함된 다양한 코드 예제를 개발자가 즉시 활용할 수 있도록 편리한 복사 기능이 필요했습니다.",
+          solution:
+            "CopyableCodeBlock 컴포넌트를 자체 개발하여 모든 코드 블록에 원클릭 복사 기능을 적용하고, 복사 완료 피드백을 제공했습니다.",
+        },
+        {
+          title: "토스 스타일 미니멀 디자인 적용",
+          challenge:
+            "기술 문서이면서도 시각적으로 깔끔하고 현대적인 디자인을 유지해야 했으며, 다양한 콘텐츠 유형(코드, 컬러, 이미지)을 일관되게 표현해야 했습니다.",
+          solution:
+            "shadcn UI와 Tailwind CSS를 활용하여 토스 스타일의 미니멀 디자인을 구현하고, 각 콘텐츠 유형에 맞는 인터랙티브 컴포넌트를 설계했습니다.",
+        },
+      ],
+      metrics: [
+        {
+          value: "11개",
+          label: "가이드 섹션",
+          icon: "fas fa-book-open",
+        },
+        {
+          value: "BEM",
+          label: "클래스 네이밍 컨벤션",
+          icon: "fas fa-code",
+        },
+        {
+          value: "Pretendard",
+          label: "공식 타이포그래피",
+          icon: "fas fa-font",
+        },
+        {
+          value: "실서비스",
+          label: "사내 운영 중",
+          icon: "fas fa-rocket",
+        },
+      ],
+      outcome: [
+        "프론트엔드 개발 표준을 체계적으로 문서화하여 팀 내 코드 일관성을 확보하고, 신규 개발자의 온보딩 시간을 단축하는 사내 가이드 사이트를 구축했습니다.",
+        "코드 예제 복사, 컬러 코드 복사, 타이포그래피 미리보기 등 개발자 편의 기능을 갖춘 인터랙티브 문서를 구현하여, 단순 읽기용 문서를 넘어 실무에서 즉시 활용 가능한 도구로 완성했습니다.",
+        "Next.js 14, Tailwind CSS, shadcn UI 등 최신 프론트엔드 스택을 활용하여 토스 스타일의 미니멀하고 현대적인 디자인 시스템 가이드를 완성했습니다.",
+      ],
+    },
+  },
     {
     id: "allcare",
     type: "company",
     title: "한평생 올케어",
-    date: "2025. 08. 26 ~ 현재",
+    date: "2026. 02. 02 ~ 2026. 03. 05",
     description:
-      "돌봄 서비스 제공자와 이용자를 연결하는 위치 기반 매칭 플랫폼입니다. 네이버 지도 기반 검색, 구독 결제, AI 챗봇 상담 기능을 제공하며, Next.js 16과 Supabase를 활용해 풀스택으로 구축했습니다.",
+      "돌봄 서비스 제공자와 이용자를 연결하는 위치 기반 매칭 플랫폼입니다. 네이버 지도 기반 검색, PayApp SDK 기반 구독 결제 시스템, AI 챗봇 상담 기능을 제공하며, Next.js 16과 Supabase를 활용해 풀스택으로 구축했습니다.",
     tags: ["Next.js 16", "TypeScript", "Supabase", "Naver Maps API"],
     gifImage: "/main/work__gif/allcare.gif",
     github: "https://github.com/bp4sp4/allcare",
     demo: "https://www.hanallcare.com/",
     detail: {
-      period: "2025. 08. 26 ~ 현재",
+      period: "2026. 02. 02 ~ 2026. 03. 05",
       mainImage: "/detail__main/main__page__img/allcare_main.png",
       images: [
         "/detail__main/page3imgs/allcare_main.png",
@@ -358,7 +553,7 @@ const allProjects: ProjectEntry[] = [
     id: "BaroCompany",
     type: "company",
     title: "한평생 바로기업",
-    date: "2025. 12 ~ 2026. 01.21",
+    date: "2025. 12.19 ~ 2026. 01.21",
     description:
       "정책자금·투자유치·창업 컨설팅 서비스를 소개하는 마케팅 사이트와 사내 상담 관리 어드민을 하나의 Next.js 플랫폼으로 통합했습니다. 광고 채널별 상담 유입 추적부터 이메일 자동 알림, 역할 기반 어드민까지 비즈니스 운영 전반을 디지털화했습니다.",
     tags: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Supabase", "GSAP"],
@@ -366,7 +561,7 @@ const allProjects: ProjectEntry[] = [
     github: "https://github.com/bp4sp4/BaroCompany",
     demo: "https://xn--ok0bx6qu3cv5m.com/",
     detail: {
-      period: "2025. 08 ~ 현재",
+      period: "2025. 12.19 ~ 2026. 01.21",
       mainImage: "/detail__main/main__page__img/baro_main.png",
       images: ["/detail__main/page3imgs/baro_main.png", "/detail__main/page3imgs/baro_02.png", "/detail__main/page3imgs/baro_03.png", "/detail__main/page3imgs/baro_04.png"],
       overview: [

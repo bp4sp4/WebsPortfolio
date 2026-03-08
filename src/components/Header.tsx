@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { developerInfo } from "@/data/data";
 import styles from "@/styles/main.module.css";
+import FlipWords from "./FlipWords";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -116,8 +117,10 @@ export default function Header() {
             <h1>
               안녕하세요,
               <br />
-             
-              <span className={styles.hero_highlight}>경험을 디자인</span>하는
+              <span className={styles.hero_highlight}>
+                <FlipWords words={["경험을 디자인", "문제를 해결", "가치를 창조", "성장을 추구"]} interval={3000} />
+              </span>
+              하는
               <br />
               개발자입니다.
             </h1>

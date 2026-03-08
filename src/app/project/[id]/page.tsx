@@ -69,6 +69,7 @@ export default function ProjectDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<string>("");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [showGalleryArrows, setShowGalleryArrows] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
@@ -292,9 +293,16 @@ export default function ProjectDetail() {
           {projectData.mainImage && (
             <div className={styles.overview_gallery}>
               <div
-                className={styles.overview_image}
+                className={`${styles.overview_image} ${showGalleryArrows ? styles.overview_image_active : ""}`}
                 style={{ position: "relative", width: "100%", height: "400px", cursor: "pointer" }}
-                onClick={() => setLightboxImage(projectData.images[currentImageIndex] || projectData.mainImage)}
+                onClick={() => {
+                  if (projectData.images.length > 1 && !showGalleryArrows) {
+                    setShowGalleryArrows(true);
+                  } else {
+                    setShowGalleryArrows(false);
+                    setLightboxImage(projectData.images[currentImageIndex] || projectData.mainImage);
+                  }
+                }}
               >
                 <Image
                   src={projectData.images[currentImageIndex] || projectData.mainImage}
@@ -306,6 +314,37 @@ export default function ProjectDetail() {
                 <div className={styles.image_hover_overlay}>
                   <i className="fas fa-search-plus"></i>
                 </div>
+                {projectData.images.length > 1 && showGalleryArrows && (
+                  <>
+                    <button
+                      className={`${styles.gallery_arrow} ${styles.gallery_arrow_left}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) =>
+                          prev === 0 ? projectData.images.length - 1 : prev - 1
+                        );
+                      }}
+                      aria-label="이전 이미지"
+                    >
+                      <i className="fas fa-chevron-left"></i>
+                    </button>
+                    <button
+                      className={`${styles.gallery_arrow} ${styles.gallery_arrow_right}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) =>
+                          prev === projectData.images.length - 1 ? 0 : prev + 1
+                        );
+                      }}
+                      aria-label="다음 이미지"
+                    >
+                      <i className="fas fa-chevron-right"></i>
+                    </button>
+                    <div className={styles.gallery_counter}>
+                      {currentImageIndex + 1} / {projectData.images.length}
+                    </div>
+                  </>
+                )}
               </div>
               {projectData.images.length > 1 && (
                 <div className={styles.gallery_thumbnails}>
@@ -572,6 +611,34 @@ export default function ProjectDetail() {
           >
             <i className="fas fa-times"></i>
           </button>
+          {projectData.images.length > 1 && (
+            <>
+              <button
+                className={`${styles.lightbox_arrow} ${styles.lightbox_arrow_left}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const newIndex = currentImageIndex === 0 ? projectData.images.length - 1 : currentImageIndex - 1;
+                  setCurrentImageIndex(newIndex);
+                  setLightboxImage(projectData.images[newIndex]);
+                }}
+                aria-label="이전 이미지"
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <button
+                className={`${styles.lightbox_arrow} ${styles.lightbox_arrow_right}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const newIndex = currentImageIndex === projectData.images.length - 1 ? 0 : currentImageIndex + 1;
+                  setCurrentImageIndex(newIndex);
+                  setLightboxImage(projectData.images[newIndex]);
+                }}
+                aria-label="다음 이미지"
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </>
+          )}
           <div
             className={styles.lightbox_content}
             onClick={(e) => e.stopPropagation()}
@@ -583,6 +650,11 @@ export default function ProjectDetail() {
               style={{ objectFit: "contain" }}
             />
           </div>
+          {projectData.images.length > 1 && (
+            <div className={styles.lightbox_counter}>
+              {currentImageIndex + 1} / {projectData.images.length}
+            </div>
+          )}
         </div>
       )}
     </>
