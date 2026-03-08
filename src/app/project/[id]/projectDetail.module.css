@@ -198,6 +198,109 @@
     box-shadow: 0 0 12px rgba(162, 155, 254, 0.4);
 }
 
+/* 이미지 호버 오버레이 */
+.image_hover_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 2;
+    border-radius: 20px;
+}
+
+.image_hover_overlay i {
+    color: #fff;
+    font-size: 2.5rem;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.overview_image:hover .image_hover_overlay {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.overview_image:hover .image_hover_overlay i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 라이트박스 모달 */
+.lightbox_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: lightboxFadeIn 0.35s ease forwards;
+}
+
+@keyframes lightboxFadeIn {
+    from {
+        background: rgba(0, 0, 0, 0);
+    }
+    to {
+        background: rgba(0, 0, 0, 0.85);
+    }
+}
+
+.lightbox_content {
+    position: relative;
+    width: 85vw;
+    height: 80vh;
+    max-width: 1200px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: lightboxZoomIn 0.35s ease 0.05s forwards;
+}
+
+@keyframes lightboxZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lightbox_close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.lightbox_close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
 .overview_content {
     background: var(--glass);
     border: 1px solid var(--glass-border);

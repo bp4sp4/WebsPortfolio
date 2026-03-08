@@ -185,9 +185,10 @@ const allProjects: ProjectEntry[] = [
       period: "2025. 08. 26 ~ 현재",
       mainImage: "/detail__main/main__page__img/allcare_main.png",
       images: [
-        "/detail__main/page3imgs/allcare__main.png",
-        "/detail__main/page3imgs/allcare__contents.png",
-        "/detail__main/page3imgs/allcare__detail.png",
+        "/detail__main/page3imgs/allcare_main.png",
+        "/detail__main/page3imgs/allcare_01.png",
+        "/detail__main/page3imgs/allcare_02.png",
+        "/detail__main/page3imgs/allcare_03.png",
       ],
       overview: [
         "돌봄 서비스 제공자와 이용자를 연결하는 위치 기반 매칭 플랫폼을 Next.js 16 App Router와 Supabase 기반으로 풀스택 구축했습니다. 네이버 지도 API와 Haversine 알고리즘을 활용한 거리 기반 검색, PayApp SDK 기반 구독 결제 시스템, Google Gemini 기반 AI 챗봇 상담까지 핵심 서비스를 직접 설계하고 구현했습니다.",
@@ -326,19 +327,19 @@ const allProjects: ProjectEntry[] = [
       ],
       metrics: [
         {
-          value: "30+",
-          label: "API 엔드포인트",
-          icon: "fas fa-code",
+          value: "4종",
+          label: "외부 API 연동 (지도·결제·AI·OAuth)",
+          icon: "fas fa-plug",
         },
         {
-          value: "3단계",
-          label: "구독 플랜 (Basic·Standard·Premium)",
-          icon: "fas fa-layer-group",
+          value: "첫 구축",
+          label: "실결제 시스템 도입",
+          icon: "fas fa-credit-card",
         },
         {
-          value: "100%",
-          label: "풀스택 직접 구현",
-          icon: "fas fa-laptop-code",
+          value: "매출 우상향",
+          label: "활성 구독 기반 성장 중",
+          icon: "fas fa-chart-line",
         },
         {
           value: "실서비스",
@@ -348,6 +349,7 @@ const allProjects: ProjectEntry[] = [
       ],
       outcome: [
         "위치 기반 매칭부터 결제·인증·AI 상담까지 돌봄 서비스 플랫폼의 핵심 기능을 풀스택으로 직접 설계하고 구현하여, 실서비스로 운영 중인 완성도 높은 플랫폼을 구축했습니다.",
+        "PayApp SDK를 활용한 첫 실결제 시스템을 직접 구축하여 구독 기반 수익 모델을 성공적으로 도입했습니다. 활성 구독 회원이 지속적으로 늘어나며 매출이 우상향하고 있으며, 서비스 확장과 함께 구독자 수와 매출이 꾸준히 성장할 것으로 기대됩니다.",
         "Next.js 16 App Router, Supabase, 네이버 지도 API, PayApp SDK, Google Gemini API 등 다양한 기술 스택을 통합하며, 복잡한 비즈니스 로직을 30개 이상의 API 엔드포인트로 체계적으로 분리·관리하는 역량을 확보했습니다.",
       ],
     },

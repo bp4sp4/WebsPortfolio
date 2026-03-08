@@ -68,6 +68,7 @@ export default function ProjectDetail() {
   );
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<string>("");
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
@@ -223,16 +224,37 @@ export default function ProjectDetail() {
     document.addEventListener("mousedown", handleMouseDown);
     document.addEventListener("mouseup", handleMouseUp);
 
+    // ESC 키로 라이트박스 닫기
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setLightboxImage(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
     // 클린업 함수
     return () => {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mousedown", handleMouseDown);
       document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("keydown", handleKeyDown);
       cancelAnimationFrame(animationId);
       fadeObserver.disconnect();
     };
   }, [params.id, setupAnimations]);
+
+  // 라이트박스 열릴 때 스크롤 방지
+  useEffect(() => {
+    if (lightboxImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [lightboxImage]);
 
   // 프로젝트 데이터가 없는 경우 로딩 표시
   if (!projectData) {
@@ -271,7 +293,8 @@ export default function ProjectDetail() {
             <div className={styles.overview_gallery}>
               <div
                 className={styles.overview_image}
-                style={{ position: "relative", width: "100%", height: "400px" }}
+                style={{ position: "relative", width: "100%", height: "400px", cursor: "pointer" }}
+                onClick={() => setLightboxImage(projectData.images[currentImageIndex] || projectData.mainImage)}
               >
                 <Image
                   src={projectData.images[currentImageIndex] || projectData.mainImage}
@@ -280,6 +303,9 @@ export default function ProjectDetail() {
                   fill
                   style={{ objectFit: "cover" }}
                 />
+                <div className={styles.image_hover_overlay}>
+                  <i className="fas fa-search-plus"></i>
+                </div>
               </div>
               {projectData.images.length > 1 && (
                 <div className={styles.gallery_thumbnails}>
@@ -288,6 +314,7 @@ export default function ProjectDetail() {
                       key={index}
                       className={`${styles.gallery_thumb} ${index === currentImageIndex ? styles.gallery_thumb_active : ""}`}
                       onClick={() => setCurrentImageIndex(index)}
+                      onDoubleClick={() => setLightboxImage(img)}
                       style={{ position: "relative", width: "100%", height: "80px" }}
                     >
                       <Image
@@ -533,6 +560,31 @@ export default function ProjectDetail() {
           <div className={styles.footer_credit}>{footerInfo.credit}</div>
         </div>
       </footer>
+
+      {lightboxImage && (
+        <div
+          className={styles.lightbox_overlay}
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className={styles.lightbox_close}
+            onClick={() => setLightboxImage(null)}
+          >
+            <i className="fas fa-times"></i>
+          </button>
+          <div
+            className={styles.lightbox_content}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={lightboxImage}
+              alt="확대 이미지"
+              fill
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }
