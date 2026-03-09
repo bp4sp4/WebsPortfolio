@@ -10,14 +10,14 @@ interface FlipWordsProps {
 
 export default function FlipWords({ words, interval = 3000 }: FlipWordsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [phase, setPhase] = useState<"in" | "out">("in");
 
   const next = useCallback(() => {
-    setIsAnimating(true);
+    setPhase("out");
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % words.length);
-      setIsAnimating(false);
-    }, 400);
+      setPhase("in");
+    }, 600);
   }, [words.length]);
 
   useEffect(() => {
@@ -25,12 +25,21 @@ export default function FlipWords({ words, interval = 3000 }: FlipWordsProps) {
     return () => clearInterval(timer);
   }, [next, interval]);
 
+  const word = words[currentIndex];
+  const chars = word.split("");
+
   return (
     <span className={styles.flip_words_wrapper}>
-      <span
-        className={`${styles.flip_word} ${isAnimating ? styles.flip_word_out : styles.flip_word_in}`}
-      >
-        {words[currentIndex]}
+      <span className={phase === "out" ? styles.flip_word_exit : styles.flip_word_enter}>
+        {chars.map((char, i) => (
+          <span
+            key={`${currentIndex}-${i}`}
+            className={phase === "in" ? styles.flip_char_in : ""}
+            style={{ "--char-index": i } as React.CSSProperties}
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
       </span>
     </span>
   );

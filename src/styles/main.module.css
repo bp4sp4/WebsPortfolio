@@ -473,59 +473,77 @@
 }
 
 /* ===== FLIP WORDS (Aceternity style) ===== */
+/* Aceternity FlipWords 내부 글자에 그라디언트 적용 */
+.flip_words_gradient span {
+    background: var(--gradient-1) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+
 .flip_words_wrapper {
     display: inline-block;
     position: relative;
-    min-width: 180px;
     text-align: left;
-    perspective: 800px;
 }
 
-.flip_word {
+/* 글자 컨테이너 - 진입 시 */
+.flip_word_enter {
+    display: inline-block;
+}
+
+.flip_word_enter span {
     display: inline-block;
     background: var(--gradient-1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 900;
-    transform-origin: center top;
 }
 
-.flip_word_in {
-    animation: flipIn 0.6s cubic-bezier(0.36, 0.45, 0.63, 1) forwards;
+/* 퇴장: 단어 전체가 위+오른쪽으로, scale 2배 + blur */
+.flip_word_exit {
+    display: inline-block;
+    animation: wordExit 0.5s ease-in forwards;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
 }
 
-.flip_word_out {
-    animation: flipOut 0.4s cubic-bezier(0.36, 0.45, 0.63, 1) forwards;
+/* 진입: 글자 하나씩 아래→위, blur 제거 */
+.flip_char_in {
+    display: inline-block;
+    opacity: 0;
+    animation: charIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--char-index) * 0.05s + 0.1s);
 }
 
-@keyframes flipIn {
+@keyframes charIn {
     0% {
-        transform: translateY(12px) rotateX(-90deg) scale(0.95);
         opacity: 0;
+        transform: translateY(10px);
         filter: blur(8px);
     }
-    60% {
-        transform: translateY(-2px) rotateX(5deg) scale(1);
-        opacity: 0.9;
-        filter: blur(1px);
-    }
     100% {
-        transform: translateY(0) rotateX(0) scale(1);
         opacity: 1;
+        transform: translateY(0);
         filter: blur(0);
     }
 }
 
-@keyframes flipOut {
+@keyframes wordExit {
     0% {
-        transform: translateY(0) rotateX(0) scale(1);
         opacity: 1;
+        transform: translateY(0) translateX(0) scale(1);
         filter: blur(0);
     }
     100% {
-        transform: translateY(-30px) rotateX(90deg) scale(0.95);
         opacity: 0;
+        transform: translateY(-40px) translateX(40px) scale(2);
         filter: blur(8px);
     }
 }
