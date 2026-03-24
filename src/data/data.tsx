@@ -194,9 +194,9 @@ const allProjects: ProjectEntry[] = [
     demo: "https://korhrd-dev.vercel.app/",
     detail: {
       period: "2026. 01. 04 ~ 2026. 01. 26",
-      mainImage: "/detail__main/main__page__img/korhrddev_main.png",
+      mainImage: "/detail__main/page3imgs/korhrdDev_Main.png",
       images: [
-        "/detail__main/page3imgs/korhrdDev_main.png",
+        "/detail__main/page3imgs/korhrdDev_Main.png",
         "/detail__main/page3imgs/korhrdDev_01.png",
         "/detail__main/page3imgs/korhrdDev_02.png",
         "/detail__main/page3imgs/korhrdDev_03.png",
@@ -378,7 +378,7 @@ const allProjects: ProjectEntry[] = [
     demo: "https://www.hanallcare.com/",
     detail: {
       period: "2026. 02. 02 ~ 2026. 03. 05",
-      mainImage: "/detail__main/main__page__img/allcare_main.png",
+      mainImage: "/detail__main/page3imgs/allcare_main.png",
       images: [
         "/detail__main/page3imgs/allcare_main.png",
         "/detail__main/page3imgs/allcare_01.png",
@@ -562,7 +562,7 @@ const allProjects: ProjectEntry[] = [
     demo: "https://xn--ok0bx6qu3cv5m.com/",
     detail: {
       period: "2025. 12.19 ~ 2026. 01.21",
-      mainImage: "/detail__main/main__page__img/baro_main.png",
+      mainImage: "/detail__main/page3imgs/baro_main.png",
       images: ["/detail__main/page3imgs/baro_main.png", "/detail__main/page3imgs/baro_02.png", "/detail__main/page3imgs/baro_03.png", "/detail__main/page3imgs/baro_04.png"],
       overview: [
         "한평생 바로기업은 정책자금·투자유치·경영지원·창업교육 분야의 컨설팅 서비스를 제공하는 기업의 공개 마케팅 사이트와 사내 어드민 대시보드를 단일 Next.js 16 App Router 프로젝트로 통합한 플랫폼입니다. 당근·인스타그램 등 광고 채널에서 유입된 상담 신청자의 소스를 자동으로 추적하여 채널별 전환 효과를 측정할 수 있도록 설계했습니다.",
@@ -846,7 +846,7 @@ const allProjects: ProjectEntry[] = [
     demo: "https://www.eduvisor.kr/",
     detail: {
       period: "2025. 06. 09 ~ 2025. 12. 24",
-      mainImage: "/detail__main/main__page__img/eduvisor_main.png",
+      mainImage: "/detail__main/page3imgs/eduvisor_main.png",
       images: ["/detail__main/page3imgs/eduvisor_main.png","/detail__main/page3imgs/eduvisor_01.png", "/detail__main/page3imgs/eduvisor_02.png", "/detail__main/page3imgs/eduvisor_03.png"],
 
       overview: [
@@ -978,7 +978,7 @@ const allProjects: ProjectEntry[] = [
     demo: "#",
     detail: {
       period: "2025. 08. 26 ~ 현재",
-      mainImage: "/detail__main/main__page__img/crm_main.png",
+      mainImage: "/detail__main/page3imgs/crm_main.png",
       images: [
         "/detail__main/page3imgs/pinkshop__main.png",
         "/detail__main/page3imgs/pinkshop__contents.png",

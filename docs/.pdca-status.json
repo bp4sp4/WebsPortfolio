@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-09T01:19:32.874Z",
+  "lastUpdated": "2026-03-24T08:47:19.177Z",
   "activeFeatures": [
     "data",
     "[id]",
@@ -19,9 +19,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:02:53.120Z",
-        "lastUpdated": "2026-03-08T10:18:49.395Z"
+        "lastUpdated": "2026-03-24T08:21:57.441Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\WebsPortfolio-master\\WebsPortfolio-master\\src\\data\\data.tsx"
+      "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/data/data.tsx"
     },
     "[id]": {
       "phase": "do",
@@ -32,9 +32,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:18:27.380Z",
-        "lastUpdated": "2026-03-08T09:52:33.314Z"
+        "lastUpdated": "2026-03-24T08:23:59.514Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\WebsPortfolio-master\\WebsPortfolio-master\\src\\app\\project\\[id]\\page.tsx"
+      "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/app/project/[id]/page.tsx"
     },
     "WebsPortfolio-master": {
       "phase": "do",
@@ -58,9 +58,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T01:07:56.993Z",
-        "lastUpdated": "2026-03-09T01:18:59.910Z"
+        "lastUpdated": "2026-03-24T08:47:19.177Z"
       },
-      "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/components/Header.tsx"
+      "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/components/Projects.tsx"
     },
     "ui": {
       "phase": "do",
@@ -84,7 +84,7 @@
   "session": {
     "startedAt": "2026-03-07T14:48:17.076Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-09T01:19:32.874Z"
+    "lastActivity": "2026-03-24T08:47:19.177Z"
   },
   "history": [
     {
@@ -576,6 +576,156 @@
     {
       "timestamp": "2026-03-09T01:19:32.874Z",
       "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:54:48.910Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:54:58.256Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:55:18.956Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:55:31.269Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:09:47.674Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:21:43.583Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:21:46.890Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:21:50.544Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:21:53.595Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:21:57.441Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:23:59.514Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:26:56.259Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:27:01.783Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:27:11.180Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:27:29.012Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:37:22.357Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:37:29.342Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:39:54.028Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:42:40.392Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:43:01.076Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:43:06.500Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:43:57.617Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:47:02.107Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:47:12.421Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:47:19.177Z",
+      "feature": "WebsPortfolio",
       "phase": "do",
       "action": "updated"
     }

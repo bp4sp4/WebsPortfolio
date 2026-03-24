@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import CursorFollower from "@/components/CursorFollower";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       </head>
       <body>
         <div className="cursor"></div>
+        <CursorFollower />
         {children}
       </body>
     </html>

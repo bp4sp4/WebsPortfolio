@@ -2,12 +2,12 @@
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import Link from "next/link";
-import { projectDetails, projectIds, footerInfo } from "@/data/data";
+import { useRouter } from "next/navigation";
+import { projectDetails, projectIds } from "@/data/data";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import styles from "./projectDetail.module.css";
 
-// 프로젝트 데이터 인터페이스 정의
 interface ProjectData {
   title: string;
   period: string;
@@ -15,27 +15,9 @@ interface ProjectData {
   mainImage: string;
   images: string[];
   overview: string[];
-  role: {
-    type: string;
-    parts: string[];
-  };
-  links: {
-    github: string;
-    demo: string;
-    figma?: string;
-  };
-  goals: {
-    icon: string;
-    title: string;
-    description: string;
-  }[];
-  technologies: {
-    category: string;
-    items: {
-      name: string;
-      description: string;
-    }[];
-  }[];
+  role: { type: string; parts: string[] };
+  links: { github: string; demo: string; figma?: string };
+  goals: { icon: string; title: string; description: string }[];
   keyFeatures?: {
     icon: string;
     title: string;
@@ -44,406 +26,374 @@ interface ProjectData {
     link?: string;
     category?: string;
   }[];
-  metrics?: {
-    value: string;
-    label: string;
-    icon: string;
+  metrics?: { value: string; label: string; icon: string }[];
+  technologies: {
+    category: string;
+    items: { name: string; description: string }[];
   }[];
-  challenges: {
-    title: string;
-    challenge: string;
-    solution: string;
-  }[];
+  challenges: { title: string; challenge: string; solution: string }[];
   outcome: string[];
 }
 
 export default function ProjectDetail() {
   const params = useParams();
+  const router = useRouter();
+
   const [projectData, setProjectData] = useState<ProjectData | null>(null);
-  const [prevProject, setPrevProject] = useState<{ id: string; title: string }>(
-    { id: "", title: "" }
-  );
-  const [nextProject, setNextProject] = useState<{ id: string; title: string }>(
-    { id: "", title: "" }
-  );
+  const [prevProject, setPrevProject] = useState<{ id: string; title: string; image: string }>({ id: "", title: "", image: "" });
+  const [nextProject, setNextProject] = useState<{ id: string; title: string; image: string }>({ id: "", title: "", image: "" });
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<string>("");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const [showGalleryArrows, setShowGalleryArrows] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const heroRef = useRef<HTMLDivElement>(null);
-  const overviewRef = useRef<HTMLDivElement>(null);
-  const roleRef = useRef<HTMLDivElement>(null);
-  const keyFeaturesRef = useRef<HTMLDivElement>(null);
-  const metricsRef = useRef<HTMLDivElement>(null);
-  const goalsRef = useRef<HTMLDivElement>(null);
-  const technologiesRef = useRef<HTMLDivElement>(null);
-  const challengesRef = useRef<HTMLDivElement>(null);
-  const outcomeRef = useRef<HTMLDivElement>(null);
-  const moreProjectsRef = useRef<HTMLDivElement>(null);
-  const navContainerRef = useRef<HTMLElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
 
-  const setupAnimations = useCallback(() => {
-    // 스크롤 애니메이션
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -100px 0px",
+  // ── Scroll progress bar
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressRef.current) {
+        progressRef.current.style.width = `${(scrolled / total) * 100}%`;
+      }
+      setScrolled(scrolled > 60);
     };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    const fadeElements = [
-      overviewRef.current,
-      roleRef.current,
-      keyFeaturesRef.current,
-      metricsRef.current,
-      goalsRef.current,
-      technologiesRef.current,
-      challengesRef.current,
-      outcomeRef.current,
-      moreProjectsRef.current,
-    ].filter(Boolean) as HTMLElement[];
+  // ── Scroll-reveal animations
+  const setupReveal = useCallback(() => {
+    const els = document.querySelectorAll(`.${styles.reveal}`);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            (e.target as HTMLElement).classList.add(styles.revealed);
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
+    );
+    els.forEach((el) => obs.observe(el));
+    return obs;
+  }, []);
 
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(styles.fade_in);
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
+  // ── Animated metric counters
+  const animateCounters = useCallback(() => {
+    const counters = document.querySelectorAll<HTMLElement>(`.${styles.metric_value_num}`);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const el = e.target as HTMLElement;
+          const raw = el.dataset.target || "0";
+          const suffix = raw.replace(/[0-9.]/g, "");
+          const target = parseFloat(raw);
+          const duration = 1600;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(target * ease) + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          obs.unobserve(el);
+        });
+      },
+      { threshold: 0.6 }
+    );
+    counters.forEach((c) => obs.observe(c));
+    return obs;
+  }, []);
 
-    fadeElements.forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(30px)";
-      el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-      fadeObserver.observe(el);
-    });
-
-    // 페이지 로드 시 히어로 섹션 애니메이션
-    const projectHero = heroRef.current;
-    if (projectHero) {
-      projectHero.style.opacity = "0";
-      projectHero.style.transform = "translateY(30px)";
-      projectHero.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-
-      setTimeout(() => {
-        projectHero.style.opacity = "1";
-        projectHero.style.transform = "translateY(0)";
-      }, 300);
-    }
-
-    return fadeObserver;
+  // ── ESC lightbox
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightboxImage(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, []);
 
   useEffect(() => {
-    if (!params.id) return;
-
-    // 현재 프로젝트 ID 가져오기
-    const id = Array.isArray(params.id) ? params.id[0] : params.id;
-
-    // 현재 프로젝트 데이터 설정
-    if (id && projectDetails[id as string]) {
-      setProjectData(projectDetails[id as string]);
-
-      // 이전/다음 프로젝트 설정
-      const currentIndex = projectIds.indexOf(id as string);
-
-      // 이전 프로젝트 (첫 번째 프로젝트인 경우 마지막 프로젝트로)
-      const prevIndex =
-        currentIndex > 0 ? currentIndex - 1 : projectIds.length - 1;
-      const prevId = projectIds[prevIndex];
-      setPrevProject({
-        id: prevId,
-        title: projectDetails[prevId].title,
-      });
-
-      // 다음 프로젝트 (마지막 프로젝트인 경우 첫 번째 프로젝트로)
-      const nextIndex =
-        currentIndex < projectIds.length - 1 ? currentIndex + 1 : 0;
-      const nextId = projectIds[nextIndex];
-      setNextProject({
-        id: nextId,
-        title: projectDetails[nextId].title,
-      });
-    }
-
-    // 커스텀 커서 효과 (smooth follow)
-    const cursor = document.querySelector(".cursor") as HTMLElement;
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    let animationId: number;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    const animate = () => {
-      const dx = mouseX - cursorX;
-      const dy = mouseY - cursorY;
-      cursorX += dx * 0.15;
-      cursorY += dy * 0.15;
-
-      if (cursor) {
-        cursor.style.left = cursorX + "px";
-        cursor.style.top = cursorY + "px";
-      }
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleMouseDown = () => {
-      if (cursor) {
-        cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
-        cursor.style.borderColor = "#fd79a8";
-      }
-    };
-
-    const handleMouseUp = () => {
-      if (cursor) {
-        cursor.style.transform = "translate(-50%, -50%) scale(1)";
-        cursor.style.borderColor = "#6c5ce7";
-      }
-    };
-
-    const fadeObserver = setupAnimations();
-
-    // 네비게이션 스크롤 이벤트 처리
-    const handleScroll = () => {
-      const nav = navContainerRef.current;
-      if (window.scrollY > 50 && nav) {
-        nav.classList.add("scrolled");
-      } else if (nav) {
-        nav.classList.remove("scrolled");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mouseup", handleMouseUp);
-
-    // ESC 키로 라이트박스 닫기
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setLightboxImage(null);
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-
-    // 클린업 함수
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("keydown", handleKeyDown);
-      cancelAnimationFrame(animationId);
-      fadeObserver.disconnect();
-    };
-  }, [params.id, setupAnimations]);
-
-  // 라이트박스 열릴 때 스크롤 방지
-  useEffect(() => {
-    if (lightboxImage) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = lightboxImage ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [lightboxImage]);
 
-  // 프로젝트 데이터가 없는 경우 로딩 표시
+  // ── Load project data
+  useEffect(() => {
+    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+    if (!id || !projectDetails[id]) return;
+
+    setProjectData(projectDetails[id]);
+    setCurrentImageIndex(0);
+
+    const idx = projectIds.indexOf(id);
+    const prevId = projectIds[idx > 0 ? idx - 1 : projectIds.length - 1];
+    const nextId = projectIds[idx < projectIds.length - 1 ? idx + 1 : 0];
+
+    setPrevProject({
+      id: prevId,
+      title: projectDetails[prevId].title,
+      image: projectDetails[prevId].mainImage,
+    });
+    setNextProject({
+      id: nextId,
+      title: projectDetails[nextId].title,
+      image: projectDetails[nextId].mainImage,
+    });
+  }, [params.id]);
+
+  // ── Scroll-reveal & counters: projectData가 렌더된 뒤에 실행
+  useEffect(() => {
+    if (!projectData) return;
+    const revealObs = setupReveal();
+    const counterObs = animateCounters();
+    return () => {
+      revealObs.disconnect();
+      counterObs.disconnect();
+    };
+  }, [projectData, setupReveal, animateCounters]);
+
   if (!projectData) {
-    return <div className={styles.loading}>프로젝트 정보를 불러오는 중...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loading_spinner}></div>
+        <span>Loading...</span>
+      </div>
+    );
   }
+
+  const SECTION_NUMS = ["01", "02", "03", "04", "05", "06", "07"];
+  let sectionIdx = 0;
+
+  const hasCategories = (projectData.keyFeatures ?? []).some((f) => f.category);
+  const categories = hasCategories
+    ? Array.from(new Set((projectData.keyFeatures ?? []).map((f) => f.category).filter(Boolean))) as string[]
+    : [];
+  const currentTab = activeTab || categories[0] || "";
+  const displayedFeatures = hasCategories
+    ? (projectData.keyFeatures ?? []).filter((f) => f.category === currentTab)
+    : (projectData.keyFeatures ?? []);
 
   return (
     <>
-      <header className={styles.detail_header}>
-        <nav className={styles.nav_container} ref={navContainerRef}>
+      {/* ── Progress track */}
+      <div className={styles.progress_track}>
+        <div className={styles.progress_bar} ref={progressRef} />
+      </div>
+
+      {/* ── Sticky nav */}
+      <header
+        className={`${styles.detail_header} ${scrolled ? styles.header_scrolled : ""}`}
+        ref={navRef}
+      >
+        <nav className={styles.nav_container}>
           <Link href="/#projects" className={styles.back_btn}>
             <i className="fas fa-arrow-left"></i>
-            <span>돌아가기</span>
+            <span>프로젝트</span>
           </Link>
-          <div className={styles.logo}>SangHun&apos;s Portfolio</div>
+          <span className={styles.logo}>SangHun</span>
         </nav>
       </header>
 
       <main className={styles.project_detail}>
-        <div className={styles.project_hero} ref={heroRef}>
-          <div className={styles.project_title_container}>
-            <h1 className={styles.project_title}>{projectData.title}</h1>
-            <div className={styles.project_period}>{projectData.period}</div>
-          </div>
-          <div className={styles.project_tags}>
-            {projectData.tags.map((tag: string, index: number) => (
-              <span className={styles.project_tag} key={index}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
 
-        <div className={styles.project_overview} ref={overviewRef}>
-          {projectData.mainImage && (
-            <div className={styles.overview_gallery}>
-              <div
-                className={`${styles.overview_image} ${showGalleryArrows ? styles.overview_image_active : ""}`}
-                style={{ position: "relative", width: "100%", height: "400px", cursor: "pointer" }}
-                onClick={() => {
-                  if (projectData.images.length > 1 && !showGalleryArrows) {
-                    setShowGalleryArrows(true);
-                  } else {
-                    setShowGalleryArrows(false);
-                    setLightboxImage(projectData.images[currentImageIndex] || projectData.mainImage);
-                  }
-                }}
-              >
-                <Image
-                  src={projectData.images[currentImageIndex] || projectData.mainImage}
-                  alt={`${projectData.title} 프로젝트 이미지 ${currentImageIndex + 1}`}
-                  className={styles.main_project_image}
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-                <div className={styles.image_hover_overlay}>
-                  <i className="fas fa-search-plus"></i>
-                </div>
-                {projectData.images.length > 1 && showGalleryArrows && (
-                  <>
-                    <button
-                      className={`${styles.gallery_arrow} ${styles.gallery_arrow_left}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentImageIndex((prev) =>
-                          prev === 0 ? projectData.images.length - 1 : prev - 1
-                        );
-                      }}
-                      aria-label="이전 이미지"
-                    >
-                      <i className="fas fa-chevron-left"></i>
-                    </button>
-                    <button
-                      className={`${styles.gallery_arrow} ${styles.gallery_arrow_right}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentImageIndex((prev) =>
-                          prev === projectData.images.length - 1 ? 0 : prev + 1
-                        );
-                      }}
-                      aria-label="다음 이미지"
-                    >
-                      <i className="fas fa-chevron-right"></i>
-                    </button>
-                    <div className={styles.gallery_counter}>
-                      {currentImageIndex + 1} / {projectData.images.length}
-                    </div>
-                  </>
+        {/* ════════════════════════════════════
+            CINEMATIC HERO
+        ════════════════════════════════════ */}
+        <section
+          className={styles.hero_cinematic}
+          style={{ backgroundImage: `url(${projectData.mainImage})` }}
+        >
+          <div className={styles.hero_cin_overlay} />
+
+          <div className={styles.hero_cin_content}>
+            {/* Tags float above title */}
+            <div className={styles.hero_tag_row}>
+              {projectData.tags.map((tag, i) => (
+                <span key={i} className={styles.hero_tag_pill}>{tag}</span>
+              ))}
+            </div>
+
+            {/* Massive title */}
+            <h1 className={styles.hero_cin_title}>{projectData.title}</h1>
+
+            {/* Period + action links */}
+            <div className={styles.hero_cin_bottom}>
+              <span className={styles.hero_cin_period}>
+                <i className="fas fa-calendar-alt"></i>
+                {projectData.period}
+              </span>
+              <div className={styles.hero_action_row}>
+                {projectData.links.github && projectData.links.github !== "#" && (
+                  <a
+                    href={projectData.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.hero_btn_ghost}
+                  >
+                    <i className="fab fa-github"></i> GitHub
+                  </a>
+                )}
+                {projectData.links.demo && projectData.links.demo !== "#" && (
+                  <a
+                    href={projectData.links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.hero_btn_solid}
+                  >
+                    <i className="fas fa-external-link-alt"></i> Live Demo
+                  </a>
+                )}
+                {projectData.links.figma && (
+                  <a
+                    href={projectData.links.figma}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.hero_btn_ghost}
+                  >
+                    <i className="fab fa-figma"></i> Figma
+                  </a>
                 )}
               </div>
-              {projectData.images.length > 1 && (
-                <div className={styles.gallery_thumbnails}>
-                  {projectData.images.map((img, index) => (
-                    <button
-                      key={index}
-                      className={`${styles.gallery_thumb} ${index === currentImageIndex ? styles.gallery_thumb_active : ""}`}
-                      onClick={() => setCurrentImageIndex(index)}
-                      onDoubleClick={() => setLightboxImage(img)}
-                      style={{ position: "relative", width: "100%", height: "80px" }}
-                    >
-                      <Image
-                        src={img}
-                        alt={`썸네일 ${index + 1}`}
-                        fill
-                        style={{ objectFit: "cover" }}
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          <div className={styles.overview_content}>
-            <h2 className={styles.section_heading}>Overview</h2>
-            {projectData.overview.map((paragraph: string, index: number) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-
-            <div className={styles.project_links}>
-              {projectData.links.github && projectData.links.github !== "#" && (
-                <a
-                  href={projectData.links.github}
-                  target="_blank"
-                  className={`${styles.btn} ${styles.btn_github}`}
-                >
-                  <i className="fab fa-github"></i> GitHub
-                </a>
-              )}
-              {projectData.links.demo && projectData.links.demo !== "#" && (
-                <a
-                  href={projectData.links.demo}
-                  target="_blank"
-                  className={`${styles.btn} ${styles.btn_demo}`}
-                >
-                  <i className="fas fa-external-link-alt"></i> 데모 사이트
-                </a>
-              )}
-              {projectData.links && projectData.links.figma && (
-                <a
-                  href={projectData.links.figma}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.btn} ${styles.btn_figma}`}
-                >
-                  <i className="fab fa-figma"></i> Figma 디자인
-                </a>
-              )}
             </div>
           </div>
-        </div>
 
-        <div className={styles.project_role} ref={roleRef}>
-          <h2 className={styles.section_heading}>나의 역할</h2>
-          <div className={styles.role_container}>
-            <div className={styles.role_type}>
-              <i className="fas fa-user-tag"></i>
-              <span>{projectData.role.type}</span>
-            </div>
-            <div className={styles.role_parts}>
-              {projectData.role.parts.map((part, index: number) => (
-                <div className={styles.role_part_item} key={index}>
-                  <i className="fas fa-check"></i>
-                  <span>{part}</span>
-                </div>
+          <div className={styles.hero_scroll_hint}>
+            <span>Scroll</span>
+            <i className="fas fa-long-arrow-alt-down"></i>
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════
+            01 OVERVIEW
+        ════════════════════════════════════ */}
+        <section className={`${styles.detail_section} ${styles.reveal}`}>
+          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
+          <div className={styles.section_inner}>
+            <h2 className={styles.section_heading}>Overview</h2>
+            <div className={styles.overview_body}>
+              {projectData.overview.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (() => {
-          const hasCategories = projectData.keyFeatures!.some((f) => f.category);
-          const categories = hasCategories
-            ? Array.from(new Set(projectData.keyFeatures!.map((f) => f.category).filter(Boolean))) as string[]
-            : [];
-          const currentTab = activeTab || categories[0] || "";
-          const displayedFeatures = hasCategories
-            ? projectData.keyFeatures!.filter((f) => f.category === currentTab)
-            : projectData.keyFeatures!;
+        {/* ════════════════════════════════════
+            FULL-WIDTH IMAGE GALLERY
+        ════════════════════════════════════ */}
+        {projectData.images.length > 0 && (
+          <section className={`${styles.gallery_section} ${styles.reveal}`}>
+            {/* Main image */}
+            <div
+              className={styles.gallery_main_wrap}
+              onClick={() => setLightboxImage(projectData.images[currentImageIndex])}
+            >
+              <div className={styles.gallery_main_img_box}>
+                <Image
+                  src={projectData.images[currentImageIndex]}
+                  alt={`${projectData.title} 이미지 ${currentImageIndex + 1}`}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  className={styles.gallery_main_img}
+                />
+                <div className={styles.gallery_zoom_hint}>
+                  <i className="fas fa-expand"></i>
+                  <span>클릭하여 확대</span>
+                </div>
+              </div>
 
-          return (
-            <div className={styles.project_key_features} ref={keyFeaturesRef}>
+              {/* Prev/Next arrows */}
+              {projectData.images.length > 1 && (
+                <>
+                  <button
+                    className={`${styles.gal_arrow} ${styles.gal_arrow_left}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex((p) => p === 0 ? projectData.images.length - 1 : p - 1);
+                    }}
+                  >
+                    <i className="fas fa-chevron-left"></i>
+                  </button>
+                  <button
+                    className={`${styles.gal_arrow} ${styles.gal_arrow_right}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex((p) => p === projectData.images.length - 1 ? 0 : p + 1);
+                    }}
+                  >
+                    <i className="fas fa-chevron-right"></i>
+                  </button>
+                  <div className={styles.gal_counter}>
+                    {currentImageIndex + 1} <span>/</span> {projectData.images.length}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Thumbnail strip */}
+            {projectData.images.length > 1 && (
+              <div className={styles.gallery_strip}>
+                {projectData.images.map((img, i) => (
+                  <button
+                    key={i}
+                    className={`${styles.gal_thumb} ${i === currentImageIndex ? styles.gal_thumb_active : ""}`}
+                    onClick={() => setCurrentImageIndex(i)}
+                    style={{ position: "relative" }}
+                  >
+                    <Image src={img} alt={`썸네일 ${i + 1}`} fill style={{ objectFit: "cover" }} />
+                    {i === currentImageIndex && <div className={styles.gal_thumb_indicator} />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ════════════════════════════════════
+            02 나의 역할
+        ════════════════════════════════════ */}
+        <section className={`${styles.detail_section} ${styles.reveal}`}>
+          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
+          <div className={styles.section_inner}>
+            <h2 className={styles.section_heading}>나의 역할</h2>
+            <div className={styles.role_layout}>
+              <div className={styles.role_badge}>
+                <i className="fas fa-user-cog"></i>
+                <span>{projectData.role.type}</span>
+              </div>
+              <div className={styles.role_parts_grid}>
+                {projectData.role.parts.map((part, i) => (
+                  <div key={i} className={styles.role_chip}>
+                    <span className={styles.role_chip_check}>✓</span>
+                    {part}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════
+            03 핵심 기능 (optional)
+        ════════════════════════════════════ */}
+        {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (
+          <section className={`${styles.detail_section} ${styles.reveal}`}>
+            <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
+            <div className={styles.section_inner}>
               <h2 className={styles.section_heading}>핵심 기능</h2>
+
               {hasCategories && (
                 <div className={styles.tab_group}>
                   {categories.map((cat) => (
                     <button
                       key={cat}
-                      className={`${styles.tab_button} ${currentTab === cat ? styles.tab_button_active : ""}`}
+                      className={`${styles.tab_btn} ${currentTab === cat ? styles.tab_btn_active : ""}`}
                       onClick={() => setActiveTab(cat)}
                     >
                       {cat}
@@ -451,177 +401,208 @@ export default function ProjectDetail() {
                   ))}
                 </div>
               )}
-              <div className={styles.key_features_container}>
-                {displayedFeatures.map((feature, index: number) => (
-                  <div className={styles.key_feature_item} key={index}>
-                    <div className={styles.key_feature_number}>
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-                    {feature.gif && (
-                      <div className={styles.key_feature_gif}>
+
+              <div className={styles.features_grid}>
+                {displayedFeatures.map((feat, i) => (
+                  <div key={i} className={styles.feat_card}>
+                    <div className={styles.feat_bg_num}>{String(i + 1).padStart(2, "0")}</div>
+
+                    {feat.gif && (
+                      <div className={styles.feat_gif_wrap}>
                         <Image
-                          src={feature.gif}
-                          alt={`${feature.title} 시연`}
+                          src={feat.gif}
+                          alt={feat.title}
                           width={600}
                           height={340}
                           style={{ objectFit: "cover", width: "100%", height: "auto" }}
                         />
                       </div>
                     )}
-                    <div className={styles.key_feature_icon}>
-                      <i className={feature.icon}></i>
+
+                    <div className={styles.feat_icon_wrap}>
+                      <i className={feat.icon}></i>
                     </div>
-                    <h3>{feature.title}</h3>
-                    <p>{feature.description}</p>
-                    {feature.link && (
+                    <h3 className={styles.feat_title}>{feat.title}</h3>
+                    <p className={styles.feat_desc}>{feat.description}</p>
+
+                    {feat.link && (
                       <a
-                        href={feature.link}
+                        href={feat.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={styles.key_feature_link}
+                        className={styles.feat_link}
                         onClick={(e) => e.stopPropagation()}
                       >
-                        사이트 방문 <i className="fas fa-external-link-alt"></i>
+                        사이트 방문 <i className="fas fa-arrow-right"></i>
                       </a>
                     )}
                   </div>
                 ))}
               </div>
             </div>
-          );
-        })()}
+          </section>
+        )}
 
-        {projectData.metrics && projectData.metrics.length > 0 && (
-          <div className={styles.project_metrics} ref={metricsRef}>
-            <h2 className={styles.section_heading}>숫자로 보는 성과</h2>
-            <div className={styles.metrics_container}>
-              {projectData.metrics.map((metric, index: number) => (
-                <div className={styles.metric_item} key={index}>
-                  <div className={styles.metric_icon}>
-                    <i className={metric.icon}></i>
+        {/* ════════════════════════════════════
+            사용 기술
+        ════════════════════════════════════ */}
+        <section className={`${styles.detail_section} ${styles.reveal}`}>
+          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
+          <div className={styles.section_inner}>
+            <h2 className={styles.section_heading}>사용 기술</h2>
+            <div className={styles.tech_layout}>
+              {projectData.technologies.map((tech, i) => (
+                <div key={i} className={styles.tech_group}>
+                  <span className={styles.tech_cat_label}>{tech.category}</span>
+                  <div className={styles.tech_pills}>
+                    {tech.items.map((item, j) => (
+                      <div key={j} className={styles.tech_pill} title={item.description}>
+                        <span className={styles.tech_name}>{item.name}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className={styles.metric_value}>{metric.value}</div>
-                  <div className={styles.metric_label}>{metric.label}</div>
                 </div>
               ))}
             </div>
           </div>
+        </section>
+
+        {/* ════════════════════════════════════
+            도전 과제 & 해결책
+        ════════════════════════════════════ */}
+        <section className={`${styles.detail_section} ${styles.reveal}`}>
+          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
+          <div className={styles.section_inner}>
+            <h2 className={styles.section_heading}>도전 과제 & 해결책</h2>
+            <div className={styles.challenges_list}>
+              {projectData.challenges.map((c, i) => (
+                <div key={i} className={styles.challenge_item}>
+                  <div className={styles.challenge_num}>{String(i + 1).padStart(2, "0")}</div>
+                  <div className={styles.challenge_body}>
+                    <h3 className={styles.challenge_title}>{c.title}</h3>
+                    <div className={styles.challenge_row}>
+                      <div className={styles.challenge_block}>
+                        <span className={styles.challenge_label}>
+                          <i className="fas fa-exclamation-circle"></i> 문제
+                        </span>
+                        <p>{c.challenge}</p>
+                      </div>
+                      <div className={styles.solution_block}>
+                        <span className={styles.solution_label}>
+                          <i className="fas fa-lightbulb"></i> 해결
+                        </span>
+                        <p>{c.solution}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════
+            METRICS (full-width banner, optional)
+        ════════════════════════════════════ */}
+        {projectData.metrics && projectData.metrics.length > 0 && (
+          <section className={`${styles.metrics_banner} ${styles.reveal}`}>
+            <div className={styles.metrics_grid}>
+              {projectData.metrics.map((m, i) => (
+                <div key={i} className={styles.metric_item}>
+                  <div className={styles.metric_icon_wrap}>
+                    <i className={m.icon}></i>
+                  </div>
+                  <div
+                    className={styles.metric_value_num}
+                    data-target={m.value}
+                  >
+                    {m.value}
+                  </div>
+                  <div className={styles.metric_label}>{m.label}</div>
+                </div>
+              ))}
+            </div>
+          </section>
         )}
 
-        <div className={styles.project_goals} ref={goalsRef}>
-          <h2 className={styles.section_heading}>프로젝트 목표</h2>
-          <div className={styles.goals_container}>
-            {projectData.goals.map((goal, index: number) => (
-              <div className={styles.goal_item} key={index}>
-                <div className={styles.goal_icon}>
-                  <i className={goal.icon}></i>
-                </div>
-                <h3>{goal.title}</h3>
-                <p>{goal.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.project_technologies} ref={technologiesRef}>
-          <h2 className={styles.section_heading}>사용 기술</h2>
-          <div className={styles.technologies_container}>
-            {projectData.technologies.map((tech, index: number) => (
-              <div className={styles.tech_category} key={index}>
-                <h3>{tech.category}</h3>
-                <ul className={styles.tech_list}>
-                  {tech.items.map((item, itemIndex: number) => (
-                    <li key={itemIndex}>
-                      <span className={styles.tech_name}>{item.name}</span> -{" "}
-                      {item.description}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.project_challenges} ref={challengesRef}>
-          <h2 className={styles.section_heading}>도전 과제 및 해결책</h2>
-          <div className={styles.challenges_container}>
-            {projectData.challenges.map((challenge, index: number) => (
-              <div className={styles.challenge_item} key={index}>
-                <h3>{challenge.title}</h3>
-                <p>
-                  <strong>도전 : </strong> {challenge.challenge}
-                </p>
-                <p>
-                  <strong>해결책 : </strong> {challenge.solution}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.project_outcome} ref={outcomeRef}>
-          <h2 className={styles.section_heading}>결과 및 성과</h2>
-          <div className={styles.outcome_content}>
-            {projectData.outcome.map((paragraph: string, index: number) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.more_projects} ref={moreProjectsRef}>
-          <h2 className={styles.section_heading}>다른 프로젝트</h2>
-          <div className={styles.projects_navigation}>
-            <div className={`${styles.project_nav} ${styles.prev_project}`}>
-              <Link href={`/project/${prevProject.id}`}>
-                <i className="fas fa-arrow-left"></i>
-                <div className={styles.nav_project_info}>
-                  <span className={styles.nav_label}>이전 프로젝트</span>
-                  <span className={styles.nav_title}>{prevProject.title}</span>
-                </div>
-              </Link>
-            </div>
-            <div className={`${styles.project_nav} ${styles.next_project}`}>
-              <Link href={`/project/${nextProject.id}`}>
-                <div className={styles.nav_project_info}>
-                  <span className={styles.nav_label}>다음 프로젝트</span>
-                  <span className={styles.nav_title}>{nextProject.title}</span>
-                </div>
-                <i className="fas fa-arrow-right"></i>
-              </Link>
+        {/* ════════════════════════════════════
+            결과 & 성과
+        ════════════════════════════════════ */}
+        <section className={`${styles.detail_section} ${styles.reveal}`}>
+          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
+          <div className={styles.section_inner}>
+            <h2 className={styles.section_heading}>결과 & 성과</h2>
+            <div className={styles.outcome_body}>
+              {projectData.outcome.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* ════════════════════════════════════
+            PREV / NEXT PROJECT (cinematic cards)
+        ════════════════════════════════════ */}
+        <section className={`${styles.nav_projects_section} ${styles.reveal}`}>
+          <p className={styles.nav_projects_label}>More Projects</p>
+          <div className={styles.nav_projects_grid}>
+            {/* Prev */}
+            <div
+              className={`${styles.nav_proj_card} ${styles.nav_proj_prev}`}
+              onClick={() => router.push(`/project/${prevProject.id}`)}
+              style={prevProject.image ? { backgroundImage: `url(${prevProject.image})` } : {}}
+            >
+              <div className={styles.nav_proj_overlay} />
+              <div className={styles.nav_proj_content}>
+                <span className={styles.nav_proj_hint}>
+                  <i className="fas fa-arrow-left"></i> 이전
+                </span>
+                <h3 className={styles.nav_proj_title}>{prevProject.title}</h3>
+              </div>
+            </div>
+
+            {/* Next */}
+            <div
+              className={`${styles.nav_proj_card} ${styles.nav_proj_next}`}
+              onClick={() => router.push(`/project/${nextProject.id}`)}
+              style={nextProject.image ? { backgroundImage: `url(${nextProject.image})` } : {}}
+            >
+              <div className={styles.nav_proj_overlay} />
+              <div className={styles.nav_proj_content}>
+                <span className={styles.nav_proj_hint}>
+                  다음 <i className="fas fa-arrow-right"></i>
+                </span>
+                <h3 className={styles.nav_proj_title}>{nextProject.title}</h3>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footer_bottom}>
-          <div className={styles.footer_copyright}>{footerInfo.copyright}</div>
-          <div className={styles.footer_credit}>{footerInfo.credit}</div>
-        </div>
+      {/* ── Detail footer */}
+      <footer className={styles.detail_footer}>
+        <span>© 2026 박상훈 · Portfolio</span>
       </footer>
 
+      {/* ════════════════════════════════════
+          LIGHTBOX
+      ════════════════════════════════════ */}
       {lightboxImage && (
-        <div
-          className={styles.lightbox_overlay}
-          onClick={() => setLightboxImage(null)}
-        >
-          <button
-            className={styles.lightbox_close}
-            onClick={() => setLightboxImage(null)}
-          >
+        <div className={styles.lightbox_overlay} onClick={() => setLightboxImage(null)}>
+          <button className={styles.lightbox_close} onClick={() => setLightboxImage(null)}>
             <i className="fas fa-times"></i>
           </button>
+
           {projectData.images.length > 1 && (
             <>
               <button
                 className={`${styles.lightbox_arrow} ${styles.lightbox_arrow_left}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const newIndex = currentImageIndex === 0 ? projectData.images.length - 1 : currentImageIndex - 1;
-                  setCurrentImageIndex(newIndex);
-                  setLightboxImage(projectData.images[newIndex]);
+                  const ni = currentImageIndex === 0 ? projectData.images.length - 1 : currentImageIndex - 1;
+                  setCurrentImageIndex(ni);
+                  setLightboxImage(projectData.images[ni]);
                 }}
-                aria-label="이전 이미지"
               >
                 <i className="fas fa-chevron-left"></i>
               </button>
@@ -629,27 +610,20 @@ export default function ProjectDetail() {
                 className={`${styles.lightbox_arrow} ${styles.lightbox_arrow_right}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const newIndex = currentImageIndex === projectData.images.length - 1 ? 0 : currentImageIndex + 1;
-                  setCurrentImageIndex(newIndex);
-                  setLightboxImage(projectData.images[newIndex]);
+                  const ni = currentImageIndex === projectData.images.length - 1 ? 0 : currentImageIndex + 1;
+                  setCurrentImageIndex(ni);
+                  setLightboxImage(projectData.images[ni]);
                 }}
-                aria-label="다음 이미지"
               >
                 <i className="fas fa-chevron-right"></i>
               </button>
             </>
           )}
-          <div
-            className={styles.lightbox_content}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={lightboxImage}
-              alt="확대 이미지"
-              fill
-              style={{ objectFit: "contain" }}
-            />
+
+          <div className={styles.lightbox_img_wrap} onClick={(e) => e.stopPropagation()}>
+            <Image src={lightboxImage} alt="확대" fill style={{ objectFit: "contain" }} />
           </div>
+
           {projectData.images.length > 1 && (
             <div className={styles.lightbox_counter}>
               {currentImageIndex + 1} / {projectData.images.length}

@@ -2,102 +2,81 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { developerInfo } from "@/data/data";
 import styles from "@/styles/main.module.css";
-import { FlipWords } from "./ui/flip-words";
+
+const ROTATING_WORDS = ["프론트엔드", "UI · UX", "인터랙션", "퍼블리싱", "React"];
+const WORD_HOLD_MS = 2200;
+const LETTER_STAGGER_MS = 55;
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
 
-  const fullText = `const developer = {
-  name: "${developerInfo.name}",
-  role: "${developerInfo.role}",
-  skills: [${developerInfo.skills.map((s) => `"${s}"`).join(", ")}],
-  tools: [${developerInfo.tools.map((t) => `"${t}"`).join(", ")}],
-  passion: "${developerInfo.passion}",
-  motto: "${developerInfo.motto}",
-};`;
+  // Cycle through rotating words
+  useEffect(() => {
+    const word = ROTATING_WORDS[wordIndex];
+    const enterDuration = word.length * LETTER_STAGGER_MS + 600;
 
-  const highlightCode = (text: string) => {
-    return text.split("\n").map((line, lineIdx) => {
-      const parts: React.ReactNode[] = [];
-      let remaining = line;
-      let keyIdx = 0;
+    const holdTimer = setTimeout(() => {
+      setIsExiting(true);
+      setTimeout(() => {
+        setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+        setIsExiting(false);
+      }, 380);
+    }, enterDuration + WORD_HOLD_MS);
 
-      while (remaining.length > 0) {
-        const boolMatch = remaining.match(/^(true|false)\b/);
-        if (boolMatch) {
-          parts.push(<span key={`bl-${lineIdx}-${keyIdx++}`} className={styles.code_boolean}>{boolMatch[0]}</span>);
-          remaining = remaining.slice(boolMatch[0].length);
-          continue;
-        }
-        const kwMatch = remaining.match(/^(const|let|var|function|return)\b/);
-        if (kwMatch) {
-          parts.push(<span key={`k-${lineIdx}-${keyIdx++}`} className={styles.code_keyword}>{kwMatch[0]}</span>);
-          remaining = remaining.slice(kwMatch[0].length);
-          continue;
-        }
-        const propMatch = remaining.match(/^(\s*\w+)(?=:)/);
-        if (propMatch) {
-          parts.push(<span key={`p-${lineIdx}-${keyIdx++}`} className={styles.code_property}>{propMatch[0]}</span>);
-          remaining = remaining.slice(propMatch[0].length);
-          continue;
-        }
-        const strMatch = remaining.match(/^"[^"]*"/);
-        if (strMatch) {
-          parts.push(<span key={`s-${lineIdx}-${keyIdx++}`} className={styles.code_string}>{strMatch[0]}</span>);
-          remaining = remaining.slice(strMatch[0].length);
-          continue;
-        }
-        const brMatch = remaining.match(/^[[\]{}(),;=]/);
-        if (brMatch) {
-          parts.push(<span key={`b-${lineIdx}-${keyIdx++}`} className={styles.code_bracket}>{brMatch[0]}</span>);
-          remaining = remaining.slice(1);
-          continue;
-        }
-        parts.push(remaining[0]);
-        remaining = remaining.slice(1);
-      }
-
-      return (
-        <span key={`line-${lineIdx}`}>
-          <span className={styles.code_line_number}>{lineIdx + 1}</span>
-          {parts}
-          {lineIdx < text.split("\n").length - 1 ? "\n" : ""}
-        </span>
-      );
-    });
-  };
+    return () => clearTimeout(holdTimer);
+  }, [wordIndex]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Active nav tracking
   useEffect(() => {
-    const cursorTimer = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 530);
+    const sections = document.querySelectorAll("section, header");
+    const navLinks = document.querySelectorAll(`.${styles.nav_links} a`);
 
-    return () => {
-      clearInterval(cursorTimer);
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              link.classList.remove(styles.nav_link_active);
+              if (link.getAttribute("href") === `#${id}`) {
+                link.classList.add(styles.nav_link_active);
+              }
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
+  const word = ROTATING_WORDS[wordIndex];
 
   return (
     <header id="home" className={styles.header}>
-      <nav className={`${styles.nav_container} ${scrolled ? styles.nav_container_scrolled : ""}`}>
-        <div className={styles.nav_logo}>SangHun&apos;s Web Portfolio</div>
-        <div className={`${styles.nav_links} ${mobileMenuOpen ? styles.nav_links_active : ""}`}>
+      <nav
+        className={`${styles.nav_container} ${
+          scrolled ? styles.nav_container_scrolled : ""
+        }`}
+      >
+        <div className={styles.nav_logo}>SangHun</div>
+        <div
+          className={`${styles.nav_links} ${
+            mobileMenuOpen ? styles.nav_links_active : ""
+          }`}
+        >
           <Link href="#home" className={styles.nav_link_active}>
             홈
           </Link>
@@ -106,90 +85,93 @@ export default function Header() {
           <Link href="#projects">프로젝트</Link>
           <Link href="#contact">연락처</Link>
         </div>
-        <div className={styles.mobile_menu} onClick={toggleMobileMenu}>
-          {mobileMenuOpen ? "\u2715" : "\u2630"}
+        <div
+          className={styles.mobile_menu}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? "✕" : "☰"}
         </div>
       </nav>
 
       <div className={styles.hero}>
-        <div className={styles.hero_intro}>
-          <div className={styles.hero_title_wrap}>
-            <h1>
-              안녕하세요,
-              <br />
-              <span className={styles.hero_highlight}>
-                <FlipWords
-                  words={["경험을 디자인", "문제를 해결", "가치를 창조", "성장을 추구"]}
-                  duration={3000}
-                  className={styles.flip_words_gradient}
-                /></span>
-              하는
-              <br />
-              개발자입니다.
-            </h1>
-          </div>
-          <p className={styles.hero_subtitle}>
-            <span className={styles.hero_tag} style={{ "--i": 1 } as React.CSSProperties}>
-              # 프론트엔드
-            </span>
-            <span className={styles.hero_tag} style={{ "--i": 2 } as React.CSSProperties}>
-              # 퍼블리싱
-            </span>
-            <span className={styles.hero_tag} style={{ "--i": 3 } as React.CSSProperties}>
-              # UI/UX
-            </span>
-            <span className={styles.hero_tag} style={{ "--i": 4 } as React.CSSProperties}>
-              # 인터랙션
-            </span>
-                 <span className={styles.hero_tag} style={{ "--i": 5 } as React.CSSProperties}>
-              # QA
-            </span>
-          </p>
-          <div className={styles.hero_desc}>
-            <p>
-             QA 경험을 바탕으로 예외 케이스까지 치밀하게 고려하며
-            </p>
-            <p>
-              테스트를 중시하는 사용자 경험 중심 개발자 입니다.
-            </p>
-          </div>
-        </div>
+        <div className={styles.hero_content}>
+          <p className={styles.hero_greeting}>안녕하세요, 저는</p>
 
-        <div className={styles.hero_image}>
-          <div className={styles.code_editor}>
-            <div className={styles.code_tab_bar}>
-              <div className={`${styles.code_tab} ${styles.code_tab_active}`}>
-                <i className="fas fa-file-code"></i>
-                developer.ts
-              </div>
-              <div className={styles.code_tab}>
-                <i className="fas fa-file-code"></i>
-                skills.ts
-              </div>
-            </div>
-            <pre>
-              <code>
-                {highlightCode(fullText)}
+          {/* Massive rotating word with letter stagger */}
+          <div className={styles.hero_main_line}>
+            <div className={styles.hero_word_overflow}>
+              {word.split("").map((letter, i) => (
                 <span
-                  style={{
-                    opacity: showCursor ? 1 : 0,
-                    color: "#6c5ce7",
-                    fontWeight: "bold",
-                  }}
+                  key={`${wordIndex}-${i}`}
+                  className={`${styles.hero_letter} ${
+                    isExiting ? styles.hero_letter_exit : ""
+                  }`}
+                  style={
+                    {
+                      "--letter-delay": `${i * LETTER_STAGGER_MS}ms`,
+                    } as React.CSSProperties
+                  }
                 >
-                  |
+                  {letter === " " ? "\u00A0" : letter}
                 </span>
-              </code>
-            </pre>
+              ))}
+            </div>
+          </div>
+
+          <p className={styles.hero_suffix}>
+            하는{" "}
+            <span className={styles.hero_name_accent}>개발자</span>입니다.
+          </p>
+
+          <div className={styles.hero_tags}>
+            {[
+              "# 프론트엔드",
+              "# 퍼블리싱",
+              "# UI/UX",
+              "# 인터랙션",
+              "# QA",
+            ].map((tag, i) => (
+              <span
+                key={i}
+                className={styles.hero_tag}
+                style={{ "--i": i + 1 } as React.CSSProperties}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className={styles.hero_cta_group}>
+            <Link href="#projects" className={styles.hero_cta_primary}>
+              프로젝트 보기
+              <i className="fas fa-arrow-right"></i>
+            </Link>
+            <Link href="#contact" className={styles.hero_cta_secondary}>
+              연락하기
+            </Link>
           </div>
         </div>
 
+        {/* Word counter decoration */}
+        <div className={styles.hero_number_deco}>
+          <span>0{wordIndex + 1}</span>
+          <div className={styles.hero_number_line}></div>
+          <span>0{ROTATING_WORDS.length}</span>
+        </div>
+
+        {/* Background shapes */}
         <div className={styles.hero_shapes}>
-          <div className={`${styles.shape} ${styles.shape_1} ${styles.floating}`}></div>
-          <div className={`${styles.shape} ${styles.shape_2} ${styles.floating}`} style={{ animationDelay: "1s" }}></div>
-          <div className={`${styles.shape} ${styles.shape_3} ${styles.floating}`} style={{ animationDelay: "2s" }}></div>
-          <div className={`${styles.shape} ${styles.shape_4} ${styles.floating}`} style={{ animationDelay: "1.5s" }}></div>
-          <div className={`${styles.shape} ${styles.shape_5} ${styles.floating}`} style={{ animationDelay: "0.5s" }}></div>
+          <div
+            className={`${styles.shape} ${styles.shape_1} ${styles.floating}`}
+          ></div>
+          <div
+            className={`${styles.shape} ${styles.shape_2} ${styles.floating}`}
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className={`${styles.shape} ${styles.shape_3} ${styles.floating}`}
+            style={{ animationDelay: "2s" }}
+          ></div>
         </div>
       </div>
 
