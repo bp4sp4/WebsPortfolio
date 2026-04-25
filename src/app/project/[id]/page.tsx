@@ -213,7 +213,7 @@ export default function ProjectDetail() {
             <i className="fas fa-arrow-left"></i>
             <span>프로젝트</span>
           </Link>
-          <span className={styles.logo}>SangHun</span>
+          <span className={styles.logo}>SangHun's WebPortfolio</span>
         </nav>
       </header>
 

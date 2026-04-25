@@ -523,7 +523,7 @@ const allProjects: ProjectEntry[] = [
     description:
       "회사 프론트엔드 개발 표준 및 베스트 프랙티스를 안내하는 가이드입니다. Next.js 기반 프로젝트에서 일관된 코드 스타일과 디자인 시스템을 적용하기 위한 사내 문서 사이트입니다.",
     tags: ["Next.js 14", "TypeScript", "Tailwind CSS", "shadcn UI"],
-    gifImage: "/main/work__gif/korhrddev.gif",
+    gifImage: "/main/work__gif/korhrdDev.gif",
     github: "https://github.com/bp4sp4/KorhrdDev",
     demo: "https://korhrd-dev.vercel.app/",
     detail: {
