@@ -71,7 +71,7 @@ export default function Header() {
           scrolled ? styles.nav_container_scrolled : ""
         }`}
       >
-        <div className={styles.nav_logo}>SangHun</div>
+        <div className={styles.nav_logo}>SangHun&apos;s WebPortfolio</div>
         <div
           className={`${styles.nav_links} ${
             mobileMenuOpen ? styles.nav_links_active : ""
@@ -94,8 +94,21 @@ export default function Header() {
       </nav>
 
       <div className={styles.hero}>
+        <div className={styles.hero_grid}>
         <div className={styles.hero_content}>
-          <p className={styles.hero_greeting}>안녕하세요, 저는</p>
+          <div className={styles.hero_status}>
+            <span className={styles.hero_status_dot}></span>
+            <span className={styles.hero_status_text}>Available for work</span>
+            <span className={styles.hero_status_divider}></span>
+            <span className={styles.hero_status_loc}>
+              <i className="fas fa-map-marker-alt"></i> Seoul, KR
+            </span>
+          </div>
+
+          <p className={styles.hero_greeting}>
+            <span className={styles.hero_greeting_wave}>👋</span>
+            <span>안녕하세요, 저는</span>
+          </p>
 
           {/* Massive rotating word with letter stagger */}
           <div className={styles.hero_main_line}>
@@ -152,11 +165,67 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Word counter decoration */}
-        <div className={styles.hero_number_deco}>
-          <span>0{wordIndex + 1}</span>
-          <div className={styles.hero_number_line}></div>
-          <span>0{ROTATING_WORDS.length}</span>
+        {/* Visual side - Code card + floating badges */}
+        <div className={styles.hero_visual}>
+          <div className={styles.hero_glow_orb}></div>
+
+          <div className={styles.hero_code_card}>
+            <div className={styles.hero_code_header}>
+              <span className={styles.hero_code_dot} style={{ background: "#ff5f57" }}></span>
+              <span className={styles.hero_code_dot} style={{ background: "#ffbd2e" }}></span>
+              <span className={styles.hero_code_dot} style={{ background: "#28c840" }}></span>
+              <span className={styles.hero_code_filename}>developer.tsx</span>
+            </div>
+            <pre className={styles.hero_code_body}>
+              <code>
+                <span className={styles.hero_code_line}>
+                  <span className={styles.hero_code_keyword}>const</span>{" "}
+                  <span className={styles.hero_code_var}>sangHun</span> = {"{"}
+                </span>
+                <span className={styles.hero_code_line}>
+                  {"  "}<span className={styles.hero_code_prop}>name</span>:{" "}
+                  <span className={styles.hero_code_str}>{"\"SangHun\""}</span>,
+                </span>
+                <span className={styles.hero_code_line}>
+                  {"  "}<span className={styles.hero_code_prop}>role</span>:{" "}
+                  <span className={styles.hero_code_str}>{"\"Frontend Developer\""}</span>,
+                </span>
+                <span className={styles.hero_code_line}>
+                  {"  "}<span className={styles.hero_code_prop}>location</span>:{" "}
+                  <span className={styles.hero_code_str}>{"\"Seoul, KR\""}</span>,
+                </span>
+                <span className={styles.hero_code_line}>
+                  {"  "}<span className={styles.hero_code_prop}>stack</span>: [
+                  <span className={styles.hero_code_str}>{"\"React\""}</span>,{" "}
+                  <span className={styles.hero_code_str}>{"\"Next.js\""}</span>,{" "}
+                  <span className={styles.hero_code_str}>{"\"TS\""}</span>],
+                </span>
+                <span className={styles.hero_code_line}>
+                  {"  "}<span className={styles.hero_code_prop}>focus</span>: [
+                  <span className={styles.hero_code_str}>{"\"UI/UX\""}</span>,{" "}
+                  <span className={styles.hero_code_str}>{"\"Interaction\""}</span>],
+                </span>
+                <span className={styles.hero_code_line}>{"}"};</span>
+              </code>
+            </pre>
+          </div>
+
+          <div className={`${styles.hero_badge} ${styles.hero_badge_1}`}>
+            <i className="fab fa-react"></i>
+            <span>React</span>
+          </div>
+          <div className={`${styles.hero_badge} ${styles.hero_badge_2}`}>
+            <i className="fab fa-js"></i>
+            <span>TypeScript</span>
+          </div>
+          <div className={`${styles.hero_badge} ${styles.hero_badge_3}`}>
+            <i className="fas fa-bolt"></i>
+            <span>Next.js</span>
+          </div>
+          <div className={`${styles.hero_sparkle} ${styles.hero_sparkle_1}`}></div>
+          <div className={`${styles.hero_sparkle} ${styles.hero_sparkle_2}`}></div>
+          <div className={`${styles.hero_sparkle} ${styles.hero_sparkle_3}`}></div>
+        </div>
         </div>
 
         {/* Background shapes */}

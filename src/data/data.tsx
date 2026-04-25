@@ -181,7 +181,341 @@ type ProjectEntry = {
 // 순서 = 카드 목록 순서 + 상세 페이지 이전/다음 프로젝트 순서
 // ─────────────────────────────────────────────────────────────────────────
 const allProjects: ProjectEntry[] = [
-      {
+  {
+    id: "korhrd-office",
+    type: "company",
+    title: "한평생오피스",
+    date: "2026. 03. 16 ~ 진행 중",
+    description:
+      "한국HRD그룹의 사내 업무 통합 관리 시스템(ERP)입니다. 영업단인 학점은행제 사업부의 매출·정산·계약·상담 등 흩어진 업무를 한 시스템으로 모은 것이 출발점이며, 자격증·유학·실습·올케어 5개 사업부 전체로 확장해 매출관리·전자결재·손익 리포트·엑셀 일괄 처리까지 하나로 통합한 올인원 플랫폼입니다.",
+    tags: ["Next.js 16", "TypeScript", "Supabase", "Tailwind 4", "Recharts", "Popbill"],
+    gifImage: "/main/work__gif/office.png",
+    github: "https://github.com/bp4sp4/KorhrdGroupDB",
+    demo: "#",
+    detail: {
+      period: "2026. 03. 16 ~ 진행 중",
+      mainImage: "/main/work__gif/office.png",
+      images: [
+        "/detail__main/page3imgs/office_main_blur.png",
+        "/detail__main/page3imgs/office_chart.png",
+        "/detail__main/page3imgs/office_chart2.png",
+        "/detail__main/page3imgs/office_approvals.png",
+        "/detail__main/page3imgs/office_approvals_details.png",
+      ],
+      overview: [
+        "⚠️ 한평생오피스는 현재 한평생그룹 사내에서 운영 중인 시스템으로, 외부에 공개된 데모 사이트는 제공되지 않습니다. 또한 본 페이지에 노출된 화면 중 매출·고객·정산 등 회사 기밀 정보가 포함된 영역은 블러 처리되었으니 양해 부탁드립니다.",
+        "한평생오피스의 출발점은 한평생그룹의 영업단인 학점은행제 사업부였습니다. 영업단은 상담 등록·고객 관리·매출 등록·정산·계약·중복조회·배정 등 일선에서 다뤄야 할 업무가 너무 많고 도구가 파편화되어 있었기에, 이 모든 업무를 한 시스템으로 합치는 것이 1차 목표였습니다. 학점은행제 영업단의 워크플로우를 정리하고 올인원으로 모은 후, 같은 구조를 자격증·유학·실습·올케어 등 다른 사업부로 확장해 5개 사업부 통합 ERP로 발전시켰습니다.",
+        "Next.js 16 App Router + Supabase 기반 풀스택 아키텍처에 Tailwind CSS 4 + CSS Modules 하이브리드 스타일링, Recharts/Ant Design Charts/D3 Cloud의 다층 데이터 시각화, xlsx 대용량 엑셀 일괄 업로드/다운로드, Popbill 전자세금계산서·전자문서 연동까지 한국형 B2B 환경에 특화된 기능을 한 곳에 모았습니다.",
+      ],
+      role: {
+        type: "실무 프로젝트 (사내)",
+        parts: [
+          "프론트엔드 개발 100%",
+          "5개 사업부 통합 라우트 및 데이터 모델 설계",
+          "매출·손익 리포트 시각화 (Recharts · Ant Design Charts · D3 Cloud)",
+          "엑셀 일괄 업로드/다운로드 (xlsx)",
+          "Popbill 전자세금계산서·전자문서 연동",
+          "Supabase Auth + bcryptjs 하이브리드 인증",
+        ],
+      },
+      links: {
+        github: "https://github.com/bp4sp4/KorhrdGroupDB",
+        demo: "#",
+      },
+      goals: [
+        {
+          icon: "fas fa-bullhorn",
+          title: "영업단 업무 올인원 통합",
+          description:
+            "출발점인 학점은행제 영업단은 상담·매출·정산·계약·중복조회·배정 등 처리할 업무가 너무 많고 도구가 흩어져 있었습니다. 이 모든 업무를 한 시스템에 합쳐 영업단 한 화면에서 끝낼 수 있는 올인원 환경을 구축했습니다.",
+        },
+        {
+          icon: "fas fa-cubes",
+          title: "5개 사업부로 확장",
+          description:
+            "학점은행제 영업단을 위해 만든 구조를 자격증·유학·실습·올케어로 확장하여, 분야가 다른 5개 사업부를 단일 플랫폼에서 운영하는 통합 ERP로 발전시켰습니다.",
+        },
+        {
+          icon: "fas fa-chart-pie",
+          title: "데이터 기반 의사결정",
+          description:
+            "매출·계좌·손익을 실시간으로 차트와 대시보드로 시각화하여, 경영진과 사업부 담당자가 데이터를 직접 보고 빠르게 의사결정할 수 있는 환경을 만듭니다.",
+        },
+        {
+          icon: "fas fa-stamp",
+          title: "전자결재 & 한국형 B2B",
+          description:
+            "Popbill 연동을 통한 전자세금계산서·전자문서 발행과 사내 전자결재 워크플로우로 종이 기반 업무를 완전히 디지털화합니다.",
+        },
+        {
+          icon: "fas fa-file-excel",
+          title: "엑셀 워크플로우 일원화",
+          description:
+            "xlsx 라이브러리로 대용량 엑셀 일괄 업로드/다운로드를 지원하여, 비개발자도 익숙한 엑셀 기반 업무 흐름을 그대로 시스템에 연결합니다.",
+        },
+      ],
+      keyFeatures: [
+        {
+          icon: "fas fa-graduation-cap",
+          title: "5개 사업부 통합 라우트 [핵심]",
+          description: "/hakjeom(학점은행)·/cert(자격증)·/abroad(유학)·/practice(실습)·올케어를 단일 (dashboard) 그룹에서 운영하여 사업부별 데이터를 한 사이드바로 탐색합니다.",
+        },
+        {
+          icon: "fas fa-route",
+          title: "신청 유입 채널(UTM) 자동 분류",
+          description: "상담·신청 데이터에 utm_source(어디서 신청했는지)·utm_medium(어떤 매체)·utm_campaign(어떤 캠페인)을 자동 저장하여, 광고·블로그·검색·소개 등 채널별 신청 건수와 매출 전환을 어드민에서 한눈에 분류·필터링할 수 있습니다.",
+        },
+        {
+          icon: "fas fa-chart-line",
+          title: "매출·손익 리포트 [핵심]",
+          description: "Recharts·Ant Design Charts·D3 Cloud로 사업부별 매출·손익·로그 데이터를 다층 시각화. 기간별·부서별 필터링과 실시간 통계를 지원합니다.",
+        },
+        {
+          icon: "fas fa-file-invoice-dollar",
+          title: "Popbill 전자세금계산서",
+          description: "Popbill API 연동으로 한국형 전자세금계산서·전자문서 발행을 자동화하여 회계팀의 수기 작업을 제거했습니다.",
+        },
+        {
+          icon: "fas fa-file-excel",
+          title: "엑셀 일괄 업로드/다운로드",
+          description: "xlsx + jszip으로 수백~수천 건 매출·고객 데이터를 한 번에 업로드하고, 사업부별 정형화된 양식으로 일괄 다운로드합니다.",
+        },
+        {
+          icon: "fas fa-stamp",
+          title: "전자결재 워크플로우",
+          description: "결재 라인 자동 설정·다단계 승인·결재 이력 추적으로 종이 결재를 시스템화하고,",
+        },
+        {
+          icon: "fas fa-shield-alt",
+          title: "Supabase Auth + bcryptjs",
+          description: "Supabase Auth 세션과 bcryptjs 자체 비밀번호 검증을 결합한 하이브리드 인증으로 사내 정책에 맞춘 보안 체계를 구축했습니다.",
+        },
+      ],
+      technologies: [
+        {
+          category: "프론트엔드",
+          items: [
+            { name: "Next.js 16", description: "App Router 기반 풀스택 프레임워크" },
+            { name: "TypeScript 5", description: "타입 안정성을 갖춘 코드베이스 (TS 80%+)" },
+            { name: "Tailwind CSS 4 + CSS Modules", description: "유틸리티 + 모듈 하이브리드 스타일링" },
+            { name: "Lucide React + Motion", description: "아이콘 시스템과 마이크로 인터랙션" },
+          ],
+        },
+        {
+          category: "데이터 시각화 & 처리",
+          items: [
+            { name: "Recharts", description: "매출·손익 차트 시각화" },
+            { name: "Ant Design Charts", description: "고급 통계 차트 (Funnel·Sankey 등)" },
+            { name: "D3 Cloud", description: "로그·상담 데이터 워드클라우드" },
+            { name: "xlsx + jszip", description: "엑셀 업로드/다운로드 + 압축 처리" },
+            { name: "date-fns", description: "기간별 필터링·집계 연산" },
+          ],
+        },
+        {
+          category: "백엔드 & 한국형 B2B",
+          items: [
+            { name: "Supabase + @supabase/ssr", description: "PostgreSQL + Auth + Storage (서버사이드 세션 동기화)" },
+            { name: "bcryptjs", description: "비밀번호 해싱 자체 검증 레이어" },
+            { name: "Popbill", description: "전자세금계산서·전자문서 한국형 B2B API" },
+            { name: "Vercel", description: "프로덕션 배포" },
+          ],
+        },
+      ],
+      challenges: [
+        {
+          title: "영업단의 흩어진 업무를 하나로 합치기",
+          challenge:
+            "학점은행제 영업단은 상담 등록·고객 관리·매출 등록·정산 계산·계약·중복조회·배정 등 매일 처리해야 할 업무가 너무 많았고, 각 업무가 엑셀·메신저·구두로 흩어져 있어 누락과 중복이 자주 발생했습니다. 한 사람이 동시에 여러 도구를 오가며 작업해야 하는 비효율도 컸습니다.",
+          solution:
+            "영업단의 실제 업무 흐름을 1:1 인터뷰로 정리해 우선순위를 매기고, 가장 자주 쓰는 기능부터 한 화면에서 끝나도록 사이드바 + 통합 대시보드 구조로 재설계했습니다. 상담·매출·정산이 같은 데이터 모델로 연결되어 한 번 입력하면 자동으로 계약·정산까지 이어지도록 워크플로우를 자동화하여, 영업단의 작업 시간을 크게 단축했습니다.",
+        },
+        {
+          title: "5개 사업부의 이질적인 데이터 모델 통합",
+          challenge:
+            "학점은행제 영업단을 위한 구조를 자격증·유학·실습·올케어 사업부로 확장할 때, 사업부마다 고객 정보·매출 구조·결제 방식·정산 규칙이 모두 달라 단순 복제로는 운영이 불가능했습니다.",
+          solution:
+            "공통 베이스 스키마(고객·매출·결제)를 정의하고, 사업부별 확장 테이블을 분리하여 통합과 특화를 동시에 만족하는 하이브리드 모델을 설계. 라우트도 (dashboard) 그룹 하위에 사업부별 디렉토리로 분리하여 코드 격리와 통합 사이드바 동시 운영을 구현했습니다.",
+        },
+        {
+          title: "대용량 엑셀 데이터의 실시간 처리",
+          challenge:
+            "영업단은 기존 업무를 엑셀로 관리해왔기 때문에 수천 건의 매출·고객 데이터를 시스템으로 옮기려면 엑셀 일괄 업로드가 필수였는데, 그대로 처리하면 브라우저가 멈추거나 Supabase 응답이 느려지는 문제가 있었습니다.",
+          solution:
+            "xlsx 라이브러리로 클라이언트에서 엑셀 파싱을 처리하고, 데이터를 청크 단위로 분할해 Supabase에 순차 업로드. 진행률 UI로 사용자에게 처리 상황을 실시간으로 노출하여 체감 대기 시간을 줄였습니다.",
+        },
+      ],
+      metrics: [
+        {
+          value: "약 900명",
+          label: "학점은행제 누적 상담신청",
+          icon: "fas fa-users",
+        },
+        {
+          value: "502건",
+          label: "이번 달 신규 신청 (▲46%)",
+          icon: "fas fa-chart-line",
+        },
+        {
+          value: "1억원 이상",
+          label: "상담신청 매출",
+          icon: "fas fa-won-sign",
+        },
+        {
+          value: "실서비스",
+          label: "운영 중",
+          icon: "fas fa-rocket",
+        },
+      ],
+      outcome: [
+        "학점은행제 영업단의 흩어진 업무(상담·매출·정산·계약·중복조회·배정)를 한 시스템으로 합치는 것에서 출발하여, 같은 구조를 자격증·유학·실습·올케어 사업부로 확장해 5개 사업부 통합 ERP로 발전시켰습니다. 영업단이 여러 도구를 오가던 작업을 한 화면에서 끝낼 수 있게 되어 입력 누락·중복 작성 같은 일선 비효율이 크게 줄었습니다.",
+        "데이터 시각화 라이브러리 다중 통합, 엑셀 대용량 처리, Popbill 한국형 B2B API 연동, 신청 유입 채널(UTM) 자동 분류 등 단순 CRUD를 넘는 사내 업무 자동화 시스템 설계 경험을 쌓았으며, 영업단 등 비개발자가 직관적으로 쓸 수 있도록 실제 사용자 인터뷰를 거쳐 UX를 다듬는 사내 ERP 설계 역량을 확보했습니다.",
+      ],
+    },
+  },
+  // ──────────────────────────────────────────
+  {
+    id: "hanpyungsaeng-edu",
+    type: "company",
+    title: "한평생유학",
+    date: "2026. 03.25 ~ 2026. 03.30",
+    description:
+      "어린이·청소년 대상 해외 유학(미국·캐나다·영국·필리핀·뉴질랜드) 신청·결제 플랫폼입니다. 카카오·네이버 소셜 로그인, PayApp 간편결제, 결제 후 6개 섹션 신청서 작성, 어드민 검토까지 풀스택으로 구현했습니다.",
+    tags: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PayApp", "Tailwind 4"],
+    gifImage: "/main/work__gif/youhak.gif",
+    github: "https://github.com/bp4sp4/KorhrdStudyAbroad",
+    demo: "https://www.hanyouhak.com/",
+    detail: {
+      period: "2026. 03.25 ~ 2026. 03.30",
+      mainImage: "/detail__main/page3imgs/youhak_main.png",
+      images: [
+        "/detail__main/page3imgs/youhak_main.png",
+        "/detail__main/page3imgs/youhak_02.png",
+        "/detail__main/page3imgs/youhak_03.png",
+      ],
+      overview: [
+        "한평생유학은 \"잘 보내는 것보다, 잘 적응하는 유학이 중요합니다\"라는 슬로건 아래 어린이·청소년에게 미국·캐나다·영국·필리핀·뉴질랜드 등 해외 어학연수·사립학교·홈스테이 프로그램을 안내하고 온라인 결제와 학생 신청 정보를 받는 유학 신청 플랫폼입니다.",
+        "Next.js 16 App Router + React 19 + Supabase 기반으로 카카오·네이버 소셜 로그인, 네이버 클라우드 SMS 휴대폰 인증, PayApp 간편결제(카드·카카오페이·네이버페이·계좌이체 등), 결제 완료 후 6개 섹션 학생 신청서, 임시저장(draft) 복구, 여권·증명사진 업로드, 어드민 신청서 검토까지 결제·신청 전 흐름을 풀스택으로 구현했습니다.",
+      ],
+      role: {
+        type: "실무 프로젝트 (사내) · 2인 협업 (개발자 1 + 디자이너 1)",
+        parts: [
+          "프론트엔드 개발 100%",
+          "디자이너 Figma 시안 기반 퍼블리싱 (CSS Modules · BEM)",
+          "PayApp 결제 시스템 연동 (결제 요청 · webhook · 결과 페이지 · 상태 폴링)",
+          "결제 후 6개 섹션 학생 신청서 폼 설계·구현",
+          "Supabase 데이터 모델링 (profiles · applications · payments · consultations)",
+          "카카오·네이버 OAuth 소셜 로그인 + 네이버 클라우드 SMS 인증",
+          "어드민 대시보드 (신청서 검토 · 사용자 · 결제 통합 관리)",
+        ],
+      },
+      links: {
+        github: "https://github.com/bp4sp4/KorhrdStudyAbroad",
+        demo: "https://www.hanyouhak.com/",
+      },
+      goals: [
+        {
+          icon: "fas fa-credit-card",
+          title: "결제 → 신청 흐름 일원화",
+          description: "PayApp 결제와 학생 신청서를 하나의 흐름으로 연결해, 학부모가 결제 후 이탈 없이 신청까지 완료할 수 있는 매끄러운 UX를 제공합니다.",
+        },
+        {
+          icon: "fas fa-user-shield",
+          title: "신뢰 가능한 본인 확인",
+          description: "카카오·네이버 소셜 로그인과 네이버 클라우드 SMS 휴대폰 인증으로 회원 본인 확인을 강화하고 허위 신청을 차단합니다.",
+        },
+        {
+          icon: "fas fa-passport",
+          title: "유학 진행에 필요한 정보 완비",
+          description: "여권·증명사진 업로드, 보호자 정보, 영어 수준·알러지·수영 가능 여부 등 홈스테이/현지 진행에 필요한 정보를 결제 후 폼에서 수집합니다.",
+        },
+        {
+          icon: "fas fa-mobile-alt",
+          title: "모바일 우선 설계",
+          description: "학부모 사용자의 주된 환경인 모바일에 맞춰 결제 폼·신청 폼·서명 패드까지 모바일 우선으로 최적화했습니다.",
+        },
+      ],
+      keyFeatures: [
+        {
+          icon: "fas fa-credit-card",
+          title: "PayApp 간편결제 연동 [핵심]",
+          description: "PayApp REST API로 결제 요청·webhook·결과 페이지를 처리하고, 카드·카카오페이·네이버페이·계좌이체 등 다중 결제수단을 지원합니다.",
+        },
+        {
+          icon: "fas fa-file-signature",
+          title: "결제 후 6개 섹션 신청서 [핵심]",
+          description: "프로그램·참가자·여권·보호자·홈스테이·서명 6개 섹션으로 분리한 신청서. 임시저장(draft) 복구로 중간 이탈해도 이어서 작성 가능합니다.",
+        },
+        {
+          icon: "fas fa-video",
+          title: "Cloudflare 영상 빠른 로딩",
+          description: "Cloudflare CDN 스트리밍으로 글로벌 영상 재생을 가속하고, 첫 프레임 썸네일을 미리 띄워 로딩 체감 시간을 최소화했습니다.",
+        },
+        {
+          icon: "fas fa-user-shield",
+          title: "소셜 로그인 + SMS 인증",
+          description: "카카오·네이버 OAuth 소셜 로그인과 네이버 클라우드 SMS 휴대폰 인증으로 본인 확인을 강화하고 허위 신청을 차단합니다.",
+        },
+      ],
+      technologies: [
+        {
+          category: "프론트엔드",
+          items: [
+            { name: "Next.js 16", description: "App Router 기반 풀스택 프레임워크" },
+            { name: "React 19", description: "최신 React 서버 컴포넌트 활용" },
+            { name: "TypeScript 5", description: "타입 안정성을 갖춘 코드베이스" },
+            { name: "Tailwind CSS 4 + CSS Modules", description: "유틸리티 + BEM 방식 스타일링" },
+            { name: "Swiper 12", description: "메인 페이지 프로그램 슬라이더" },
+          ],
+        },
+        {
+          category: "결제 & 백엔드",
+          items: [
+            { name: "PayApp", description: "한국 간편결제 게이트웨이 - /api/payments(요청) · /webhook(콜백) · /result(결과) · /check(폴링)" },
+            { name: "Supabase", description: "PostgreSQL + Auth + Storage (profiles · applications · payments · consultations 테이블 + RLS)" },
+            { name: "@supabase/ssr", description: "서버 컴포넌트용 Supabase 클라이언트 (client/server/admin 분리)" },
+            { name: "Naver Cloud SMS", description: "회원가입 휴대폰 인증번호 발송 (HMAC-SHA256 서명)" },
+            { name: "Kakao / Naver OAuth", description: "소셜 로그인 callback 라우트 통한 자동 회원가입" },
+          ],
+        },
+        {
+          category: "미디어 & 배포",
+          items: [
+            { name: "Cloudflare CDN", description: "유학 소개 동영상 스트리밍 (첫 프레임 썸네일로 체감 로딩 시간 최소화)" },
+            { name: "Vercel", description: "프로덕션 배포 및 hanyouhak.com 커스텀 도메인 연결" },
+          ],
+        },
+      ],
+      challenges: [
+        {
+          title: "PayApp 결제 콜백과 신청서 폼의 매끄러운 연결",
+          challenge:
+            "PayApp은 결제 후 가맹점 feedbackurl로 결제 결과를 보내는 서버사이드 콜백 방식이라, 사용자 화면에서 결제 완료 직후 바로 학생 신청서 작성으로 이어지게 만들기 위해 클라이언트와 서버 콜백의 타이밍을 동기화해야 했습니다. 또한 PayApp 매출전표가 별도 팝업창에서 열려 부모창과의 통신이 COOP(Cross-Origin-Opener-Policy)으로 제약되는 문제도 있었습니다.",
+          solution:
+            "주문 생성 시 HPS-/BANK- 접두사가 붙은 고유 payapp_order_id를 발급하고, /api/payments/webhook이 결제 완료를 감지하면 payments 테이블의 status를 'completed'로 업데이트. 결제 결과 페이지에서 postMessage + localStorage 이중 채널로 부모창에 결제 완료를 알리는 방식(COOP 우회)을 구현하고, 클라이언트는 /api/payments/check로 폴링해 신청서 폼으로 즉시 전환합니다.",
+        },
+        {
+          title: "결제 진입 장벽과 유학 정보 수집의 균형",
+          challenge:
+            "결제 단계에서는 진입 장벽을 낮추기 위해 최소 정보만 받아야 했지만, 실제 유학 진행에는 여권·증명사진·보호자·홈스테이 등 학생의 상세 정보가 필요했습니다. 6개 섹션을 한 화면에 몰아넣으면 학부모가 작성 중 이탈하는 문제도 컸습니다.",
+          solution:
+            "결제(payments)와 신청서(applications)를 분리해 결제는 빠르게 끝내고, 결제 완료 후 6개 섹션 신청서를 단계별로 진행하도록 UX를 설계. 임시저장(draft) 복구 기능을 넣어 학부모가 중간에 페이지를 떠나도 이어서 작성할 수 있게 했습니다. 여권 사본·증명사진은 Supabase Storage에 업로드하고 어드민의 ImageViewer 컴포넌트에서 바로 확인할 수 있도록 연결했습니다.",
+        },
+        {
+          title: "유학 소개 영상의 글로벌 로딩 속도",
+          challenge:
+            "유학 소개 동영상을 메인 페이지에 노출해야 하는데, 영상 파일이 크고 해외/국내 사용자 모두에게 빠르게 재생되어야 했습니다.",
+          solution:
+            "동영상을 Cloudflare CDN으로 스트리밍하여 글로벌 엣지 캐싱을 적용하고, 영상 첫 프레임 이미지를 썸네일로 미리 노출. 사용자가 영상이 로딩되는 동안에도 빈 화면이 아닌 의미 있는 시각 정보를 보게 만들어 체감 로딩 시간을 크게 줄였습니다.",
+        },
+      ],
+      outcome: [
+        "어린이·청소년 대상 해외 유학 신청·결제 플랫폼을 hanyouhak.com에서 운영 중이며, 카카오·네이버 소셜 로그인, PayApp 간편결제, 6개 섹션 신청서, 임시저장 복구, 여권·증명사진 업로드, 어드민 검토까지 결제·신청 전 흐름을 풀스택으로 완성했습니다.",
+        "PayApp 결제 게이트웨이 통합과 COOP 제약 환경에서의 결제창 통신 처리, Supabase 기반 도메인 분리 데이터 모델링, Cloudflare CDN을 활용한 영상 로딩 최적화 등 단순 CRUD를 넘는 풀스택 비즈니스 시스템 설계 경험을 쌓았습니다. 디자이너와의 Figma 시안 기반 협업으로 시각적 완성도와 개발 속도를 동시에 확보했습니다.",
+      ],
+    },
+  },
+  // ──────────────────────────────────────────
+  {
     id: "korhrdDev",
     type: "company",
     title: "한평생 개발 가이드",
@@ -386,8 +720,8 @@ const allProjects: ProjectEntry[] = [
         "/detail__main/page3imgs/allcare_03.png",
       ],
       overview: [
-        "돌봄 서비스 제공자와 이용자를 연결하는 위치 기반 매칭 플랫폼을 Next.js 16 App Router와 Supabase 기반으로 풀스택 구축했습니다. 네이버 지도 API와 Haversine 알고리즘을 활용한 거리 기반 검색, PayApp SDK 기반 구독 결제 시스템, Google Gemini 기반 AI 챗봇 상담까지 핵심 서비스를 직접 설계하고 구현했습니다.",
-        "JWT + bcrypt 인증과 네이버 OAuth 소셜 로그인을 도입하여 보안성을 확보하고, 관리자 전용 대시보드를 통해 회원 관리·구독 현황·통계 분석까지 운영에 필요한 전반적인 어드민 기능을 구축했습니다. 30개 이상의 API 엔드포인트를 설계하여 인증, 결제, 구독, 사용자 관리 등 비즈니스 로직 전체를 커버합니다.",
+        "돌봄 서비스 제공자와 이용자를 연결하는 위치 기반 매칭 플랫폼을 Next.js 16 App Router와 Supabase 기반으로 풀스택 구축했습니다. 네이버 지도 API와 Haversine 알고리즘을 활용한 거리 기반 검색, PayApp SDK 기반 구독·패키지·단과 3종 결제 시스템, Google Gemini 기반 AI 챗봇 상담까지 핵심 서비스를 직접 설계하고 구현했습니다.",
+        "결제 모델은 구독(월정액)·패키지(묶음 상품)·단과(단건) 3가지로 분리 설계했고, 그중 패키지 판매가 전체 매출의 71%를 차지하며 핵심 수익원으로 자리잡았습니다. JWT + bcrypt 인증과 네이버 OAuth 소셜 로그인으로 보안성을 확보했으며, 관리자 대시보드에서 회원·구독·매출을 실시간으로 모니터링할 수 있도록 통계 시스템을 구축했습니다.",
       ],
       role: {
         type: "실무 프로젝트 (사내)",
@@ -444,6 +778,18 @@ const allProjects: ProjectEntry[] = [
           icon: "fas fa-shopping-cart",
           title: "구독 결제",
           description: "Basic·Standard·Premium 3단계 구독 플랜과 PayApp SDK 결제, 갱신·변경·해지·환불 처리 및 결제 이력 관리",
+          category: "결제",
+        },
+        {
+          icon: "fas fa-box-open",
+          title: "패키지 판매 시스템",
+          description: "여러 돌봄 서비스를 묶은 패키지 상품을 구매·결제할 수 있는 시스템. 전체 매출의 71%(약 4,600만원)를 차지하는 핵심 수익원으로, PayApp 단건 결제 + Supabase 주문/패키지 매핑 테이블로 구성",
+          category: "결제",
+        },
+        {
+          icon: "fas fa-receipt",
+          title: "단과 결제",
+          description: "개별 돌봄 회차를 단건으로 결제하는 모델. 구독·패키지에 부담을 느끼는 사용자를 위한 진입 장벽이 낮은 결제 옵션으로 약 1,900만원 매출 기여",
           category: "결제",
         },
         {
@@ -522,18 +868,18 @@ const allProjects: ProjectEntry[] = [
       ],
       metrics: [
         {
-          value: "4종",
-          label: "외부 API 연동 (지도·결제·AI·OAuth)",
-          icon: "fas fa-plug",
+          value: "약 110명",
+          label: "누적 회원 (이번 달 신규 71명, ▲129%)",
+          icon: "fas fa-users",
         },
         {
-          value: "첫 구축",
-          label: "실결제 시스템 도입",
-          icon: "fas fa-credit-card",
+          value: "약 6,000만원",
+          label: "총 매출 (구독·패키지·단과)",
+          icon: "fas fa-won-sign",
         },
         {
-          value: "매출 우상향",
-          label: "활성 구독 기반 성장 중",
+          value: "약 4,600만원",
+          label: "패키지 매출 (전체의 71%)",
           icon: "fas fa-chart-line",
         },
         {
@@ -543,9 +889,9 @@ const allProjects: ProjectEntry[] = [
         },
       ],
       outcome: [
-        "위치 기반 매칭부터 결제·인증·AI 상담까지 돌봄 서비스 플랫폼의 핵심 기능을 풀스택으로 직접 설계하고 구현하여, 실서비스로 운영 중인 완성도 높은 플랫폼을 구축했습니다.",
-        "PayApp SDK를 활용한 첫 실결제 시스템을 직접 구축하여 구독 기반 수익 모델을 성공적으로 도입했습니다. 활성 구독 회원이 지속적으로 늘어나며 매출이 우상향하고 있으며, 서비스 확장과 함께 구독자 수와 매출이 꾸준히 성장할 것으로 기대됩니다.",
-        "Next.js 16 App Router, Supabase, 네이버 지도 API, PayApp SDK, Google Gemini API 등 다양한 기술 스택을 통합하며, 복잡한 비즈니스 로직을 30개 이상의 API 엔드포인트로 체계적으로 분리·관리하는 역량을 확보했습니다.",
+        "위치 기반 매칭부터 결제·인증·AI 상담까지 돌봄 서비스 플랫폼의 핵심 기능을 풀스택으로 직접 설계·구현하여 실서비스로 운영 중이며, 누적 회원 약 110명(이번 달 신규 71명, ▲129% 성장), 총 매출 약 6,000만원(패키지 71% / 단과 29%)의 실제 비즈니스 성과를 만들어냈습니다.",
+        "PayApp SDK 기반의 첫 실결제 시스템을 직접 구축하여 구독·패키지·단과 3종 결제 모델을 도입했고, 그중 패키지 판매가 약 4,600만원으로 매출의 핵심 축이 됐습니다. 단순 기능 구현을 넘어 실제 매출을 만드는 결제·구독 플랫폼을 책임지고 운영하는 경험을 쌓았습니다.",
+        "Next.js 16 App Router, Supabase, 네이버 지도 API, PayApp SDK, Google Gemini API 등 다양한 기술 스택을 통합하며, 30개 이상의 API 엔드포인트로 비즈니스 로직을 체계적으로 분리·관리하는 풀스택 설계 역량을 확보했습니다.",
       ],
     },
   },
@@ -690,7 +1036,9 @@ const allProjects: ProjectEntry[] = [
     },
   },
   // ──────────────────────────────────────────
-  {
+  // [REMOVED] 마케팅 랜딩사이트 모음
+  // ──────────────────────────────────────────
+  /* {
     id: "landingsite",
     type: "company",
     title: "마케팅 랜딩사이트 모음",
@@ -832,7 +1180,7 @@ const allProjects: ProjectEntry[] = [
         "디자이너와의 협업을 통해 시각적 완성도와 개발 속도를 동시에 확보하는 롤 분담의 효과를 실감했습니다. 또한 퍼포먼스 마케팅 환경에서 개발자가 타겟 설정·메시지 전략·전환 최적화까지 이해해야 한다는 점을 몸소 배우며, 비즈니스 지표를 염두에 둔 UI 설계 능력을 키웠습니다.",
       ],
     },
-  },
+  }, */
   {
     id: "Eduvisors",
     type: "company",
@@ -965,7 +1313,9 @@ const allProjects: ProjectEntry[] = [
     },
   },
   // ──────────────────────────────────────────
-  {
+  // [REMOVED] NMS 통합 관리 시스템
+  // ──────────────────────────────────────────
+  /* {
     id: "CRM",
     type: "company",
     title: "NMS 통합 관리 시스템",
@@ -1174,7 +1524,7 @@ const allProjects: ProjectEntry[] = [
         "전자결재·전자계약서·KPI 대시보드·근태관리 등 복잡한 비즈니스 요구사항을 체계적인 모듈 아키텍처로 해결하며, 대규모 풀스택 프로젝트의 설계·구현·운영 전 과정을 경험했습니다.",
       ],
     },
-  },
+  }, */
   // ──────────────────────────────────────────
   {
     id: "care",

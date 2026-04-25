@@ -898,14 +898,15 @@
 }
 
 .metric_value_num {
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   background: linear-gradient(135deg, var(--primary-light), #00cec9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .metric_label {

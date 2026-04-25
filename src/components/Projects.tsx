@@ -13,11 +13,15 @@ const TABS: { key: TabType; label: string }[] = [
   { key: "personal", label: "개인" },
 ];
 
+const SLIDE_DURATION = 5000; // 5s
+
 export default function Projects() {
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const router = useRouter();
   const isPaused = useRef(false);
+  const thumbsRef = useRef<HTMLDivElement>(null);
 
   const filtered = projects.filter(
     (p) => activeTab === "all" || p.type === activeTab
@@ -28,35 +32,84 @@ export default function Projects() {
       ? projects.length
       : projects.filter((p) => p.type === tab).length;
 
-  const prev = () => setCurrentIndex((i) => (i === 0 ? filtered.length - 1 : i - 1));
-  const next = () => setCurrentIndex((i) => (i === filtered.length - 1 ? 0 : i + 1));
+  const prev = () =>
+    setCurrentIndex((i) => (i === 0 ? filtered.length - 1 : i - 1));
+  const next = () =>
+    setCurrentIndex((i) => (i === filtered.length - 1 ? 0 : i + 1));
 
-  // 자동 슬라이드 (3.5초마다, 호버 시 멈춤)
+  // 자동 슬라이드 + 진행 막대 (60fps tick)
   useEffect(() => {
-    const id = setInterval(() => {
+    setProgress(0);
+    let frameId: number;
+    let lastTick = performance.now();
+
+    const tick = (now: number) => {
+      const dt = now - lastTick;
+      lastTick = now;
       if (!isPaused.current) {
-        setCurrentIndex((i) => (i === filtered.length - 1 ? 0 : i + 1));
+        setProgress((p) => {
+          const next = p + (dt / SLIDE_DURATION) * 100;
+          if (next >= 100) {
+            setCurrentIndex((i) =>
+              i === filtered.length - 1 ? 0 : i + 1
+            );
+            return 0;
+          }
+          return next;
+        });
       }
-    }, 3500);
-    return () => clearInterval(id);
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [filtered.length, currentIndex]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      else if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [filtered.length]);
+
+  // Auto-scroll active thumbnail into view (horizontal only, never affects page scroll)
+  useEffect(() => {
+    const container = thumbsRef.current;
+    if (!container) return;
+    const active = container.querySelector<HTMLElement>(`[data-active="true"]`);
+    if (!active) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
+    const targetScrollLeft =
+      container.scrollLeft +
+      (activeRect.left - containerRect.left) -
+      containerRect.width / 2 +
+      activeRect.width / 2;
+
+    container.scrollTo({
+      left: Math.max(0, targetScrollLeft),
+      behavior: "smooth",
+    });
+  }, [currentIndex, activeTab]);
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
     setCurrentIndex(0);
   };
 
-  // 각 카드의 상대적 위치 계산 (-2 ~ +2)
-  const getOffset = (index: number) => {
-    let offset = index - currentIndex;
-    // 순환 처리
-    if (offset > filtered.length / 2) offset -= filtered.length;
-    if (offset < -filtered.length / 2) offset += filtered.length;
-    return offset;
-  };
+  const formatNumber = (n: number) => String(n).padStart(2, "0");
+  const current = filtered[currentIndex];
 
   return (
     <section id="projects" className={`${styles.section} ${styles.projects}`}>
+      {/* Decorative background */}
+      <div className={styles.projects_bg_glow_1}></div>
+      <div className={styles.projects_bg_glow_2}></div>
+
       {/* Header */}
       <div className={styles.projects_header_row}>
         <div className={styles.projects_title_block}>
@@ -73,92 +126,133 @@ export default function Projects() {
               onClick={() => handleTabChange(tab.key)}
             >
               {tab.label}
-              <span className={styles.projects_tab_count}>{countOf(tab.key)}</span>
+              <span className={styles.projects_tab_count}>
+                {countOf(tab.key)}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Carousel */}
+      {/* Counter */}
+      <div className={styles.projects_counter}>
+        <span className={styles.projects_counter_current}>
+          {formatNumber(currentIndex + 1)}
+        </span>
+        <span className={styles.projects_counter_divider}></span>
+        <span className={styles.projects_counter_total}>
+          {formatNumber(filtered.length)}
+        </span>
+      </div>
+
+      {/* Single Card Stage */}
       <div
-        className={styles.carousel_outer}
-        onMouseEnter={() => { isPaused.current = true; }}
-        onMouseLeave={() => { isPaused.current = false; }}
+        className={styles.stage_outer}
+        onMouseEnter={() => {
+          isPaused.current = true;
+        }}
+        onMouseLeave={() => {
+          isPaused.current = false;
+        }}
       >
-        {/* 왼쪽 화살표 */}
-        <button className={`${styles.carousel_arrow} ${styles.carousel_arrow_left}`} onClick={prev}>
+        <button
+          className={`${styles.stage_arrow} ${styles.stage_arrow_left}`}
+          onClick={prev}
+          aria-label="이전 프로젝트"
+        >
           <i className="fas fa-chevron-left"></i>
         </button>
 
-        <div className={styles.carousel_wrap}>
-        {/* 카드 트랙 */}
-        <div className={styles.carousel_track}>
-          {filtered.map((project, index) => {
-            const offset = getOffset(index);
-            const isCenter = offset === 0;
-            const isVisible = Math.abs(offset) <= 1;
-
-            if (!isVisible) return null;
-
-            return (
-              <div
-                key={`${activeTab}-${project.id}`}
-                className={styles.carousel_card}
-                style={{
-                  left: `${50 + offset * 57}%`,
-                  transform: `translateX(-50%) translateY(-50%) scale(${isCenter ? 1 : 0.82})`,
-                  opacity: isCenter ? 1 : 0.45,
-                  zIndex: isCenter ? 10 : 5,
-                  pointerEvents: isCenter ? "auto" : "none",
-                }}
-                onClick={() => isCenter && router.push(`/project/${project.id}`)}
-              >
-                <div className={styles.carousel_img_wrap}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className={styles.carousel_img}
-                  />
-                  {isCenter && (
-                    <div className={styles.carousel_overlay}>
-                      <div className={styles.carousel_overlay_inner}>
-                        <div className={styles.carousel_tags}>
-                          {project.tags.slice(0, 3).map((tag, i) => (
-                            <span key={i} className={styles.carousel_tag}>{tag}</span>
-                          ))}
-                        </div>
-                        <p className={styles.carousel_desc}>{project.description}</p>
-                        <span className={styles.carousel_cta}>
-                          자세히 보기 <i className="fas fa-arrow-right"></i>
-                        </span>
-                      </div>
-                    </div>
-                  )}
+        <div
+          className={styles.stage_card}
+          key={`${activeTab}-${current.id}`}
+          onClick={() => router.push(`/project/${current.id}`)}
+        >
+          <div className={styles.stage_img_wrap}>
+            <span
+              className={`${styles.carousel_type_badge} ${
+                current.type === "company"
+                  ? styles.carousel_type_company
+                  : styles.carousel_type_personal
+              }`}
+            >
+              <i
+                className={
+                  current.type === "company"
+                    ? "fas fa-building"
+                    : "fas fa-user"
+                }
+              ></i>
+              {current.type === "company" ? "회사" : "개인"}
+            </span>
+            <img
+              src={current.image}
+              alt={current.title}
+              className={styles.stage_img}
+            />
+            <div className={styles.stage_overlay}>
+              <div className={styles.stage_overlay_inner}>
+                <div className={styles.carousel_tags}>
+                  {current.tags.slice(0, 3).map((tag, i) => (
+                    <span key={i} className={styles.carousel_tag}>
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                <div className={styles.carousel_info}>
-                  <h3 className={styles.carousel_title}>{project.title}</h3>
-                  <span className={styles.carousel_date}>{project.date}</span>
-                </div>
+                <p className={styles.stage_desc}>{current.description}</p>
+                <span className={styles.carousel_cta}>
+                  자세히 보기 <i className="fas fa-arrow-right"></i>
+                </span>
               </div>
-            );
-          })}
-        </div>{/* carousel_track */}
-        </div>{/* carousel_wrap */}
+            </div>
 
-        {/* 오른쪽 화살표 */}
-        <button className={`${styles.carousel_arrow} ${styles.carousel_arrow_right}`} onClick={next}>
+            {/* Progress bar */}
+            <div className={styles.stage_progress}>
+              <div
+                className={styles.stage_progress_fill}
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+
+          <div className={styles.stage_info}>
+            <h3 className={styles.stage_title}>{current.title}</h3>
+            <span className={styles.stage_date}>{current.date}</span>
+          </div>
+        </div>
+
+        <button
+          className={`${styles.stage_arrow} ${styles.stage_arrow_right}`}
+          onClick={next}
+          aria-label="다음 프로젝트"
+        >
           <i className="fas fa-chevron-right"></i>
         </button>
-      </div>{/* carousel_outer */}
+      </div>
 
-      {/* 인디케이터 dots */}
-      <div className={styles.carousel_dots}>
-        {filtered.map((_, i) => (
+      {/* Thumbnail strip */}
+      <div className={styles.thumbs_wrap} ref={thumbsRef}>
+        {filtered.map((project, i) => (
           <button
-            key={i}
-            className={`${styles.carousel_dot} ${i === currentIndex ? styles.carousel_dot_active : ""}`}
+            key={`${activeTab}-thumb-${project.id}`}
+            className={`${styles.thumb} ${
+              i === currentIndex ? styles.thumb_active : ""
+            }`}
+            data-active={i === currentIndex}
             onClick={() => setCurrentIndex(i)}
-          />
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className={styles.thumb_img}
+            />
+            <div className={styles.thumb_label}>
+              <span className={styles.thumb_num}>
+                {formatNumber(i + 1)}
+              </span>
+              <span className={styles.thumb_title}>{project.title}</span>
+            </div>
+          </button>
         ))}
       </div>
     </section>

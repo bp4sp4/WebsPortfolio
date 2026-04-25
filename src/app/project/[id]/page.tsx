@@ -91,14 +91,31 @@ export default function ProjectDetail() {
           if (!e.isIntersecting) return;
           const el = e.target as HTMLElement;
           const raw = el.dataset.target || "0";
-          const suffix = raw.replace(/[0-9.]/g, "");
-          const target = parseFloat(raw);
+          // Strip thousand-separator commas before parsing (e.g. "6,608만원" → 6608)
+          const numeric = raw.replace(/,/g, "");
+          const target = parseFloat(numeric);
+
+          // Skip animation if value is non-numeric (e.g. "첫 구축", "실서비스")
+          if (Number.isNaN(target)) {
+            el.textContent = raw;
+            obs.unobserve(el);
+            return;
+          }
+
+          // Suffix = anything after the leading number (Korean unit, etc.)
+          const match = numeric.match(/^[0-9.]+(.*)$/);
+          const suffix = match ? match[1] : "";
+          // Detect if original had thousand-separator formatting
+          const hasCommas = /\d,\d/.test(raw);
+          const formatNum = (n: number) =>
+            hasCommas ? n.toLocaleString("en-US") : String(n);
+
           const duration = 1600;
           const start = performance.now();
           const tick = (now: number) => {
             const progress = Math.min((now - start) / duration, 1);
             const ease = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.round(target * ease) + suffix;
+            el.textContent = formatNum(Math.round(target * ease)) + suffix;
             if (progress < 1) requestAnimationFrame(tick);
           };
           requestAnimationFrame(tick);
