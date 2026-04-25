@@ -34,7 +34,7 @@ export default function About() {
       <div className={`${styles.about_hero} ${styles.about_animate}`}>
         <div className={styles.about_profile}>
           <div className={styles.about_profile_ring}>
-            <img src="/main/myimg.jpeg" alt="박상훈 프로필" />
+            <img src="/main/myimg.jpg" alt="박상훈 프로필" />
           </div>
           <div className={styles.about_name_card}>
             <span className={styles.about_name}>박상훈</span>
