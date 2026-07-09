@@ -113,7 +113,7 @@ export default function Skills() {
         <div className={styles.term_skills_head}>
           <h2 className={styles.term_skills_h1}>기술 스택</h2>
           <span className={styles.term_skills_count}>
-            // {skills.length} modules loaded
+            {`// ${skills.length} modules loaded`}
           </span>
         </div>
         <div className={styles.term_skills_rule} />
