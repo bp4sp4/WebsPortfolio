@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { projectDetails, projectIds } from "@/data/data";
+import { projectDetails, projectIds, projects } from "@/data/data";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import styles from "./projectDetail.module.css";
@@ -35,30 +35,45 @@ interface ProjectData {
   outcome: string[];
 }
 
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+const hostOf = (url: string | undefined, fallback: string) => {
+  if (!url || url === "#") return fallback;
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return fallback;
+  }
+};
+
 export default function ProjectDetail() {
   const params = useParams();
   const router = useRouter();
 
   const [projectData, setProjectData] = useState<ProjectData | null>(null);
-  const [prevProject, setPrevProject] = useState<{ id: string; title: string; image: string }>({ id: "", title: "", image: "" });
-  const [nextProject, setNextProject] = useState<{ id: string; title: string; image: string }>({ id: "", title: "", image: "" });
+  const [prevProject, setPrevProject] = useState<{ id: string; title: string; num: string }>({ id: "", title: "", num: "" });
+  const [nextProject, setNextProject] = useState<{ id: string; title: string; num: string }>({ id: "", title: "", num: "" });
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<string>("");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   const progressRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
+
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const listIndex = id ? projectIds.indexOf(id) : -1;
+  const num = listIndex >= 0 ? pad2(listIndex + 1) : "00";
+  const projMeta = projects.find((p) => p.id === id);
 
   // ── Scroll progress bar
   useEffect(() => {
     const onScroll = () => {
-      const scrolled = window.scrollY;
+      const scrolledY = window.scrollY;
       const total = document.documentElement.scrollHeight - window.innerHeight;
       if (progressRef.current) {
-        progressRef.current.style.width = `${(scrolled / total) * 100}%`;
+        progressRef.current.style.width = `${(scrolledY / total) * 100}%`;
       }
-      setScrolled(scrolled > 60);
+      setScrolled(scrolledY > 60);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -142,27 +157,20 @@ export default function ProjectDetail() {
 
   // ── Load project data
   useEffect(() => {
-    const id = Array.isArray(params.id) ? params.id[0] : params.id;
     if (!id || !projectDetails[id]) return;
 
     setProjectData(projectDetails[id]);
     setCurrentImageIndex(0);
 
     const idx = projectIds.indexOf(id);
-    const prevId = projectIds[idx > 0 ? idx - 1 : projectIds.length - 1];
-    const nextId = projectIds[idx < projectIds.length - 1 ? idx + 1 : 0];
+    const prevIdx = idx > 0 ? idx - 1 : projectIds.length - 1;
+    const nextIdx = idx < projectIds.length - 1 ? idx + 1 : 0;
+    const prevId = projectIds[prevIdx];
+    const nextId = projectIds[nextIdx];
 
-    setPrevProject({
-      id: prevId,
-      title: projectDetails[prevId].title,
-      image: projectDetails[prevId].mainImage,
-    });
-    setNextProject({
-      id: nextId,
-      title: projectDetails[nextId].title,
-      image: projectDetails[nextId].mainImage,
-    });
-  }, [params.id]);
+    setPrevProject({ id: prevId, title: projectDetails[prevId].title, num: pad2(prevIdx + 1) });
+    setNextProject({ id: nextId, title: projectDetails[nextId].title, num: pad2(nextIdx + 1) });
+  }, [id]);
 
   // ── Scroll-reveal & counters: projectData가 렌더된 뒤에 실행
   useEffect(() => {
@@ -196,175 +204,215 @@ export default function ProjectDetail() {
     ? (projectData.keyFeatures ?? []).filter((f) => f.category === currentTab)
     : (projectData.keyFeatures ?? []);
 
+  const typeLabel = projMeta?.type === "personal" ? "개인" : "회사";
+  const stackValue = projectData.technologies[0]?.items
+    .slice(0, 3)
+    .map((it) => it.name)
+    .join(" · ");
+
+  const SectionHead = ({ title }: { title: string }) => (
+    <div className={styles.det_sec_head}>
+      <span className={styles.det_sec_num}>{SECTION_NUMS[sectionIdx++]}</span>
+      <div>
+        <h2 className={styles.det_sec_title}>{title}</h2>
+        <div className={styles.det_sec_rule} />
+      </div>
+    </div>
+  );
+
   return (
-    <>
+    <div className={styles.det_root}>
+      <div className={styles.det_scanlines} />
+      <div className={styles.det_topglow} />
+
       {/* ── Progress track */}
       <div className={styles.progress_track}>
         <div className={styles.progress_bar} ref={progressRef} />
       </div>
 
-      {/* ── Sticky nav */}
+      {/* ── Sticky terminal top bar */}
       <header
-        className={`${styles.detail_header} ${scrolled ? styles.header_scrolled : ""}`}
-        ref={navRef}
+        className={`${styles.det_topbar} ${scrolled ? styles.det_topbar_scrolled : ""}`}
       >
-        <nav className={styles.nav_container}>
-          <Link href="/#projects" className={styles.back_btn}>
-            <i className="fas fa-arrow-left"></i>
-            <span>프로젝트</span>
-          </Link>
-          <span className={styles.logo}>SangHun&apos;s WebPortfolio</span>
-        </nav>
+        <div className={styles.det_topbar_left}>
+          <span className={styles.det_mac_dot} style={{ background: "#ff5f56" }} />
+          <span className={styles.det_mac_dot} style={{ background: "#ffbd2e" }} />
+          <span className={styles.det_mac_dot} style={{ background: "#27c93f" }} />
+          <span className={styles.det_topbar_title}>
+            sanghun@portfolio — ~/projects/{num}
+          </span>
+        </div>
+        <Link href="/#projects" className={styles.det_topbar_back}>
+          <i className="fas fa-arrow-left"></i> 뒤로가기
+        </Link>
       </header>
 
-      <main className={styles.project_detail}>
-
+      <main className={styles.det_main}>
         {/* ════════════════════════════════════
-            CINEMATIC HERO
+            HERO
         ════════════════════════════════════ */}
-        <section
-          className={styles.hero_cinematic}
-          style={{ backgroundImage: `url(${projectData.mainImage})` }}
-        >
-          <div className={styles.hero_cin_overlay} />
+        <section className={`${styles.det_section} ${styles.det_hero}`}>
+          <button onClick={() => router.back()} className={styles.det_back}>
+            <i className="fas fa-arrow-left"></i> 프로젝트 목록으로
+          </button>
 
-          <div className={styles.hero_cin_content}>
-            {/* Tags float above title */}
-            <div className={styles.hero_tag_row}>
-              {projectData.tags.map((tag, i) => (
-                <span key={i} className={styles.hero_tag_pill}>{tag}</span>
-              ))}
-            </div>
-
-            {/* Massive title */}
-            <h1 className={styles.hero_cin_title}>{projectData.title}</h1>
-
-            {/* Period + action links */}
-            <div className={styles.hero_cin_bottom}>
-              <span className={styles.hero_cin_period}>
-                <i className="fas fa-calendar-alt"></i>
-                {projectData.period}
+          <div className={styles.det_hero_meta}>
+            <span className={styles.det_hero_num}>{num}</span>
+            <span className={styles.det_hero_sep} />
+            <span className={`${styles.det_pill} ${styles.det_pill_green}`}>
+              {typeLabel}
+            </span>
+            {projectData.tags.slice(0, 3).map((tag, i) => (
+              <span key={i} className={styles.det_pill}>
+                {tag}
               </span>
-              <div className={styles.hero_action_row}>
-                {projectData.links.github && projectData.links.github !== "#" && (
-                  <a
-                    href={projectData.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.hero_btn_ghost}
-                  >
-                    <i className="fab fa-github"></i> GitHub
-                  </a>
-                )}
-                {projectData.links.demo && projectData.links.demo !== "#" && (
-                  <a
-                    href={projectData.links.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.hero_btn_solid}
-                  >
-                    <i className="fas fa-external-link-alt"></i> Live Demo
-                  </a>
-                )}
-                {projectData.links.figma && (
-                  <a
-                    href={projectData.links.figma}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.hero_btn_ghost}
-                  >
-                    <i className="fab fa-figma"></i> Figma
-                  </a>
-                )}
-              </div>
-            </div>
+            ))}
           </div>
 
-          <div className={styles.hero_scroll_hint}>
-            <span>Scroll</span>
-            <i className="fas fa-long-arrow-alt-down"></i>
+          <h1 className={styles.det_h1}>{projectData.title}</h1>
+          {projMeta?.description && (
+            <p className={styles.det_lede}>{projMeta.description}</p>
+          )}
+
+          <div className={styles.det_btn_row}>
+            {projectData.links.demo && projectData.links.demo !== "#" && (
+              <a
+                href={projectData.links.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.det_btn_primary}
+              >
+                <i className="fas fa-external-link-alt"></i> 사이트 방문
+              </a>
+            )}
+            {projectData.links.github && projectData.links.github !== "#" && (
+              <a
+                href={projectData.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.det_btn_ghost}
+              >
+                <i className="fab fa-github"></i> GitHub
+              </a>
+            )}
+            {projectData.links.figma && (
+              <a
+                href={projectData.links.figma}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.det_btn_ghost}
+              >
+                <i className="fab fa-figma"></i> Figma
+              </a>
+            )}
+          </div>
+
+          <div className={styles.det_meta_strip}>
+            <div className={styles.det_meta}>
+              <div className={styles.det_meta_label}>ROLE</div>
+              <div className={styles.det_meta_value}>{projectData.role.type}</div>
+            </div>
+            <div className={styles.det_meta}>
+              <div className={styles.det_meta_label}>PERIOD</div>
+              <div className={styles.det_meta_value}>{projectData.period}</div>
+            </div>
+            <div className={styles.det_meta}>
+              <div className={styles.det_meta_label}>TYPE</div>
+              <div className={styles.det_meta_value}>{typeLabel} 프로젝트</div>
+            </div>
+            {stackValue && (
+              <div className={styles.det_meta}>
+                <div className={styles.det_meta_label}>STACK</div>
+                <div className={styles.det_meta_value}>{stackValue}</div>
+              </div>
+            )}
           </div>
         </section>
 
         {/* ════════════════════════════════════
             01 OVERVIEW
         ════════════════════════════════════ */}
-        <section className={`${styles.detail_section} ${styles.reveal}`}>
-          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
-          <div className={styles.section_inner}>
-            <h2 className={styles.section_heading}>Overview</h2>
-            <div className={styles.overview_body}>
-              {projectData.overview.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <SectionHead title="Overview" />
+          <div className={styles.det_prose}>
+            {projectData.overview.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
           </div>
         </section>
 
         {/* ════════════════════════════════════
-            FULL-WIDTH IMAGE GALLERY
+            BROWSER-FRAMED GALLERY
         ════════════════════════════════════ */}
         {projectData.images.length > 0 && (
-          <section className={`${styles.gallery_section} ${styles.reveal}`}>
-            {/* Main image */}
-            <div
-              className={styles.gallery_main_wrap}
-              onClick={() => setLightboxImage(projectData.images[currentImageIndex])}
-            >
-              <div className={styles.gallery_main_img_box}>
+          <section className={`${styles.det_section} ${styles.reveal}`}>
+            <div className={styles.det_browser}>
+              <div className={styles.det_browser_bar}>
+                <span className={styles.det_mac_dot} style={{ background: "#ff5f56" }} />
+                <span className={styles.det_mac_dot} style={{ background: "#ffbd2e" }} />
+                <span className={styles.det_mac_dot} style={{ background: "#27c93f" }} />
+                <span className={styles.det_browser_url}>
+                  {hostOf(projectData.links.demo, projectData.title)}
+                </span>
+                {projectData.images.length > 1 && (
+                  <span className={styles.det_gal_counter}>
+                    {currentImageIndex + 1} / {projectData.images.length}
+                  </span>
+                )}
+              </div>
+              <div
+                className={styles.det_shot}
+                onClick={() => setLightboxImage(projectData.images[currentImageIndex])}
+              >
                 <Image
                   src={projectData.images[currentImageIndex]}
                   alt={`${projectData.title} 이미지 ${currentImageIndex + 1}`}
                   fill
                   style={{ objectFit: "cover" }}
-                  className={styles.gallery_main_img}
                 />
-                <div className={styles.gallery_zoom_hint}>
-                  <i className="fas fa-expand"></i>
-                  <span>클릭하여 확대</span>
+                <div className={styles.det_zoom_hint}>
+                  <i className="fas fa-expand"></i> 클릭하여 확대
                 </div>
-              </div>
 
-              {/* Prev/Next arrows */}
-              {projectData.images.length > 1 && (
-                <>
-                  <button
-                    className={`${styles.gal_arrow} ${styles.gal_arrow_left}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentImageIndex((p) => p === 0 ? projectData.images.length - 1 : p - 1);
-                    }}
-                  >
-                    <i className="fas fa-chevron-left"></i>
-                  </button>
-                  <button
-                    className={`${styles.gal_arrow} ${styles.gal_arrow_right}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentImageIndex((p) => p === projectData.images.length - 1 ? 0 : p + 1);
-                    }}
-                  >
-                    <i className="fas fa-chevron-right"></i>
-                  </button>
-                  <div className={styles.gal_counter}>
-                    {currentImageIndex + 1} <span>/</span> {projectData.images.length}
-                  </div>
-                </>
-              )}
+                {projectData.images.length > 1 && (
+                  <>
+                    <button
+                      className={`${styles.det_gal_arrow} ${styles.det_gal_arrow_left}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((p) => p === 0 ? projectData.images.length - 1 : p - 1);
+                      }}
+                      aria-label="이전 이미지"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      className={`${styles.det_gal_arrow} ${styles.det_gal_arrow_right}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((p) => p === projectData.images.length - 1 ? 0 : p + 1);
+                      }}
+                      aria-label="다음 이미지"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Thumbnail strip */}
             {projectData.images.length > 1 && (
-              <div className={styles.gallery_strip}>
+              <div className={styles.det_gal_strip}>
                 {projectData.images.map((img, i) => (
                   <button
                     key={i}
-                    className={`${styles.gal_thumb} ${i === currentImageIndex ? styles.gal_thumb_active : ""}`}
+                    className={`${styles.det_gal_thumb} ${
+                      i === currentImageIndex ? styles.det_gal_thumb_active : ""
+                    }`}
                     onClick={() => setCurrentImageIndex(i)}
-                    style={{ position: "relative" }}
                   >
                     <Image src={img} alt={`썸네일 ${i + 1}`} fill style={{ objectFit: "cover" }} />
-                    {i === currentImageIndex && <div className={styles.gal_thumb_indicator} />}
                   </button>
                 ))}
               </div>
@@ -375,24 +423,19 @@ export default function ProjectDetail() {
         {/* ════════════════════════════════════
             02 나의 역할
         ════════════════════════════════════ */}
-        <section className={`${styles.detail_section} ${styles.reveal}`}>
-          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
-          <div className={styles.section_inner}>
-            <h2 className={styles.section_heading}>나의 역할</h2>
-            <div className={styles.role_layout}>
-              <div className={styles.role_badge}>
-                <i className="fas fa-user-cog"></i>
-                <span>{projectData.role.type}</span>
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <SectionHead title="나의 역할" />
+          <div className={styles.det_role_badge}>
+            <span className={styles.det_role_dot} />
+            {projectData.role.type}
+          </div>
+          <div className={styles.det_role_grid}>
+            {projectData.role.parts.map((part, i) => (
+              <div key={i} className={styles.det_role_item}>
+                <span className={styles.det_role_arrow}>▹</span>
+                <span>{part}</span>
               </div>
-              <div className={styles.role_parts_grid}>
-                {projectData.role.parts.map((part, i) => (
-                  <div key={i} className={styles.role_chip}>
-                    <span className={styles.role_chip_check}>✓</span>
-                    {part}
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -400,62 +443,59 @@ export default function ProjectDetail() {
             03 핵심 기능 (optional)
         ════════════════════════════════════ */}
         {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (
-          <section className={`${styles.detail_section} ${styles.reveal}`}>
-            <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
-            <div className={styles.section_inner}>
-              <h2 className={styles.section_heading}>핵심 기능</h2>
+          <section className={`${styles.det_section} ${styles.reveal}`}>
+            <SectionHead title="핵심 기능" />
 
-              {hasCategories && (
-                <div className={styles.tab_group}>
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      className={`${styles.tab_btn} ${currentTab === cat ? styles.tab_btn_active : ""}`}
-                      onClick={() => setActiveTab(cat)}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              <div className={styles.features_grid}>
-                {displayedFeatures.map((feat, i) => (
-                  <div key={i} className={styles.feat_card}>
-                    <div className={styles.feat_bg_num}>{String(i + 1).padStart(2, "0")}</div>
-
-                    {feat.gif && (
-                      <div className={styles.feat_gif_wrap}>
-                        <Image
-                          src={feat.gif}
-                          alt={feat.title}
-                          width={600}
-                          height={340}
-                          style={{ objectFit: "cover", width: "100%", height: "auto" }}
-                        />
-                      </div>
-                    )}
-
-                    <div className={styles.feat_icon_wrap}>
-                      <i className={feat.icon}></i>
-                    </div>
-                    <h3 className={styles.feat_title}>{feat.title}</h3>
-                    <p className={styles.feat_desc}>{feat.description}</p>
-
-                    {feat.link && (
-                      <a
-                        href={feat.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.feat_link}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        사이트 방문 <i className="fas fa-arrow-right"></i>
-                      </a>
-                    )}
-                  </div>
+            {hasCategories && (
+              <div className={styles.det_tab_group}>
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    className={`${styles.det_tab} ${currentTab === cat ? styles.det_tab_on : ""}`}
+                    onClick={() => setActiveTab(cat)}
+                  >
+                    {cat}
+                  </button>
                 ))}
               </div>
+            )}
+
+            <div className={styles.det_feats_grid}>
+              {displayedFeatures.map((feat, i) => (
+                <div key={i} className={styles.det_feat}>
+                  <span className={styles.det_feat_bgnum}>{pad2(i + 1)}</span>
+
+                  {feat.gif && (
+                    <div className={styles.det_feat_gif}>
+                      <Image
+                        src={feat.gif}
+                        alt={feat.title}
+                        width={600}
+                        height={340}
+                        style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                      />
+                    </div>
+                  )}
+
+                  <div className={styles.det_feat_icon}>
+                    <i className={feat.icon}></i>
+                  </div>
+                  <h3 className={styles.det_feat_title}>{feat.title}</h3>
+                  <p className={styles.det_feat_desc}>{feat.description}</p>
+
+                  {feat.link && (
+                    <a
+                      href={feat.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.det_feat_link}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      사이트 방문 <i className="fas fa-arrow-right"></i>
+                    </a>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
         )}
@@ -463,79 +503,72 @@ export default function ProjectDetail() {
         {/* ════════════════════════════════════
             사용 기술
         ════════════════════════════════════ */}
-        <section className={`${styles.detail_section} ${styles.reveal}`}>
-          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
-          <div className={styles.section_inner}>
-            <h2 className={styles.section_heading}>사용 기술</h2>
-            <div className={styles.tech_layout}>
-              {projectData.technologies.map((tech, i) => (
-                <div key={i} className={styles.tech_group}>
-                  <span className={styles.tech_cat_label}>{tech.category}</span>
-                  <div className={styles.tech_pills}>
-                    {tech.items.map((item, j) => (
-                      <div key={j} className={styles.tech_pill} title={item.description}>
-                        <span className={styles.tech_name}>{item.name}</span>
-                      </div>
-                    ))}
-                  </div>
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <SectionHead title="사용 기술" />
+          <div className={styles.det_tech_table}>
+            {projectData.technologies.map((tech, i) => (
+              <div key={i} className={styles.det_tech_row}>
+                <span className={styles.det_tech_label}>{tech.category}</span>
+                <div className={styles.det_tech_tags}>
+                  {tech.items.map((item, j) => (
+                    <span key={j} className={styles.det_tech_tag} title={item.description}>
+                      {item.name}
+                    </span>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* ════════════════════════════════════
             도전 과제 & 해결책
         ════════════════════════════════════ */}
-        <section className={`${styles.detail_section} ${styles.reveal}`}>
-          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
-          <div className={styles.section_inner}>
-            <h2 className={styles.section_heading}>도전 과제 & 해결책</h2>
-            <div className={styles.challenges_list}>
-              {projectData.challenges.map((c, i) => (
-                <div key={i} className={styles.challenge_item}>
-                  <div className={styles.challenge_num}>{String(i + 1).padStart(2, "0")}</div>
-                  <div className={styles.challenge_body}>
-                    <h3 className={styles.challenge_title}>{c.title}</h3>
-                    <div className={styles.challenge_row}>
-                      <div className={styles.challenge_block}>
-                        <span className={styles.challenge_label}>
-                          <i className="fas fa-exclamation-circle"></i> 문제
-                        </span>
-                        <p>{c.challenge}</p>
-                      </div>
-                      <div className={styles.solution_block}>
-                        <span className={styles.solution_label}>
-                          <i className="fas fa-lightbulb"></i> 해결
-                        </span>
-                        <p>{c.solution}</p>
-                      </div>
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <SectionHead title="도전 과제 & 해결책" />
+          <div className={styles.det_chal_list}>
+            {projectData.challenges.map((c, i) => (
+              <div key={i} className={styles.det_chal}>
+                <div className={styles.det_chal_head}>
+                  <span className={styles.det_chal_tag}>C-{pad2(i + 1)}</span>
+                  <span className={styles.det_chal_title}>{c.title}</span>
+                </div>
+                <div className={styles.det_chal_grid}>
+                  <div className={styles.det_chal_problem}>
+                    <div className={styles.det_chal_label_p}>
+                      <span className={styles.det_chal_dot_p} />
+                      문제
                     </div>
+                    <p>{c.challenge}</p>
+                  </div>
+                  <div className={styles.det_chal_solution}>
+                    <div className={styles.det_chal_label_s}>
+                      <span className={styles.det_chal_dot_s} />
+                      해결
+                    </div>
+                    <p>{c.solution}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* ════════════════════════════════════
-            METRICS (full-width banner, optional)
+            METRICS (stats band, optional)
         ════════════════════════════════════ */}
         {projectData.metrics && projectData.metrics.length > 0 && (
-          <section className={`${styles.metrics_banner} ${styles.reveal}`}>
-            <div className={styles.metrics_grid}>
+          <section className={`${styles.det_section} ${styles.reveal}`}>
+            <div className={styles.det_stats_band}>
               {projectData.metrics.map((m, i) => (
-                <div key={i} className={styles.metric_item}>
-                  <div className={styles.metric_icon_wrap}>
-                    <i className={m.icon}></i>
-                  </div>
+                <div key={i} className={styles.det_stat}>
                   <div
-                    className={styles.metric_value_num}
+                    className={`${styles.det_stat_value} ${styles.metric_value_num}`}
                     data-target={m.value}
                   >
                     {m.value}
                   </div>
-                  <div className={styles.metric_label}>{m.label}</div>
+                  <div className={styles.det_stat_label}>{m.label}</div>
                 </div>
               ))}
             </div>
@@ -545,59 +578,60 @@ export default function ProjectDetail() {
         {/* ════════════════════════════════════
             결과 & 성과
         ════════════════════════════════════ */}
-        <section className={`${styles.detail_section} ${styles.reveal}`}>
-          <div className={styles.section_num_deco}>{SECTION_NUMS[sectionIdx++]}</div>
-          <div className={styles.section_inner}>
-            <h2 className={styles.section_heading}>결과 & 성과</h2>
-            <div className={styles.outcome_body}>
-              {projectData.outcome.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <SectionHead title="결과 & 성과" />
+          <div className={styles.det_prose}>
+            {projectData.outcome.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
         </section>
 
         {/* ════════════════════════════════════
-            PREV / NEXT PROJECT (cinematic cards)
+            PREV / NEXT PROJECT
         ════════════════════════════════════ */}
-        <section className={`${styles.nav_projects_section} ${styles.reveal}`}>
-          <p className={styles.nav_projects_label}>More Projects</p>
-          <div className={styles.nav_projects_grid}>
-            {/* Prev */}
-            <div
-              className={`${styles.nav_proj_card} ${styles.nav_proj_prev}`}
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <div className={styles.det_next_grid}>
+            <button
+              className={styles.det_nextcard}
               onClick={() => router.push(`/project/${prevProject.id}`)}
-              style={prevProject.image ? { backgroundImage: `url(${prevProject.image})` } : {}}
             >
-              <div className={styles.nav_proj_overlay} />
-              <div className={styles.nav_proj_content}>
-                <span className={styles.nav_proj_hint}>
-                  <i className="fas fa-arrow-left"></i> 이전
-                </span>
-                <h3 className={styles.nav_proj_title}>{prevProject.title}</h3>
+              <div className={styles.det_nextcard_body}>
+                <div className={styles.det_next_label}>← PREV PROJECT</div>
+                <div className={styles.det_next_titlerow}>
+                  <span className={styles.det_next_num}>{prevProject.num}</span>
+                  <span className={styles.det_next_title}>{prevProject.title}</span>
+                </div>
               </div>
-            </div>
+              <span className={`${styles.det_next_arrow} ${styles.det_next_arrow_left}`}>←</span>
+            </button>
 
-            {/* Next */}
-            <div
-              className={`${styles.nav_proj_card} ${styles.nav_proj_next}`}
+            <button
+              className={styles.det_nextcard}
               onClick={() => router.push(`/project/${nextProject.id}`)}
-              style={nextProject.image ? { backgroundImage: `url(${nextProject.image})` } : {}}
             >
-              <div className={styles.nav_proj_overlay} />
-              <div className={styles.nav_proj_content}>
-                <span className={styles.nav_proj_hint}>
-                  다음 <i className="fas fa-arrow-right"></i>
-                </span>
-                <h3 className={styles.nav_proj_title}>{nextProject.title}</h3>
+              <div className={styles.det_nextcard_body}>
+                <div className={styles.det_next_label}>NEXT PROJECT →</div>
+                <div className={styles.det_next_titlerow}>
+                  <span className={styles.det_next_num}>{nextProject.num}</span>
+                  <span className={styles.det_next_title}>{nextProject.title}</span>
+                </div>
               </div>
-            </div>
+              <span className={styles.det_next_arrow}>→</span>
+            </button>
+          </div>
+
+          <div className={styles.det_endline}>
+            <span className={styles.det_accent}>➜</span>{" "}
+            <span className={styles.det_path}>~/projects/{num}</span>{" "}
+            <span className={styles.det_cmd}>_</span>
+            <span className={styles.det_cursor} />
           </div>
         </section>
       </main>
 
       {/* ── Detail footer */}
-      <footer className={styles.detail_footer}>
+      <footer className={styles.det_footer}>
         <span>© 2026 박상훈 · Portfolio</span>
       </footer>
 
@@ -648,6 +682,6 @@ export default function ProjectDetail() {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }

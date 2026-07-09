@@ -4,31 +4,30 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "@/styles/main.module.css";
 
-const ROTATING_WORDS = ["프론트엔드", "UI · UX", "인터랙션", "퍼블리싱", "React"];
-const WORD_HOLD_MS = 2200;
-const LETTER_STAGGER_MS = 55;
+const ROTATING_WORDS = ["UI·UX", "프론트엔드", "인터랙션", "퍼블리싱", "WEB"];
+const ROTATE_MS = 2200;
+
+const NAV_ITEMS = [
+  { href: "#home", label: "~/home" },
+  { href: "#about", label: "~/about" },
+  { href: "#skills", label: "~/skills" },
+  { href: "#projects", label: "~/projects" },
+  { href: "#contact", label: "~/contact" },
+];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
 
   // Cycle through rotating words
   useEffect(() => {
-    const word = ROTATING_WORDS[wordIndex];
-    const enterDuration = word.length * LETTER_STAGGER_MS + 600;
-
-    const holdTimer = setTimeout(() => {
-      setIsExiting(true);
-      setTimeout(() => {
-        setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
-        setIsExiting(false);
-      }, 380);
-    }, enterDuration + WORD_HOLD_MS);
-
-    return () => clearTimeout(holdTimer);
-  }, [wordIndex]);
+    const t = setInterval(
+      () => setWordIndex((v) => (v + 1) % ROTATING_WORDS.length),
+      ROTATE_MS
+    );
+    return () => clearInterval(t);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -39,7 +38,7 @@ export default function Header() {
   // Active nav tracking
   useEffect(() => {
     const sections = document.querySelectorAll("section, header");
-    const navLinks = document.querySelectorAll(`.${styles.nav_links} a`);
+    const navLinks = document.querySelectorAll(`.${styles.term_nav} a`);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -47,9 +46,9 @@ export default function Header() {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("id");
             navLinks.forEach((link) => {
-              link.classList.remove(styles.nav_link_active);
+              link.classList.remove(styles.term_nav_active);
               if (link.getAttribute("href") === `#${id}`) {
-                link.classList.add(styles.nav_link_active);
+                link.classList.add(styles.term_nav_active);
               }
             });
           }
@@ -65,193 +64,126 @@ export default function Header() {
   const word = ROTATING_WORDS[wordIndex];
 
   return (
-    <header id="home" className={styles.header}>
+    <header id="home" className={styles.term_root}>
+      {/* scanlines + sweep + glow */}
+      <div className={styles.term_scanlines} />
+      <div className={styles.term_sweep} />
+      <div className={styles.term_topglow} />
+
+      {/* top bar */}
       <nav
-        className={`${styles.nav_container} ${
-          scrolled ? styles.nav_container_scrolled : ""
+        className={`${styles.term_topbar} ${
+          scrolled ? styles.term_topbar_scrolled : ""
         }`}
       >
-        <div className={styles.nav_logo}>SangHun&apos;s WebPortfolio</div>
-        <div
-          className={`${styles.nav_links} ${
-            mobileMenuOpen ? styles.nav_links_active : ""
-          }`}
-        >
-          <Link href="#home" className={styles.nav_link_active}>
-            홈
-          </Link>
-          <Link href="#about">소개</Link>
-          <Link href="#skills">기술</Link>
-          <Link href="#projects">프로젝트</Link>
-          <Link href="#contact">연락처</Link>
+        <div className={styles.term_topbar_left}>
+          <span
+            className={styles.term_mac_dot}
+            style={{ background: "#ff5f56" }}
+          />
+          <span
+            className={styles.term_mac_dot}
+            style={{ background: "#ffbd2e" }}
+          />
+          <span
+            className={styles.term_mac_dot}
+            style={{ background: "#27c93f" }}
+          />
+          <span className={styles.term_topbar_title}>
+            sanghun@portfolio — zsh
+          </span>
         </div>
         <div
-          className={styles.mobile_menu}
+          className={`${styles.term_nav} ${
+            mobileMenuOpen ? styles.term_nav_open : ""
+          }`}
+        >
+          {NAV_ITEMS.map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={i === 0 ? styles.term_nav_active : ""}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+        <div
+          className={styles.term_mobile_toggle}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? "✕" : "☰"}
         </div>
       </nav>
 
-      <div className={styles.hero}>
-        <div className={styles.hero_grid}>
-        <div className={styles.hero_content}>
-          <div className={styles.hero_status}>
-            <span className={styles.hero_status_dot}></span>
-            <span className={styles.hero_status_text}>Available for work</span>
-            <span className={styles.hero_status_divider}></span>
-            <span className={styles.hero_status_loc}>
-              <i className="fas fa-map-marker-alt"></i> Seoul, KR
+      <div className={styles.term_main}>
+        <div className={styles.term_status_row}>
+          <span className={styles.term_status_pill}>
+            <span className={styles.term_status_dot} />
+            Available for work
+          </span>
+          <span>📍 Seoul, KR</span>
+        </div>
+
+        <div className={styles.term_cmdblock}>
+          <div>
+            <span className={styles.term_arrow}>➜</span>{" "}
+            <span className={styles.term_path}>~/portfolio</span>{" "}
+            <span className={styles.term_cmd}>whoami</span>
+          </div>
+          <div className={styles.term_comment}>
+            # 안녕하세요, 저는 SangHun — Frontend Developer 입니다.
+          </div>
+          <div style={{ marginTop: 8 }}>
+            <span className={styles.term_arrow}>➜</span>{" "}
+            <span className={styles.term_path}>~/portfolio</span>{" "}
+            <span className={styles.term_cmd}>cat role.txt</span>
+          </div>
+        </div>
+
+        <div className={styles.term_wordline}>
+          <span className={styles.term_prompt}>&gt;_</span>
+          <span className={styles.term_word_clip}>
+            <span key={word} className={styles.term_word}>
+              {word}
             </span>
-          </div>
+          </span>
+          <span className={styles.term_cursor} />
+        </div>
+        <div className={styles.term_subline}>
+          하는 개발자입니다<span className={styles.term_accent}>_</span>
+        </div>
 
-          <p className={styles.hero_greeting}>
-            <span className={styles.hero_greeting_wave}>👋</span>
-            <span>안녕하세요, 저는</span>
-          </p>
-
-          {/* Massive rotating word with letter stagger */}
-          <div className={styles.hero_main_line}>
-            <div className={styles.hero_word_overflow}>
-              {word.split("").map((letter, i) => (
-                <span
-                  key={`${wordIndex}-${i}`}
-                  className={`${styles.hero_letter} ${
-                    isExiting ? styles.hero_letter_exit : ""
-                  }`}
-                  style={
-                    {
-                      "--letter-delay": `${i * LETTER_STAGGER_MS}ms`,
-                    } as React.CSSProperties
-                  }
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <p className={styles.hero_suffix}>
-            하는{" "}
-            <span className={styles.hero_name_accent}>개발자</span>입니다.
-          </p>
-
-          <div className={styles.hero_tags}>
-            {[
-              "# 프론트엔드",
-              "# 퍼블리싱",
-              "# UI/UX",
-              "# 인터랙션",
-              "# QA",
-            ].map((tag, i) => (
-              <span
-                key={i}
-                className={styles.hero_tag}
-                style={{ "--i": i + 1 } as React.CSSProperties}
-              >
-                {tag}
+        <div className={styles.term_tags}>
+          {["#프론트엔드", "#퍼블리싱", "#UI/UX", "#인터랙션", "#QA"].map(
+            (t) => (
+              <span key={t} className={styles.term_tag}>
+                {t}
               </span>
-            ))}
-          </div>
-
-          <div className={styles.hero_cta_group}>
-            <Link href="#projects" className={styles.hero_cta_primary}>
-              프로젝트 보기
-              <i className="fas fa-arrow-right"></i>
-            </Link>
-            <Link href="#contact" className={styles.hero_cta_secondary}>
-              연락하기
-            </Link>
-          </div>
+            )
+          )}
         </div>
 
-        {/* Visual side - Code card + floating badges */}
-        <div className={styles.hero_visual}>
-          <div className={styles.hero_glow_orb}></div>
-
-          <div className={styles.hero_code_card}>
-            <div className={styles.hero_code_header}>
-              <span className={styles.hero_code_dot} style={{ background: "#ff5f57" }}></span>
-              <span className={styles.hero_code_dot} style={{ background: "#ffbd2e" }}></span>
-              <span className={styles.hero_code_dot} style={{ background: "#28c840" }}></span>
-              <span className={styles.hero_code_filename}>developer.tsx</span>
-            </div>
-            <pre className={styles.hero_code_body}>
-              <code>
-                <span className={styles.hero_code_line}>
-                  <span className={styles.hero_code_keyword}>const</span>{" "}
-                  <span className={styles.hero_code_var}>sangHun</span> = {"{"}
-                </span>
-                <span className={styles.hero_code_line}>
-                  {"  "}<span className={styles.hero_code_prop}>name</span>:{" "}
-                  <span className={styles.hero_code_str}>{"\"SangHun\""}</span>,
-                </span>
-                <span className={styles.hero_code_line}>
-                  {"  "}<span className={styles.hero_code_prop}>role</span>:{" "}
-                  <span className={styles.hero_code_str}>{"\"Frontend Developer\""}</span>,
-                </span>
-                <span className={styles.hero_code_line}>
-                  {"  "}<span className={styles.hero_code_prop}>location</span>:{" "}
-                  <span className={styles.hero_code_str}>{"\"Seoul, KR\""}</span>,
-                </span>
-                <span className={styles.hero_code_line}>
-                  {"  "}<span className={styles.hero_code_prop}>stack</span>: [
-                  <span className={styles.hero_code_str}>{"\"React\""}</span>,{" "}
-                  <span className={styles.hero_code_str}>{"\"Next.js\""}</span>,{" "}
-                  <span className={styles.hero_code_str}>{"\"TS\""}</span>],
-                </span>
-                <span className={styles.hero_code_line}>
-                  {"  "}<span className={styles.hero_code_prop}>focus</span>: [
-                  <span className={styles.hero_code_str}>{"\"UI/UX\""}</span>,{" "}
-                  <span className={styles.hero_code_str}>{"\"Interaction\""}</span>],
-                </span>
-                <span className={styles.hero_code_line}>{"}"};</span>
-              </code>
-            </pre>
-          </div>
-
-          <div className={`${styles.hero_badge} ${styles.hero_badge_1}`}>
-            <i className="fab fa-react"></i>
-            <span>React</span>
-          </div>
-          <div className={`${styles.hero_badge} ${styles.hero_badge_2}`}>
-            <i className="fab fa-js"></i>
-            <span>TypeScript</span>
-          </div>
-          <div className={`${styles.hero_badge} ${styles.hero_badge_3}`}>
-            <i className="fas fa-bolt"></i>
-            <span>Next.js</span>
-          </div>
-          <div className={`${styles.hero_sparkle} ${styles.hero_sparkle_1}`}></div>
-          <div className={`${styles.hero_sparkle} ${styles.hero_sparkle_2}`}></div>
-          <div className={`${styles.hero_sparkle} ${styles.hero_sparkle_3}`}></div>
-        </div>
+        <div className={styles.term_run_row}>
+          <span>
+            <span className={styles.term_arrow}>➜</span>{" "}
+            <span className={styles.term_path}>~/portfolio</span>{" "}
+            <span className={styles.term_cmd}>./view --projects</span>
+          </span>
+          <Link href="#projects" className={styles.term_btn_primary}>
+            실행 ▸
+          </Link>
+          <Link href="#contact" className={styles.term_btn_ghost}>
+            연락하기
+          </Link>
         </div>
 
-        {/* Background shapes */}
-        <div className={styles.hero_shapes}>
-          <div
-            className={`${styles.shape} ${styles.shape_1} ${styles.floating}`}
-          ></div>
-          <div
-            className={`${styles.shape} ${styles.shape_2} ${styles.floating}`}
-            style={{ animationDelay: "1s" }}
-          ></div>
-          <div
-            className={`${styles.shape} ${styles.shape_3} ${styles.floating}`}
-            style={{ animationDelay: "2s" }}
-          ></div>
-        </div>
       </div>
 
-      <div className={styles.scroll_indicator}>
-        <div className={styles.scroll_mouse}>
-          <div className={styles.scroll_wheel}></div>
-        </div>
-        <div className={styles.scroll_arrow}>
-          <span>스크롤</span>
-          <i className="fas fa-chevron-down"></i>
-        </div>
+      <div className={styles.term_scrollhint}>
+        <span>scroll</span>
+        <span className={styles.term_scrollhint_arrow}>▾</span>
       </div>
     </header>
   );
