@@ -214,7 +214,9 @@ export default function Projects() {
                 key={`thumb-${p.id}`}
                 className={styles.term_proj_thumb}
                 data-active={on}
-                onClick={() => router.push(`/project/${p.id}`)}
+                onClick={() =>
+                  on ? router.push(`/project/${p.id}`) : setCurrentIndex(i)
+                }
               >
                 <div
                   className={`${styles.term_proj_thumb_frame} ${
@@ -235,6 +237,11 @@ export default function Projects() {
                     >
                       {formatNumber(i + 1)}
                     </span>
+                    {on && (
+                      <span className={styles.term_proj_thumb_enter}>
+                        자세히 보기 →
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className={styles.term_proj_thumb_label}>

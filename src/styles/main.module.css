@@ -4549,6 +4549,20 @@
     color: #38e07b;
 }
 
+.term_proj_thumb_enter {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #070809;
+    background: #38e07b;
+    padding: 4px 10px;
+    border-radius: 999px;
+    box-shadow: 0 0 14px -2px rgba(56, 224, 123, 0.6);
+    animation: termFadeUp 0.3s both;
+}
+
 .term_proj_thumb_label {
     display: flex;
     align-items: center;
