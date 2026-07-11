@@ -1,12 +1,14 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-07-09T07:20:10.174Z",
+  "lastUpdated": "2026-07-11T12:11:35.917Z",
   "activeFeatures": [
     "data",
     "[id]",
     "WebsPortfolio-master",
     "WebsPortfolio",
-    "ui"
+    "ui",
+    "scratchpad",
+    "projects"
   ],
   "primaryFeature": "data",
   "features": {
@@ -19,9 +21,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:02:53.120Z",
-        "lastUpdated": "2026-04-25T11:07:53.127Z"
+        "lastUpdated": "2026-07-11T11:16:42.792Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\WebsPortfolio-master\\src\\data\\data.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\data\\data.tsx"
     },
     "[id]": {
       "phase": "do",
@@ -32,9 +34,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:18:27.380Z",
-        "lastUpdated": "2026-07-09T05:16:45.401Z"
+        "lastUpdated": "2026-07-11T12:11:35.917Z"
       },
-      "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/app/project/[id]/page.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\app\\project\\[id]\\page.tsx"
     },
     "WebsPortfolio-master": {
       "phase": "do",
@@ -58,9 +60,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T01:07:56.993Z",
-        "lastUpdated": "2026-07-09T07:20:10.174Z"
+        "lastUpdated": "2026-07-11T11:30:31.485Z"
       },
-      "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/components/Skills.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\components\\About.tsx"
     },
     "ui": {
       "phase": "do",
@@ -74,6 +76,32 @@
         "lastUpdated": "2026-03-09T01:19:32.874Z"
       },
       "lastFile": "/Users/korhrd/Documents/GitHub/WebsPortfolio/src/components/ui/flip-words.tsx"
+    },
+    "scratchpad": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-11T11:15:27.924Z",
+        "lastUpdated": "2026-07-11T11:15:27.924Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\AppData\\Local\\Temp\\claude\\C--Users-bp4sp-Downloads-port-WebsPortfolio\\2bf51a78-eff2-4e32-821f-320d5ee88de8\\scratchpad\\split-data.js"
+    },
+    "projects": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-11T11:16:32.550Z",
+        "lastUpdated": "2026-07-11T12:06:02.632Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\data\\projects\\korhrd-office.ts"
     }
   },
   "pipeline": {
@@ -84,7 +112,7 @@
   "session": {
     "startedAt": "2026-03-07T14:48:17.076Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-07-09T07:20:10.174Z"
+    "lastActivity": "2026-07-11T12:11:35.917Z"
   },
   "history": [
     {
@@ -960,6 +988,210 @@
     {
       "timestamp": "2026-07-09T07:20:10.174Z",
       "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T10:56:08.321Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T10:57:38.011Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T10:59:47.401Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:01:12.576Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:02:55.966Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:04:10.261Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:06:51.692Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:08:48.371Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:15:27.924Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:15:53.344Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:16:16.076Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:16:32.550Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:16:42.792Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:19:41.007Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:19:41.968Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:19:51.628Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:19:56.169Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:07.423Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:08.992Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:16.436Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:19.912Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:32.897Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:34.585Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:40.896Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:20:43.074Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:22:33.803Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:22:35.329Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:26:30.175Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:29:11.237Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:30:31.485Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T11:31:35.789Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T12:06:02.632Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T12:11:34.722Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T12:11:35.917Z",
+      "feature": "[id]",
       "phase": "do",
       "action": "updated"
     }

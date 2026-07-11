@@ -118,13 +118,7 @@ export default function Header() {
       </nav>
 
       <div className={styles.term_main}>
-        <div className={styles.term_status_row}>
-          <span className={styles.term_status_pill}>
-            <span className={styles.term_status_dot} />
-            Available for work
-          </span>
-          <span>📍 Seoul, KR</span>
-        </div>
+
 
         <div className={styles.term_cmdblock}>
           <div>
@@ -168,23 +162,23 @@ export default function Header() {
         <div className={styles.term_run_row}>
           <span>
             <span className={styles.term_arrow}>➜</span>{" "}
-            <span className={styles.term_path}>~/portfolio</span>{" "}
-            <span className={styles.term_cmd}>./view --projects</span>
+            <span className={styles.term_path}>~/portfolio</span>
           </span>
           <Link href="#projects" className={styles.term_btn_primary}>
-            실행 ▸
+            프로젝트 보기 →
           </Link>
           <Link href="#contact" className={styles.term_btn_ghost}>
-            연락하기
+            연락하기 →
           </Link>
         </div>
 
       </div>
 
-      <div className={styles.term_scrollhint}>
-        <span>scroll</span>
-        <span className={styles.term_scrollhint_arrow}>▾</span>
-      </div>
+      <Link href="#about" className={styles.term_scrollhint}>
+        <span className={styles.term_scrollhint_label}>scroll</span>
+        <span className={styles.term_scrollhint_line} />
+        <span className={styles.term_scrollhint_dot} />
+      </Link>
     </header>
   );
 }

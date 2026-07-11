@@ -228,30 +228,13 @@ export default function About() {
                 항상 개발하면서 <b className={styles.term_hl}>팀워크</b>와 진정한{" "}
                 <b className={styles.term_hl}>소통</b>을 중요시하는 개발자입니다.
               </p>
+              <p>
+                사내 <b className={styles.term_hl}>프론트엔드 개발 표준</b>과{" "}
+                <b className={styles.term_hl}>디자인 시스템 가이드</b>를 직접
+                구축·운영하고 있습니다.
+              </p>
             </div>
 
-            <div className={styles.term_about_divider} />
-
-            <div className={styles.term_about_stats}>
-              <div className={styles.term_about_stat}>
-                <div className={styles.term_about_stat_n}>
-                  4<span className={styles.term_accent}>+</span>
-                </div>
-                <div className={styles.term_about_stat_label}>PROJECTS</div>
-              </div>
-              <div className={styles.term_about_stat}>
-                <div className={styles.term_about_stat_n}>
-                  2<span className={styles.term_accent}>+</span>
-                </div>
-                <div className={styles.term_about_stat_label}>YEARS EXP.</div>
-              </div>
-              <div className={styles.term_about_stat}>
-                <div className={styles.term_about_stat_n}>
-                  10<span className={styles.term_accent}>+</span>
-                </div>
-                <div className={styles.term_about_stat_label}>TECH STACK</div>
-              </div>
-            </div>
           </div>
         </div>
 

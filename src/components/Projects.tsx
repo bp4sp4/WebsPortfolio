@@ -5,14 +5,6 @@ import { useRouter } from "next/navigation";
 import { projects } from "@/data/data";
 import styles from "@/styles/main.module.css";
 
-type TabType = "all" | "company" | "personal";
-
-const TABS: { key: TabType; label: string }[] = [
-  { key: "all", label: "전체" },
-  { key: "company", label: "회사" },
-  { key: "personal", label: "개인" },
-];
-
 const SLIDE_DURATION = 5000; // 5s
 
 const formatNumber = (n: number) => String(n).padStart(2, "0");
@@ -27,54 +19,43 @@ const slugOf = (url: string | undefined, fallback: string) => {
 };
 
 export default function Projects() {
-  const [activeTab, setActiveTab] = useState<TabType>("all");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const router = useRouter();
   const isPaused = useRef(false);
   const thumbsRef = useRef<HTMLDivElement>(null);
 
-  const filtered = projects.filter(
-    (p) => activeTab === "all" || p.type === activeTab
-  );
-
-  const countOf = (tab: TabType) =>
-    tab === "all"
-      ? projects.length
-      : projects.filter((p) => p.type === tab).length;
-
   const prev = () =>
-    setCurrentIndex((i) => (i === 0 ? filtered.length - 1 : i - 1));
+    setCurrentIndex((i) => (i === 0 ? projects.length - 1 : i - 1));
   const next = () =>
-    setCurrentIndex((i) => (i === filtered.length - 1 ? 0 : i + 1));
+    setCurrentIndex((i) => (i === projects.length - 1 ? 0 : i + 1));
 
   // 자동 슬라이드 + 진행 막대 (60fps tick)
   useEffect(() => {
     setProgress(0);
     let frameId: number;
     let lastTick = performance.now();
+    let acc = 0;
 
     const tick = (now: number) => {
       const dt = now - lastTick;
       lastTick = now;
       if (!isPaused.current) {
-        setProgress((p) => {
-          const next = p + (dt / SLIDE_DURATION) * 100;
-          if (next >= 100) {
-            setCurrentIndex((i) =>
-              i === filtered.length - 1 ? 0 : i + 1
-            );
-            return 0;
-          }
-          return next;
-        });
+        acc += (dt / SLIDE_DURATION) * 100;
+        if (acc >= 100) {
+          acc = 0;
+          setProgress(0);
+          setCurrentIndex((i) => (i === projects.length - 1 ? 0 : i + 1));
+        } else {
+          setProgress(acc);
+        }
       }
       frameId = requestAnimationFrame(tick);
     };
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [filtered.length, currentIndex]);
+  }, [currentIndex]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -84,7 +65,7 @@ export default function Projects() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [filtered.length]);
+  }, []);
 
   // Auto-scroll active thumbnail into view (horizontal only, never affects page scroll)
   useEffect(() => {
@@ -105,14 +86,9 @@ export default function Projects() {
       left: Math.max(0, targetScrollLeft),
       behavior: "smooth",
     });
-  }, [currentIndex, activeTab]);
+  }, [currentIndex]);
 
-  const handleTabChange = (tab: TabType) => {
-    setActiveTab(tab);
-    setCurrentIndex(0);
-  };
-
-  const current = filtered[currentIndex];
+  const current = projects[currentIndex];
   if (!current) return null;
 
   return (
@@ -131,26 +107,9 @@ export default function Projects() {
                 <span className={styles.term_proj_counter_now}>
                   {formatNumber(currentIndex + 1)}
                 </span>{" "}
-                / {formatNumber(filtered.length)}
+                / {formatNumber(projects.length)}
               </span>
             </div>
-          </div>
-
-          <div className={styles.term_proj_filters}>
-            {TABS.map((tab) => (
-              <button
-                key={tab.key}
-                className={`${styles.term_proj_filter} ${
-                  activeTab === tab.key ? styles.term_proj_filter_on : ""
-                }`}
-                onClick={() => handleTabChange(tab.key)}
-              >
-                {tab.label}
-                <span className={styles.term_proj_filter_count}>
-                  {countOf(tab.key)}
-                </span>
-              </button>
-            ))}
           </div>
         </div>
 
@@ -165,7 +124,7 @@ export default function Projects() {
           }}
         >
           <div
-            key={`${activeTab}-${current.id}`}
+            key={current.id}
             className={styles.term_proj_featured}
             onClick={() => router.push(`/project/${current.id}`)}
           >
@@ -175,9 +134,6 @@ export default function Projects() {
               <span className={styles.term_proj_dot} style={{ background: "#27c93f" }} />
               <span className={styles.term_proj_url}>
                 {current.demo || current.github || current.title}
-              </span>
-              <span className={styles.term_proj_badge}>
-                {current.type === "company" ? "회사" : "개인"}
               </span>
             </div>
             <div className={styles.term_proj_shot}>
@@ -231,11 +187,11 @@ export default function Projects() {
 
         {/* thumbnails */}
         <div className={styles.term_proj_thumbs} ref={thumbsRef}>
-          {filtered.map((p, i) => {
+          {projects.map((p, i) => {
             const on = i === currentIndex;
             return (
               <button
-                key={`${activeTab}-thumb-${p.id}`}
+                key={`thumb-${p.id}`}
                 className={styles.term_proj_thumb}
                 data-active={on}
                 onClick={() => setCurrentIndex(i)}
@@ -262,12 +218,6 @@ export default function Projects() {
                   </div>
                 </div>
                 <div className={styles.term_proj_thumb_label}>
-                  <span
-                    className={styles.term_proj_thumb_cat}
-                    style={{
-                      background: p.type === "company" ? "#38e07b" : "#5fb6ff",
-                    }}
-                  />
                   <span
                     className={`${styles.term_proj_thumb_title} ${
                       on ? styles.term_proj_thumb_title_on : ""

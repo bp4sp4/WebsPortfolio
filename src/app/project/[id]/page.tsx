@@ -239,7 +239,7 @@ export default function ProjectDetail() {
           <span className={styles.det_mac_dot} style={{ background: "#ffbd2e" }} />
           <span className={styles.det_mac_dot} style={{ background: "#27c93f" }} />
           <span className={styles.det_topbar_title}>
-            sanghun@portfolio — ~/projects/{num}
+            sanghun@portfolio — ~/projects/{projectData.title}
           </span>
         </div>
         <Link href="/#projects" className={styles.det_topbar_back}>
@@ -623,7 +623,7 @@ export default function ProjectDetail() {
 
           <div className={styles.det_endline}>
             <span className={styles.det_accent}>➜</span>{" "}
-            <span className={styles.det_path}>~/projects/{num}</span>{" "}
+            <span className={styles.det_path}>~/projects/{projectData.title}</span>{" "}
             <span className={styles.det_cmd}>_</span>
             <span className={styles.det_cursor} />
           </div>

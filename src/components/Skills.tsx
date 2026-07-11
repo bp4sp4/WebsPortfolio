@@ -148,19 +148,6 @@ export default function Skills() {
                     </span>
                   ))}
                 </div>
-
-                <div className={styles.term_skill_gauge}>
-                  <div className={styles.term_skill_gauge_head}>
-                    <span>PROFICIENCY</span>
-                    <span className={styles.term_skill_pct}>{skill.level}%</span>
-                  </div>
-                  <div className={styles.term_skill_track}>
-                    <div
-                      className={styles.term_skill_fill}
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
               </div>
             );
           })}
