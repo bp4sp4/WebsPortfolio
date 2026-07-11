@@ -163,7 +163,7 @@ export default function About() {
   const expRef = useRef<HTMLDivElement>(null);
   const [expVisible, setExpVisible] = useState(false);
 
-  // 타임라인이 화면에 들어오면 리빌 애니메이션 시작
+  // 타임라인이 화면에 보일 때마다 리빌 + 로켓 애니메이션 재생
   useEffect(() => {
     const el = expRef.current;
     if (!el) return;
@@ -171,10 +171,7 @@ export default function About() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setExpVisible(true);
-            observer.disconnect();
-          }
+          setExpVisible(entry.isIntersecting);
         });
       },
       { threshold: 0.3 }

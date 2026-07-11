@@ -21,18 +21,38 @@ const slugOf = (url: string | undefined, fallback: string) => {
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [inView, setInView] = useState(false);
   const router = useRouter();
   const isPaused = useRef(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const thumbsRef = useRef<HTMLDivElement>(null);
+
+  // 섹션이 화면에 보일 때만 자동 슬라이드 — 방문자가 도착하면 항상 첫 프로젝트(한평생오피스)부터 시작
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => setInView(entry.isIntersecting));
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const prev = () =>
     setCurrentIndex((i) => (i === 0 ? projects.length - 1 : i - 1));
   const next = () =>
     setCurrentIndex((i) => (i === projects.length - 1 ? 0 : i + 1));
 
-  // 자동 슬라이드 + 진행 막대 (60fps tick)
+  // 자동 슬라이드 + 진행 막대 (60fps tick) — 섹션이 보일 때만 동작
   useEffect(() => {
     setProgress(0);
+    if (!inView) return;
+
     let frameId: number;
     let lastTick = performance.now();
     let acc = 0;
@@ -55,7 +75,7 @@ export default function Projects() {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [currentIndex]);
+  }, [currentIndex, inView]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -92,7 +112,7 @@ export default function Projects() {
   if (!current) return null;
 
   return (
-    <section id="projects" className={styles.term_proj}>
+    <section id="projects" ref={sectionRef} className={styles.term_proj}>
       <div className={styles.term_scanlines} />
 
       <div className={styles.term_proj_inner}>
@@ -194,7 +214,7 @@ export default function Projects() {
                 key={`thumb-${p.id}`}
                 className={styles.term_proj_thumb}
                 data-active={on}
-                onClick={() => setCurrentIndex(i)}
+                onClick={() => router.push(`/project/${p.id}`)}
               >
                 <div
                   className={`${styles.term_proj_thumb_frame} ${
