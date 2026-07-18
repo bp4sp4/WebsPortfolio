@@ -192,9 +192,6 @@ export default function ProjectDetail() {
     );
   }
 
-  const SECTION_NUMS = ["01", "02", "03", "04", "05", "06", "07"];
-  let sectionIdx = 0;
-
   const hasCategories = (projectData.keyFeatures ?? []).some((f) => f.category);
   const categories = hasCategories
     ? Array.from(new Set((projectData.keyFeatures ?? []).map((f) => f.category).filter(Boolean))) as string[]
@@ -210,9 +207,9 @@ export default function ProjectDetail() {
     .map((it) => it.name)
     .join(" · ");
 
-  const SectionHead = ({ title }: { title: string }) => (
+  const SectionHead = ({ title, number }: { title: string; number: string }) => (
     <div className={styles.det_sec_head}>
-      <span className={styles.det_sec_num}>{SECTION_NUMS[sectionIdx++]}</span>
+      <span className={styles.det_sec_num}>{number}</span>
       <div>
         <h2 className={styles.det_sec_title}>{title}</h2>
         <div className={styles.det_sec_rule} />
@@ -333,7 +330,7 @@ export default function ProjectDetail() {
             01 OVERVIEW
         ════════════════════════════════════ */}
         <section className={`${styles.det_section} ${styles.reveal}`}>
-          <SectionHead title="Overview" />
+          <SectionHead title="Overview" number="01" />
           <div className={styles.det_prose}>
             {projectData.overview.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
@@ -342,10 +339,30 @@ export default function ProjectDetail() {
         </section>
 
         {/* ════════════════════════════════════
-            BROWSER-FRAMED GALLERY
+            02 나의 역할
+        ════════════════════════════════════ */}
+        <section className={`${styles.det_section} ${styles.reveal}`}>
+          <SectionHead title="나의 역할" number="02" />
+          <div className={styles.det_role_badge}>
+            <span className={styles.det_role_dot} />
+            {projectData.role.type}
+          </div>
+          <div className={styles.det_role_grid}>
+            {projectData.role.parts.map((part, i) => (
+              <div key={i} className={styles.det_role_item}>
+                <span className={styles.det_role_arrow}>▹</span>
+                <span>{part}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════
+            03 PROJECT IMAGES
         ════════════════════════════════════ */}
         {projectData.images.length > 0 && (
           <section className={`${styles.det_section} ${styles.reveal}`}>
+            <SectionHead title="Project Images" number="03" />
             <div className={styles.det_browser}>
               <div className={styles.det_browser_bar}>
                 <span className={styles.det_mac_dot} style={{ background: "#ff5f56" }} />
@@ -401,7 +418,6 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            {/* Thumbnail strip */}
             {projectData.images.length > 1 && (
               <div className={styles.det_gal_strip}>
                 {projectData.images.map((img, i) => (
@@ -421,30 +437,11 @@ export default function ProjectDetail() {
         )}
 
         {/* ════════════════════════════════════
-            02 나의 역할
-        ════════════════════════════════════ */}
-        <section className={`${styles.det_section} ${styles.reveal}`}>
-          <SectionHead title="나의 역할" />
-          <div className={styles.det_role_badge}>
-            <span className={styles.det_role_dot} />
-            {projectData.role.type}
-          </div>
-          <div className={styles.det_role_grid}>
-            {projectData.role.parts.map((part, i) => (
-              <div key={i} className={styles.det_role_item}>
-                <span className={styles.det_role_arrow}>▹</span>
-                <span>{part}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ════════════════════════════════════
-            03 핵심 기능 (optional)
+            04 핵심 기능 (optional)
         ════════════════════════════════════ */}
         {projectData.keyFeatures && projectData.keyFeatures.length > 0 && (
           <section className={`${styles.det_section} ${styles.reveal}`}>
-            <SectionHead title="핵심 기능" />
+            <SectionHead title="핵심 기능" number="04" />
 
             {hasCategories && (
               <div className={styles.det_tab_group}>
@@ -504,7 +501,7 @@ export default function ProjectDetail() {
             사용 기술
         ════════════════════════════════════ */}
         <section className={`${styles.det_section} ${styles.reveal}`}>
-          <SectionHead title="사용 기술" />
+          <SectionHead title="사용 기술" number="05" />
           <div className={styles.det_tech_table}>
             {projectData.technologies.map((tech, i) => (
               <div key={i} className={styles.det_tech_row}>
@@ -525,7 +522,7 @@ export default function ProjectDetail() {
             도전 과제 & 해결책
         ════════════════════════════════════ */}
         <section className={`${styles.det_section} ${styles.reveal}`}>
-          <SectionHead title="도전 과제 & 해결책" />
+          <SectionHead title="도전 과제 & 해결책" number="06" />
           <div className={styles.det_chal_list}>
             {projectData.challenges.map((c, i) => (
               <div key={i} className={styles.det_chal}>
@@ -579,7 +576,7 @@ export default function ProjectDetail() {
             결과 & 성과
         ════════════════════════════════════ */}
         <section className={`${styles.det_section} ${styles.reveal}`}>
-          <SectionHead title="결과 & 성과" />
+          <SectionHead title="결과 & 성과" number="07" />
           <div className={styles.det_prose}>
             {projectData.outcome.map((p, i) => (
               <p key={i}>{p}</p>

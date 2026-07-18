@@ -6,10 +6,10 @@ export const project: ProjectEntry = {
   title: "한평생오피스",
   date: "2026. 03. 16 ~ 진행 중",
   description:
-    "한국HRD그룹의 사내 업무 통합 관리 시스템(ERP)입니다. 학점은행제·자격증·유학·실습·올케어 5개 사업부의 매출·정산부터 전자결재·손익 리포트·인사·근태·웹메일까지, 68개 페이지와 222개 API 엔드포인트로 구성된 올인원 플랫폼을 풀스택으로 설계·구현했습니다.",
-  tags: ["Next.js 16", "TypeScript", "Supabase", "Tailwind 4", "Recharts", "Popbill"],
+    "한국HRD그룹의 사내 업무 통합 관리 시스템(ERP)입니다. 5개 사업부의 매출·정산부터 전자결재·손익 리포트·인사·근태·웹메일까지 통합하고, Claude 기반 AI 개인 브리핑과 팀 성과 분석으로 구성원이 바로 실행할 수 있는 업무 인사이트를 제공합니다.",
+  tags: ["Next.js 16", "TypeScript", "Supabase", "Claude AI", "Recharts", "Naver Cloud Platform"],
   gifImage: "/main/work__gif/office.png",
-  github: "https://github.com/bp4sp4/KorhrdGroupDB",
+  github: "#",
   demo: "#",
   detail: {
     period: "2026. 03. 16 ~ 진행 중",
@@ -25,21 +25,23 @@ export const project: ProjectEntry = {
     ],
     overview: [
       "⚠️ 한평생오피스는 현재 한평생그룹 사내에서 운영 중인 시스템으로, 외부에 공개된 데모 사이트는 제공되지 않습니다. 또한 본 페이지에 노출된 화면 중 매출·고객·정산 등 회사 기밀 정보가 포함된 영역은 블러 처리되었으니 양해 부탁드립니다.",
-      "출발점은 영업단인 학점은행제 사업부였습니다. 상담 등록·고객 관리·매출·정산·계약·중복조회 등 일선 업무가 엑셀과 메신저에 파편화되어 있어 이를 한 시스템으로 합치는 것이 1차 목표였고, 같은 구조를 자격증·유학·실습·올케어 사업부로 확장한 뒤 전자결재·손익 리포트·예산·인사·근태·웹메일 같은 경영·협업 기능까지 흡수해 전사 통합 ERP로 발전시켰습니다. 현재 68개 페이지, 222개 API 엔드포인트, 약 90개 DB 테이블, 총 14만 줄 이상의 TypeScript 코드베이스 규모로 운영 중입니다.",
-      "Next.js 16 App Router + React 19 + Supabase(SSR 쿠키 세션) 기반 풀스택 아키텍처 위에, 다단계 전자결재 상태 머신, 매출 3종 통합 예상손익계산서, 신한은행 오픈API·Popbill 계좌조회, 자체 IMAP/SMTP 웹메일, OTP 전자근로계약, 정량 인사평가 자동 환산까지 — 사내 업무 전반을 코드로 자동화했습니다.",
+      "출발점은 영업단인 학점은행제 사업부였습니다. 상담 등록·고객 관리·매출·정산·계약·중복조회 등 일선 업무가 엑셀과 메신저에 파편화되어 있어 이를 한 시스템으로 합치는 것이 1차 목표였고, 같은 구조를 자격증·유학·실습·올케어 사업부로 확장한 뒤 전자결재·손익 리포트·예산·인사·근태·웹메일 같은 경영·협업 기능까지 흡수해 전사 통합 ERP로 발전시켰습니다. 현재 약 90개 DB 테이블과 14만 줄 이상의 TypeScript 코드베이스 규모로 운영 중입니다.",
+      "Next.js 16 App Router + React 19 + Supabase(SSR 쿠키 세션) 기반 풀스택 아키텍처 위에, 다단계 전자결재 상태 머신, 매출 3종 통합 예상손익계산서, 신한은행 오픈API 기반 법인 계좌조회, 다음 스마트워크 IMAP/SMTP 웹메일, OTP 전자근로계약, 정량 인사평가 자동 환산까지 — 사내 업무 전반을 코드로 자동화했습니다.",
+      "최근에는 Claude 기반 AI 인사이트 기능을 추가했습니다. 개인 업무 브리핑은 실적·가망 고객·전환율 데이터를 바탕으로 오늘의 우선순위와 추천 연락 고객을 제안하고, 관리자용 팀 분석은 전환율·매출 데이터를 분석해 우수·개선 필요 인원과 실행 권장 사항을 정리합니다. 핵심 수치는 서버에서 직접 계산해 AI 응답과 결합함으로써 신뢰성을 확보했습니다.",
     ],
     role: {
       type: "실무 프로젝트 (사내)",
       parts: [
-        "풀스택 설계·개발 100% (68개 페이지 · 222개 API 라우트)",
+        "풀스택 설계·개발 100% (전사 통합 ERP)",
         "DB 스키마(약 90개 테이블) 및 역할 6종 × 섹션 40여 개 다층 권한 체계 설계",
         "전자결재 상태 머신·예상손익계산서·인사평가 자동 환산 등 핵심 비즈니스 로직 구현",
-        "신한은행·Popbill·네이버웍스·카카오 알림톡 등 10여 개 외부 서비스 연동",
-        "엑셀 대량 처리·PDF 계약서 생성·웹메일 등 업무 자동화 구축",
+        "신한은행 Open API·알리고 API·네이버 클라우드 플랫폼 연동 및 Claude AI 기반 업무 인사이트 기능 구현",
+        "엑셀 대량 처리·PDF 계약서 생성·다음 스마트워크 연동 웹메일 등 업무 자동화 구축",
+        "Claude 기반 개인 업무 브리핑·관리자용 팀 성과 분석 기능 설계·구현",
       ],
     },
     links: {
-      github: "https://github.com/bp4sp4/KorhrdGroupDB",
+      github: "#",
       demo: "#",
     },
     goals: [
@@ -62,6 +64,12 @@ export const project: ProjectEntry = {
           "매출 3종을 통합 집계한 예상손익계산서와 법인 계좌 실시간 조회, 사업부별 매출·손익 대시보드를 제공하여 경영진이 데이터를 직접 보고 빠르게 의사결정할 수 있게 합니다.",
       },
       {
+        icon: "fas fa-wand-magic-sparkles",
+        title: "AI 기반 업무 인사이트",
+        description:
+          "개인에게는 오늘의 우선순위·추천 연락 고객을, 관리자에게는 팀 성과 요약·코칭 대상·권장 액션을 제공해 데이터 확인 시간을 줄이고 실행을 돕습니다.",
+      },
+      {
         icon: "fas fa-stamp",
         title: "결재·계약의 완전한 디지털화",
         description:
@@ -75,6 +83,12 @@ export const project: ProjectEntry = {
       },
     ],
     keyFeatures: [
+      {
+        icon: "fas fa-wand-magic-sparkles",
+        title: "Claude AI 개인 브리핑 · 팀 성과 분석 [NEW]",
+        description:
+          "Claude Opus가 개인의 실적·가망 고객·전환율을 분석해 오늘 확인할 일, 추천 연락 고객, 강점·개선점을 제안합니다. 관리자는 팀별 전환율·매출을 기반으로 우수·개선 필요 인원과 실행 권장 사항을 한눈에 확인합니다.",
+      },
       {
         icon: "fas fa-graduation-cap",
         title: "5개 사업부 통합 운영 [핵심]",
@@ -97,7 +111,7 @@ export const project: ProjectEntry = {
         icon: "fas fa-university",
         title: "법인 계좌·전자금융 연동",
         description:
-          "Popbill 계좌조회 API와 신한은행 오픈API를 연동해 법인 계좌 거래내역을 시스템에서 실시간 조회하고, 거래내역을 고정비 항목과 키워드 매칭으로 자동 분류합니다.",
+          "신한은행 오픈API를 연동해 법인 계좌 거래내역을 시스템에서 실시간 조회하고, 거래내역을 고정비 항목과 키워드 매칭으로 자동 분류합니다.",
       },
       {
         icon: "fas fa-file-excel",
@@ -121,7 +135,7 @@ export const project: ProjectEntry = {
         icon: "fas fa-envelope",
         title: "자체 웹메일 & 알림",
         description:
-          "IMAP/SMTP 기반 웹메일 클라이언트를 자체 구현하고 네이버웍스 메일과 연동했습니다. 카카오 알림톡·SMS(NCP SENS)·인앱 알림벨로 결재·업무 알림을 실시간 전달합니다.",
+          "IMAP/SMTP 기반 웹메일 클라이언트를 자체 구현하고 다음 스마트워크 메일과 연동했습니다. 카카오 알림톡·SMS(NCP SENS)·인앱 알림벨로 결재·업무 알림을 실시간 전달합니다.",
       },
       {
         icon: "fas fa-shield-alt",
@@ -131,6 +145,14 @@ export const project: ProjectEntry = {
       },
     ],
     technologies: [
+      {
+        category: "AI 인사이트",
+        items: [
+          { name: "Claude Opus 4.8", description: "개인 업무 브리핑과 팀 성과 분석 생성" },
+          { name: "Anthropic SDK", description: "JSON Schema 기반의 구조화된 AI 응답 생성" },
+          { name: "Server-side Metrics", description: "핵심 수치를 서버에서 직접 계산해 AI 응답과 결합" },
+        ],
+      },
       {
         category: "프론트엔드",
         items: [
@@ -161,8 +183,8 @@ export const project: ProjectEntry = {
       {
         category: "외부 서비스 연동",
         items: [
-          { name: "Popbill · 신한은행 오픈API", description: "법인 계좌조회·전자금융" },
-          { name: "네이버웍스 OAuth·메일", description: "사내 계정 연동 및 메일 연계" },
+          { name: "신한은행 Open API", description: "법인 계좌조회·전자금융" },
+          { name: "다음 스마트워크 IMAP/SMTP", description: "사내 메일 수신·발신 연동" },
           { name: "카카오 알림톡 · NCP SENS", description: "결재·업무 알림 메시징" },
           { name: "IMAP/SMTP (imapflow·nodemailer)", description: "자체 웹메일 수신·발신" },
         ],
@@ -200,9 +222,9 @@ export const project: ProjectEntry = {
     ],
     metrics: [
       {
-        value: "222개",
-        label: "API 엔드포인트",
-        icon: "fas fa-plug",
+        value: "개인 · 팀",
+        label: "Claude AI 성과 분석",
+        icon: "fas fa-wand-magic-sparkles",
       },
       {
         value: "68 · 90",
@@ -221,7 +243,8 @@ export const project: ProjectEntry = {
       },
     ],
     outcome: [
-      "학점은행제 영업단의 흩어진 업무를 한 시스템으로 합치는 것에서 출발해, 5개 사업부와 경영·인사·협업 기능까지 아우르는 전사 통합 ERP(68개 페이지 · 222개 API · 약 14만 줄)로 발전시켰습니다. 영업단이 여러 도구를 오가던 작업이 한 화면에서 끝나게 되어 입력 누락·중복 작성 같은 일선 비효율이 크게 줄었습니다.",
+      "학점은행제 영업단의 흩어진 업무를 한 시스템으로 합치는 것에서 출발해, 5개 사업부와 경영·인사·협업 기능까지 아우르는 전사 통합 ERP로 발전시켰습니다. 영업단이 여러 도구를 오가던 작업이 한 화면에서 끝나게 되어 입력 누락·중복 작성 같은 일선 비효율이 크게 줄었습니다.",
+      "Claude AI 개인 브리핑과 팀 성과 분석을 도입해 담당자는 오늘의 우선순위와 놓치면 안 되는 가망 고객을, 관리자는 팀의 우수·개선 필요 인원과 코칭 방향을 빠르게 파악할 수 있게 했습니다. AI의 서술은 실제 데이터에 근거하되 핵심 수치는 서버 계산값으로 보완해, 실무에서 신뢰하고 사용할 수 있는 인사이트 경험을 만들었습니다.",
       "다단계 전자결재 상태 머신, 매출 3종 통합 손익 산출, 은행 API 고정 IP 프록시, 역할 6종 × 섹션 40여 개 권한 체계 등 단순 CRUD를 넘는 시스템 설계 경험을 쌓았고, 실제 사용자 인터뷰로 UX를 다듬으며 비개발자 조직 전체가 매일 쓰는 실서비스를 혼자 힘으로 구축·운영하는 역량을 확보했습니다.",
     ],
   },

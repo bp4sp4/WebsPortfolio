@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "@/styles/main.module.css";
 
-const ROTATING_WORDS = ["UI·UX", "프론트엔드", "인터랙션", "퍼블리싱", "WEB"];
+const ROTATING_WORDS = ["사용자 경험을", "UI·UX를", "화면을", "흐름을", "퍼블리싱을", "웹을"];
 const ROTATE_MS = 2200;
 
 const NAV_ITEMS = [
@@ -146,7 +146,7 @@ export default function Header() {
           <span className={styles.term_cursor} />
         </div>
         <div className={styles.term_subline}>
-          하는 개발자입니다<span className={styles.term_accent}>_</span>
+          완성도 있게 구현합니다<span className={styles.term_accent}>_</span>
         </div>
 
         <div className={styles.term_tags}>

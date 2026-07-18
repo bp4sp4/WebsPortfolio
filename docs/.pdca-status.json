@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-07-11T12:25:36.536Z",
+  "lastUpdated": "2026-07-11T14:18:55.669Z",
   "activeFeatures": [
     "data",
     "[id]",
@@ -8,7 +8,10 @@
     "WebsPortfolio",
     "ui",
     "scratchpad",
-    "projects"
+    "projects",
+    "moim",
+    "spaces",
+    "reservations"
   ],
   "primaryFeature": "data",
   "features": {
@@ -34,9 +37,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:18:27.380Z",
-        "lastUpdated": "2026-07-11T12:11:35.917Z"
+        "lastUpdated": "2026-07-11T14:18:27.930Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\app\\project\\[id]\\page.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\moim\\src\\app\\spaces\\[id]\\page.tsx"
     },
     "WebsPortfolio-master": {
       "phase": "do",
@@ -102,6 +105,45 @@
         "lastUpdated": "2026-07-11T12:06:02.632Z"
       },
       "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\data\\projects\\korhrd-office.ts"
+    },
+    "moim": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-11T14:12:40.683Z",
+        "lastUpdated": "2026-07-11T14:17:29.457Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\moim\\src\\app\\page.tsx"
+    },
+    "spaces": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-11T14:17:38.765Z",
+        "lastUpdated": "2026-07-11T14:17:57.898Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\moim\\src\\app\\spaces\\SpaceList.tsx"
+    },
+    "reservations": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-11T14:18:55.669Z",
+        "lastUpdated": "2026-07-11T14:18:55.669Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\moim\\src\\app\\reservations\\page.tsx"
     }
   },
   "pipeline": {
@@ -112,7 +154,7 @@
   "session": {
     "startedAt": "2026-03-07T14:48:17.076Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-07-11T12:25:36.536Z"
+    "lastActivity": "2026-07-11T14:18:55.669Z"
   },
   "history": [
     {
@@ -1240,6 +1282,108 @@
     {
       "timestamp": "2026-07-11T12:25:36.536Z",
       "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:12:40.683Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:12:51.795Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:14:03.188Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:14:13.665Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:14:43.500Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:14:57.630Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:15:00.982Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:15:05.456Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:15:16.506Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:15:25.117Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:15:32.641Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:16:19.263Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:17:29.457Z",
+      "feature": "moim",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:17:38.765Z",
+      "feature": "spaces",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:17:57.898Z",
+      "feature": "spaces",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:18:27.930Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-11T14:18:55.669Z",
+      "feature": "reservations",
       "phase": "do",
       "action": "updated"
     }
