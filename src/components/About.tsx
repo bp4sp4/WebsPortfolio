@@ -73,7 +73,7 @@ function ExperienceTimeline() {
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* spine */}
-      <line x1={60} y1={SPINE_Y} x2={width - 60} y2={SPINE_Y} stroke="#1c231e" strokeWidth={2} />
+      <line x1={60} y1={SPINE_Y} x2={width - 60} y2={SPINE_Y} stroke="#1f1f1f" strokeWidth={2} />
       {/* 로켓이 지나가며 그려지는 초록 선 (오른쪽 → 왼쪽) */}
       <line
         className={styles.term_exp_spine_draw}
@@ -81,7 +81,7 @@ function ExperienceTimeline() {
         y1={SPINE_Y}
         x2={60}
         y2={SPINE_Y}
-        stroke="#38e07b"
+        stroke="#f2f2f0"
         strokeWidth={2}
         opacity={0.45}
         style={{ "--spine-len": `${width - 120}px` } as React.CSSProperties}
@@ -100,9 +100,9 @@ function ExperienceTimeline() {
         const cardY = above ? 34 : 272;
         const [line1, line2] = splitInfo(exp.info);
         const accent = exp.current;
-        const stroke = accent ? "#2c6b48" : "#1c231e";
-        const nodeStroke = accent ? "#38e07b" : "#2a352c";
-        const iconColor = accent ? "#38e07b" : "#7c8a7e";
+        const stroke = accent ? "#4a4a4a" : "#1f1f1f";
+        const nodeStroke = accent ? "#f2f2f0" : "#2e2e2e";
+        const iconColor = accent ? "#f2f2f0" : "#808080";
         const textY = line2 ? [cardY + 30, cardY + 51, cardY + 78] : [cardY + 44, 0, cardY + 72];
 
         return (
@@ -119,20 +119,20 @@ function ExperienceTimeline() {
             )}
 
             {/* card */}
-            <rect x={cx - 100} y={cardY} width={200} height={94} rx={12} fill="#0b0d0b" stroke={stroke} />
+            <rect x={cx - 100} y={cardY} width={200} height={94} rx={12} fill="#0b0b0b" stroke={stroke} />
             {accent && (
               <>
-                <rect x={cx + 32} y={cardY - 16} width={52} height={22} rx={11} fill="#38e07b" />
-                <text x={cx + 58} y={cardY - 1} textAnchor="middle" fontSize={12} fontWeight={700} fill="#070809">
+                <rect x={cx + 32} y={cardY - 16} width={52} height={22} rx={11} fill="#f2f2f0" />
+                <text x={cx + 58} y={cardY - 1} textAnchor="middle" fontSize={12} fontWeight={700} fill="#080808">
                   현재
                 </text>
               </>
             )}
-            <text x={cx} y={textY[0]} textAnchor="middle" fontSize={14.5} fontWeight={700} fill="#eafff0">
+            <text x={cx} y={textY[0]} textAnchor="middle" fontSize={14.5} fontWeight={700} fill="#f4f4f2">
               {line1}
             </text>
             {line2 && (
-              <text x={cx} y={textY[1]} textAnchor="middle" fontSize={14.5} fontWeight={700} fill="#eafff0">
+              <text x={cx} y={textY[1]} textAnchor="middle" fontSize={14.5} fontWeight={700} fill="#f4f4f2">
                 {line2}
               </text>
             )}
@@ -141,14 +141,14 @@ function ExperienceTimeline() {
               y={textY[2]}
               textAnchor="middle"
               fontSize={11.5}
-              fill="#7c8a7e"
+              fill="#808080"
               fontFamily="'JetBrains Mono',monospace"
             >
               {exp.date}
             </text>
 
             {/* node */}
-            <circle cx={cx} cy={SPINE_Y} r={19} fill="#0a0c0a" stroke={nodeStroke} strokeWidth={2} />
+            <circle cx={cx} cy={SPINE_Y} r={19} fill="#0a0a0a" stroke={nodeStroke} strokeWidth={2} />
             <TimelineIcon icon={exp.icon} x={cx - 9} y={SPINE_Y - 9} color={iconColor} />
           </g>
         );
@@ -266,7 +266,7 @@ export default function About() {
                       icon={exp.icon}
                       x={0}
                       y={0}
-                      color={exp.current ? "#38e07b" : "#7c8a7e"}
+                      color={exp.current ? "#f2f2f0" : "#808080"}
                     />
                   </svg>
                 </div>

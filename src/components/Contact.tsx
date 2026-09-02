@@ -53,7 +53,7 @@ export default function Contact() {
       case "help":
       case "ls":
         out = [
-          { k: "out", t: "AVAILABLE COMMANDS", c: "#5b6b5e" },
+          { k: "out", t: "AVAILABLE COMMANDS", c: "#5e5e5e" },
           { k: "out", t: "  whoami   — 한 줄 소개" },
           { k: "out", t: "  email    — 이메일 주소" },
           { k: "out", t: "  github   — 깃허브 링크" },
@@ -96,7 +96,7 @@ export default function Contact() {
   };
 
   const chips = useMemo(() => ["help", "whoami", "email", "github", "hello"], []);
-  const colorFor = (k: Line["k"]) => (k === "err" ? "#e8734f" : "#a9b6ab");
+  const colorFor = (k: Line["k"]) => (k === "err" ? "#e8734f" : "#a8a8a8");
 
   return (
     <section id="contact" className={styles.term_contact}>
@@ -135,7 +135,7 @@ export default function Contact() {
                   <div key={i}>
                     <span className={styles.term_arrow}>➜</span>{" "}
                     <span className={styles.term_path}>~/contact</span>{" "}
-                    <span style={{ color: "#eafff0" }}>{l.t}</span>
+                    <span style={{ color: "#f4f4f2" }}>{l.t}</span>
                   </div>
                 );
               if (l.k === "link")
@@ -185,7 +185,7 @@ export default function Contact() {
         <div className={styles.term_ct_chips}>
           {chips.map((cmd) => (
             <button key={cmd} onClick={() => run(cmd)} className={styles.term_ct_chip}>
-              <span style={{ color: "#5b6b5e" }}>$</span> {cmd}
+              <span style={{ color: "#5e5e5e" }}>$</span> {cmd}
             </button>
           ))}
         </div>
