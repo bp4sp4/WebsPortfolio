@@ -14,18 +14,14 @@ import type { ProjectDetailType, ProjectEntry } from "../types";
 import { project as korhrdOffice } from "./korhrd-office";
 import { project as hanpyeongLms } from "./hanpyeong-lms";
 import { project as hanpyungsaengEdu } from "./hanpyungsaeng-edu";
-import { project as allcare } from "./allcare";
 import { project as baroCompany } from "./BaroCompany";
-import { project as landingsite } from "./landingsite";
 import { project as eduvisors } from "./Eduvisors";
 
 const allProjects: ProjectEntry[] = [
   korhrdOffice,
   hanpyeongLms,
   hanpyungsaengEdu,
-  allcare,
   baroCompany,
-  landingsite,
   eduvisors,
 ];
 
