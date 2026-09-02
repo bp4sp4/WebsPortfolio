@@ -8,9 +8,9 @@ export const project: ProjectEntry = {
   description:
     "무료수강신청 → 온라인 강의 → 온라인 시험 → 자격증 발급까지 이어지는 민간자격 온라인 교육기관 LMS입니다. 공개 사이트, 학생 강의실, 어드민 대시보드를 하나의 Next.js 16 프로젝트로 통합하고 Cloudflare 영상 게이트·나이스페이/PayApp 결제·Aligo/SENS SMS·AWS S3 자료 관리까지 풀스택으로 구축했습니다.",
   tags: ["Next.js 16", "React 19", "TypeScript", "Supabase", "Tailwind 4", "Cloudflare", "AWS S3"],
-  gifImage: "/main/work__gif/lms.png",
-  github: "https://github.com/bp4sp4/hanpyeong-lms",
-  demo: "#",
+  gifImage: "/main/work__gif/lms.gif",
+  github: "#",
+  demo: "https://www.korhrd.co.kr/",
   detail: {
     period: "2026. 07. 01 ~ 진행 중",
     mainImage: "/detail__main/page3imgs/lms_main.png",
@@ -37,8 +37,8 @@ export const project: ProjectEntry = {
       ],
     },
     links: {
-      github: "https://github.com/bp4sp4/hanpyeong-lms",
-      demo: "#",
+      github: "#",
+      demo: "https://www.korhrd.co.kr/",
     },
     goals: [
       {
