@@ -7,7 +7,8 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import { contactInfo } from "@/data/data";
+import { contactInfo, projects } from "@/data/data";
+import { developerInfo, experiences, skills } from "@/data/profile";
 import styles from "@/styles/main.module.css";
 
 const EMAIL = contactInfo.email;
@@ -18,8 +19,38 @@ type Line = {
   k: "out" | "err" | "cmd" | "link" | "blank";
   t?: string;
   href?: string;
-  c?: string;
+  /** 보조 텍스트(섹션 헤더 등)는 더 어둡게 */
+  dim?: boolean;
+  /** 같은 탭에서 여는 내부 링크 */
+  internal?: boolean;
 };
+
+/** neofetch 스타일 프로필 카드 — 왼쪽 로고 블록 + 오른쪽 정보 */
+function neofetchLines(): Line[] {
+  const current = experiences.find((e) => e.current);
+  const logo = [
+    "  ████████  ",
+    "  ██    ██  ",
+    "  ██ ██ ██  ",
+    "  ██    ██  ",
+    "  ████████  ",
+    "            ",
+    "            ",
+    "            ",
+  ];
+  const info = [
+    `${developerInfo.name}@portfolio`,
+    "─".repeat(28),
+    "Role      Web Developer · Frontend / Fullstack",
+    `Company   ${current ? current.info : "-"}`,
+    // 한 줄이 길면 줄바꿈되어 로고 정렬이 깨진다 → 핵심만 짧게
+    "Stack     React · Next.js · TypeScript · Supabase · GSAP",
+    `Projects  ${projects.length}개 · 최근: ${projects.slice(0, 2).map((p) => p.title).join(", ")}`,
+    "Location  Seoul, KR",
+    `Contact   ${EMAIL} · github.com/${GITHUB_USER}`,
+  ];
+  return logo.map((l, i) => ({ k: "out" as const, t: `${l}  ${info[i] ?? ""}`, dim: i === 1 }));
+}
 
 const WELCOME: Line[] = [
   { k: "out", t: "프론트엔드·풀스택·사내 ERP까지, 다양한 실무 경험을 쌓아온 개발자 박상훈입니다." },
@@ -30,6 +61,8 @@ const WELCOME: Line[] = [
 export default function Contact() {
   const [history, setHistory] = useState<Line[]>(WELCOME);
   const [input, setInput] = useState("");
+  // 입력한 명령 기록 (history 명령용)
+  const [cmdLog, setCmdLog] = useState<string[]>([]);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -38,7 +71,8 @@ export default function Contact() {
   }, [history]);
 
   const run = (raw: string) => {
-    const c = raw.trim().toLowerCase();
+    const c = raw.trim().toLowerCase().replace(/\s+/g, " ");
+    if (c) setCmdLog((log) => [...log, raw.trim()]);
     if (c === "clear") {
       setHistory(WELCOME);
       setInput("");
@@ -53,14 +87,72 @@ export default function Contact() {
       case "help":
       case "ls":
         out = [
-          { k: "out", t: "AVAILABLE COMMANDS", c: "#5e5e5e" },
+          { k: "out", t: "AVAILABLE COMMANDS", dim: true },
           { k: "out", t: "  whoami   — 한 줄 소개" },
           { k: "out", t: "  email    — 이메일 주소" },
           { k: "out", t: "  github   — 깃허브 링크" },
           { k: "out", t: "  about    — 나에 대해" },
+          { k: "out", t: "  projects — 프로젝트 목록" },
+          { k: "out", t: "  stack    — 기술 스택 요약" },
+          { k: "out", t: "  neofetch — 프로필 카드" },
+          { k: "out", t: "  history  — 입력한 명령 기록" },
           { k: "out", t: "  hello    — 메일 보내기" },
           { k: "out", t: "  clear    — 화면 지우기" },
+          { k: "out", t: "  (숨은 명령이 하나 더 있어요. sudo 로 시작합니다.)", dim: true },
         ];
+        break;
+      case "projects":
+        out = [
+          { k: "out", t: `PROJECTS (${projects.length})`, dim: true },
+          ...projects.flatMap((p, i) => [
+            {
+              k: "link" as const,
+              t: `  ${String(i + 1).padStart(2, "0")}  ${p.title}`,
+              href: `/project/${p.id}`,
+              internal: true,
+            },
+            { k: "out" as const, t: `      ${p.date} · ${p.tags.slice(0, 3).join(" · ")}`, dim: true },
+          ]),
+        ];
+        break;
+      case "stack":
+        out = [
+          { k: "out", t: "TECH STACK", dim: true },
+          // 한글은 모노스페이스에서 폭이 달라 padEnd 정렬이 어긋난다 → 제목 줄 / 태그 줄로 분리
+          ...skills.flatMap((sk) => [
+            { k: "out" as const, t: `  # ${sk.title}`, dim: true },
+            { k: "out" as const, t: `    ${sk.tags.join(" · ")}` },
+          ]),
+        ];
+        break;
+      case "neofetch":
+        out = neofetchLines();
+        break;
+      case "history":
+        out = cmdLog.length
+          ? cmdLog.map((h, i) => ({ k: "out" as const, t: `  ${String(i + 1).padStart(3, " ")}  ${h}` }))
+          : [{ k: "out", t: "  (아직 입력한 명령이 없어요)", dim: true }];
+        break;
+      case "sudo":
+      case "sudo hire":
+      case "sudo hire sanghun":
+      case "sudo hire 박상훈":
+        out = [
+          { k: "out", t: "[sudo] password for recruiter: ••••••••", dim: true },
+          { k: "out", t: "권한 확인 완료. 채용 프로세스를 시작합니다…" },
+          { k: "out", t: "  ✔ 포트폴리오 검토" },
+          { k: "out", t: "  ✔ 기술 스택 확인" },
+          { k: "out", t: "  ➜ 다음 단계: 커피챗 또는 면접 일정 잡기" },
+          {
+            k: "link",
+            t: `→ ${EMAIL} 으로 면접 제안 보내기`,
+            href: `mailto:${EMAIL}?subject=[면접 제안] 박상훈님께`,
+          },
+        ];
+        break;
+      case "rm -rf /":
+      case "rm -rf":
+        out = [{ k: "err", t: "permission denied: 이 포트폴리오는 지울 수 없습니다 😅" }];
         break;
       case "whoami":
         out = [{ k: "out", t: "박상훈 — Web Developer · QA · Seoul, KR" }];
@@ -95,8 +187,7 @@ export default function Contact() {
     if (e.key === "Enter") run(input);
   };
 
-  const chips = useMemo(() => ["help", "whoami", "email", "github", "hello"], []);
-  const colorFor = (k: Line["k"]) => (k === "err" ? "#e8734f" : "#a8a8a8");
+  const chips = useMemo(() => ["help", "whoami", "projects", "stack", "neofetch", "hello"], []);
 
   return (
     <section id="contact" className={styles.term_contact}>
@@ -117,25 +208,26 @@ export default function Contact() {
         {/* terminal */}
         <div className={styles.term_ct_terminal}>
           <div className={styles.term_ct_bar}>
-            <span className={styles.term_mac_dot} style={{ background: "#ff5f56" }} />
-            <span className={styles.term_mac_dot} style={{ background: "#ffbd2e" }} />
-            <span className={styles.term_mac_dot} style={{ background: "#27c93f" }} />
+            <span className={`${styles.term_mac_dot} ${styles.term_mac_dot_red}`} />
+            <span className={`${styles.term_mac_dot} ${styles.term_mac_dot_yellow}`} />
+            <span className={`${styles.term_mac_dot} ${styles.term_mac_dot_green}`} />
             <span className={styles.term_ct_bar_title}>contact.sh — zsh — 82×24</span>
           </div>
 
           <div
             ref={bodyRef}
             className={styles.term_ct_body}
+            data-lenis-prevent
             onClick={() => inputRef.current?.focus()}
           >
             {history.map((l, i) => {
-              if (l.k === "blank") return <div key={i} style={{ height: 9 }} />;
+              if (l.k === "blank") return <div key={i} className={styles.term_ct_blank} />;
               if (l.k === "cmd")
                 return (
                   <div key={i}>
                     <span className={styles.term_arrow}>➜</span>{" "}
                     <span className={styles.term_path}>~/contact</span>{" "}
-                    <span style={{ color: "#f4f4f2" }}>{l.t}</span>
+                    <span className={styles.term_ct_cmd_text}>{l.t}</span>
                   </div>
                 );
               if (l.k === "link")
@@ -143,8 +235,8 @@ export default function Contact() {
                   <div key={i}>
                     <a
                       href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
+                      target={l.internal ? undefined : "_blank"}
+                      rel={l.internal ? undefined : "noreferrer"}
                       className={styles.term_ct_link}
                     >
                       {l.t}
@@ -154,8 +246,13 @@ export default function Contact() {
               return (
                 <div
                   key={i}
-                  className={styles.term_ct_out}
-                  style={{ color: l.c || colorFor(l.k) }}
+                  className={`${styles.term_ct_out} ${
+                    l.k === "err"
+                      ? styles.term_ct_out_err
+                      : l.dim
+                        ? styles.term_ct_out_dim
+                        : styles.term_ct_out_std
+                  }`}
                 >
                   {l.t}
                 </div>
@@ -185,7 +282,7 @@ export default function Contact() {
         <div className={styles.term_ct_chips}>
           {chips.map((cmd) => (
             <button key={cmd} onClick={() => run(cmd)} className={styles.term_ct_chip}>
-              <span style={{ color: "#5e5e5e" }}>$</span> {cmd}
+              <span className={styles.term_ct_chip_dollar}>$</span> {cmd}
             </button>
           ))}
         </div>

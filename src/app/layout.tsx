@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -24,7 +25,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

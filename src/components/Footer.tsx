@@ -1,11 +1,14 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { footerInfo } from "@/data/data";
 import styles from "@/styles/main.module.css";
 
 export default function Footer() {
+  const lenis = useLenis();
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

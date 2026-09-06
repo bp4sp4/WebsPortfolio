@@ -16,8 +16,23 @@ export const project: ProjectEntry = {
     mainImage: "/detail__main/page3imgs/youhak_main.png",
     images: [
       "/detail__main/page3imgs/youhak_main.png",
-      "/detail__main/page3imgs/youhak_02.png",
+      "/detail__main/page3imgs/youhak_home.png",
+      "/detail__main/page3imgs/youhak_home_2.png",
+      "/detail__main/page3imgs/youhak_program.png",
+      "/detail__main/page3imgs/youhak_program_2.png",
       "/detail__main/page3imgs/youhak_03.png",
+      
+      
+      "/detail__main/page3imgs/youhak_home_3.png",
+      "/detail__main/page3imgs/youhak_02.png",
+      "/detail__main/page3imgs/youhak_m_home.png",
+      "/detail__main/page3imgs/youhak_m_program.png",
+      "/detail__main/page3imgs/youhak_m_program_2.png",
+      "/detail__main/page3imgs/youhak_m_program_3.png",
+      "/detail__main/page3imgs/youhak_m_reasons.png",
+      "/detail__main/page3imgs/youhak_m_reviews.png",
+      
+      
     ],
     overview: [
       "한평생유학은 \"잘 보내는 것보다, 잘 적응하는 유학이 중요합니다\"라는 슬로건 아래 어린이·청소년에게 미국·캐나다·영국·필리핀·뉴질랜드 등 해외 어학연수·사립학교·홈스테이 프로그램을 안내하고 온라인 결제와 학생 신청 정보를 받는 유학 신청 플랫폼입니다.",
@@ -43,22 +58,48 @@ export const project: ProjectEntry = {
       {
         icon: "fas fa-credit-card",
         title: "결제 → 신청 흐름 일원화",
-        description: "PayApp 결제와 학생 신청서를 하나의 흐름으로 연결해, 학부모가 결제 후 이탈 없이 신청까지 완료할 수 있는 매끄러운 UX를 제공합니다.",
-      },
-      {
-        icon: "fas fa-user-shield",
-        title: "신뢰 가능한 본인 확인",
-        description: "카카오·네이버 소셜 로그인과 네이버 클라우드 SMS 휴대폰 인증으로 회원 본인 확인을 강화하고 허위 신청을 차단합니다.",
+        description: "홈의 진행 과정 안내와 프로그램 가격표에서 출발해 PayApp 결제, 결제 완료 후 학생 신청서까지 한 흐름으로 이어집니다. 학부모가 결제 후 이탈 없이 신청을 끝낼 수 있도록 단계마다 다음 행동을 바로 보여줍니다.",
+        groups: [
+          {
+            title: "웹",
+            layout: "web",
+            shots: [
+              { src: "/detail__main/page3imgs/youhak_home.png", tag: "홈", caption: "히어로 — '잘 보내는 것보다, 잘 적응하는 유학' 메시지와 무료상담 CTA, 우측 고정 상담예약·견적요청·유학후기 바" },
+              { src: "/detail__main/page3imgs/youhak_home_2.png", caption: "유학 진행 과정 5단계(상담 신청 → 1:1 상담 → 맞춤 캠프 → 출국 준비 → 현지 도착)와 국가별 프로그램 카드" },
+              { src: "/detail__main/page3imgs/youhak_program.png", tag: "프로그램", caption: "프로그램 안내 페이지 — 국가·지역·형태·일정·참가 연령·가격을 표로 비교" },
+              { src: "/detail__main/page3imgs/youhak_program_2.png", caption: "가격표 — 나홀로·부모동반 형태와 3주·4주·10주 일정별 금액, 이 표의 금액을 서버 가격표가 그대로 씀" },
+              { src: "/detail__main/page3imgs/youhak_03.png", tag: "참가신청", caption: "결제 후 참가 신청서 — 프로그램·참가자·해외 출국용 정보·보호자·홈스테이·참가 동의 6개 섹션, 여권사본 업로드와 임시저장" },
+            ],
+          },
+        ],
       },
       {
         icon: "fas fa-passport",
         title: "유학 진행에 필요한 정보 완비",
-        description: "여권·증명사진 업로드, 보호자 정보, 영어 수준·알러지·수영 가능 여부 등 홈스테이/현지 진행에 필요한 정보를 결제 후 폼에서 수집합니다.",
+        description: "여권상 영문 이름·여권번호·만료일·여권사본, 보호자 정보, 영어 수준·알러지·수영 가능 여부 등 홈스테이와 현지 진행에 필요한 정보를 결제 후 신청서에서 수집합니다. 첨부 파일은 비공개 스토리지에 저장하고 어드민은 1시간짜리 서명 URL로만 열람합니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/youhak_home_3.png", caption: "한평생유학을 선택하는 이유 — 현지 담당자 연결, 매일 밀착 사진, 출국 전 준비체크, 검증된 학교 추천" },
+          { src: "/detail__main/page3imgs/youhak_02.png", tag: "후기", caption: "학부모 후기 — 프로그램·기간·형태 태그가 붙은 실제 참가 후기 그리드" },
+        ],
       },
       {
         icon: "fas fa-mobile-alt",
         title: "모바일 우선 설계",
-        description: "학부모 사용자의 주된 환경인 모바일에 맞춰 결제 폼·신청 폼·서명 패드까지 모바일 우선으로 최적화했습니다.",
+        description: "학부모의 주된 환경인 모바일에 맞춰 히어로·진행 과정·프로그램 카드·가격표·로그인·약관 동의를 세로 흐름으로 다시 배치했고, 상담예약·견적요청·유학후기는 하단 고정 바로 항상 닿게 했습니다. 결제 폼과 서명 패드도 모바일에서 먼저 검증했습니다.",
+        groups: [
+          {
+            title: "모바일",
+            layout: "mobile",
+            shots: [
+              { src: "/detail__main/page3imgs/youhak_m_home.png", tag: "홈", caption: "모바일 히어로와 하단 고정 상담예약·견적요청·유학후기 바" },
+              { src: "/detail__main/page3imgs/youhak_m_program.png", tag: "프로그램", caption: "프로그램 안내 히어로와 국가별 카드 시작" },
+              { src: "/detail__main/page3imgs/youhak_m_program_2.png", tag: "가격 카드", caption: "데스크톱의 가격표를 카드로 풀어 금액(달러 병기)·일정·프로그램 구성을 한 카드에 담음 (캐나다 밴쿠버-써리 4주 · 영국 4주)" },
+              { src: "/detail__main/page3imgs/youhak_m_program_3.png", tag: "가격 카드", caption: "나홀로·부모동반 형태와 부모동반 금액을 같은 카드에 표시 (뉴질랜드 오클랜드 · 해밀턴 4주)" },
+              { src: "/detail__main/page3imgs/youhak_m_reasons.png", tag: "선택 이유", caption: "현지 담당자 연결·밀착사진·출국 전 준비체크 카드를 세로로 배치" },
+              { src: "/detail__main/page3imgs/youhak_m_reviews.png", tag: "후기", caption: "학부모 후기를 가로 스와이프 카드로, 하단 고정 상담·견적·후기 바는 항상 노출" },
+            ],
+          },
+        ],
       },
     ],
     keyFeatures: [

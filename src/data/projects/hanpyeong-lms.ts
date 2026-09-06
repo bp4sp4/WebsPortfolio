@@ -3,22 +3,31 @@ import type { ProjectEntry } from "../types";
 export const project: ProjectEntry = {
   id: "hanpyeong-lms",
   type: "company",
-  title: "한평생 직업훈련 LMS",
+  title: "한평생 직업훈련",
   date: "2026. 07. 01 ~ 진행 중",
   description:
     "무료수강신청 → 온라인 강의 → 온라인 시험 → 자격증 발급까지 이어지는 민간자격 온라인 교육기관 LMS입니다. 공개 사이트, 학생 강의실, 어드민 대시보드를 하나의 Next.js 16 프로젝트로 통합하고 Cloudflare 영상 게이트·나이스페이/PayApp 결제·Aligo/SENS SMS·AWS S3 자료 관리까지 풀스택으로 구축했습니다.",
   tags: ["Next.js 16", "React 19", "TypeScript", "Supabase", "Tailwind 4", "Cloudflare", "AWS S3"],
   gifImage: "/main/work__gif/lms.gif",
-  github: "#",
+  github: "https://github.com/KorhrdGroup/KorhrdLMS",
   demo: "https://www.korhrd.co.kr/",
   detail: {
     period: "2026. 07. 01 ~ 진행 중",
     mainImage: "/detail__main/page3imgs/lms_main.png",
     images: [
       "/detail__main/page3imgs/lms_main.png",
+      "/detail__main/page3imgs/lms_enroll.png",
+      "/detail__main/page3imgs/lms_video.png",
+      "/detail__main/page3imgs/lms_exam.png",
+      "/detail__main/page3imgs/lms_gate_login.png",
       "/detail__main/page3imgs/lms_01.png",
-      "/detail__main/page3imgs/lms_02.png",
       "/detail__main/page3imgs/lms_03.png",
+      "/detail__main/page3imgs/lms_admin_01.png",
+      "/detail__main/page3imgs/lms_admin_members.png",
+      "/detail__main/page3imgs/lms_m_01.jpg",
+      "/detail__main/page3imgs/lms_m_02.jpg",
+      "/detail__main/page3imgs/lms_m_03.jpg",
+      "/detail__main/page3imgs/lms_m_04.jpg",
     ],
     overview: [
       "한평생 직업훈련은 사회복지사·보육교사·평생교육사·한국어 교원 등 국가자격증 준비를 지원하고 정식 등록 민간자격을 온라인으로 발급하는 교육 플랫폼입니다. 무료수강신청 → 온라인 강의 수강(약 20시간, 6주) → 온라인 시험(60분) → 상장형·카드형 자격증 발급까지 학습자의 전체 여정을 한 시스템에서 처리합니다.",
@@ -37,7 +46,7 @@ export const project: ProjectEntry = {
       ],
     },
     links: {
-      github: "#",
+      github: "https://github.com/KorhrdGroup/KorhrdLMS",
       demo: "https://www.korhrd.co.kr/",
     },
     goals: [
@@ -46,24 +55,50 @@ export const project: ProjectEntry = {
         title: "수강 → 시험 → 자격증 통합 여정",
         description:
           "무료수강신청부터 강의 수강, 온라인 시험 응시, 상장형·카드형 자격증 발급까지 학습자의 여정을 한 시스템에서 끊김 없이 이어지도록 설계했습니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/lms_enroll.png", tag: "1. 수강신청", caption: "무료 수강신청 — 과정 선택부터 신청 완료까지 한 화면에서 진행" },
+          { src: "/detail__main/page3imgs/lms_video.png", tag: "2. 강의 수강", caption: "온라인 강의실 — 강의 영상·차시별 진도율·학습자료를 한 화면에, 진도 60% 이상이면 시험 응시가 열림" },
+          { src: "/detail__main/page3imgs/lms_exam.png", tag: "3. 시험", caption: "온라인 시험 — 20문항 60분, 남은 시간과 답변 수를 실시간 표시" },
+        ],
       },
       {
         icon: "fas fa-video",
         title: "안전한 강의 영상 접근 제어",
         description:
           "Cloudflare video-gate로 수강권을 가진 학생만 강의 영상에 접근할 수 있도록 서명 기반 게이트를 두어 콘텐츠 유출을 방지합니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/lms_gate_login.png", tag: "비로그인 접근", caption: "강의실 주소를 직접 열면 서버가 307로 로그인 페이지로 돌려보내고, 로그인 후 복귀할 경로를 redirect 파라미터로 보존" },
+          { src: "/detail__main/page3imgs/lms_01.png", tag: "수강권 보유", caption: "수강권이 있는 계정만 서명된 Cloudflare 영상 주소를 받아 재생 — 진도율과 학습자료도 이 화면에서 관리" },
+        ],
       },
       {
         icon: "fas fa-user-shield",
         title: "역할 기반 통합 라우트",
         description:
           "공개 사이트 (korhrd) · 학생 강의실 · 어드민 대시보드를 단일 Next.js 프로젝트로 운영하되, 라우트 그룹과 미들웨어로 역할별 접근을 분리했습니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/lms_03.png", tag: "공개 사이트", caption: "취업 길찾기 — 비회원도 볼 수 있는 공개 영역. 같은 코드베이스에서 학생 강의실·어드민과 역할별로 라우트를 분리" },
+          { src: "/detail__main/page3imgs/lms_admin_01.png", tag: "어드민", caption: "어드민 대시보드 — /admin 경로는 미들웨어가 별도 관리자 로그인으로 보내며, 회원·수강신청·공지·1:1 상담·시험 현황을 한 화면에 요약" },
+          { src: "/detail__main/page3imgs/lms_admin_members.png", tag: "어드민", caption: "회원 목록 — 회원 유형·학습 상태 필터, 회원별 수강 과정과 진도율, 관리 메모, Excel 다운로드와 알림톡 일괄 발송까지 한 화면에서 처리" },
+        ],
       },
       {
-        icon: "fas fa-cogs",
-        title: "운영자용 어드민 자동화",
+        icon: "fas fa-mobile-screen-button",
+        title: "어르신도 쉽게 쓰는 모바일 대응",
         description:
-          "회원·과정·수강·시험·결제·자격증 발급을 어드민에서 관리하고, ExcelJS로 대량 데이터를 엑셀 내보내기해 운영 실무를 자동화합니다.",
+          "수강생의 상당수가 스마트폰으로만 접속하는 중장년·어르신층입니다. 큰 글자와 큰 버튼, 화면 아래에 고정된 신청 버튼, 한 손으로 넘기는 필터 시트, 한 화면에 한 가지 일만 보이는 강의실 구조로 PC 없이도 수강신청부터 강의 시청까지 끝낼 수 있게 설계했습니다.",
+        groups: [
+          {
+            title: "모바일 화면",
+            layout: "mobile",
+            shots: [
+              { src: "/detail__main/page3imgs/lms_m_01.jpg", tag: "홈", caption: "홈 — 인사말 아래 '나의 강의실 · 마이페이지' 큰 탭과 남은 기간 D-day를 바로 보여줌" },
+              { src: "/detail__main/page3imgs/lms_m_02.jpg", tag: "수강신청", caption: "수강신청 — 과목을 고르면 아래 고정 시트에 선택 과목과 수강료 0원이 쌓이고 한 번에 신청" },
+              { src: "/detail__main/page3imgs/lms_m_03.jpg", tag: "필터", caption: "필터 시트 — 분야·목적·연령을 큰 체크박스로, 초기화·확인 버튼은 엄지 닿는 하단에 고정" },
+              { src: "/detail__main/page3imgs/lms_m_04.jpg", tag: "강의실", caption: "모바일 강의실 — 10초 되감기·빨리감기, 이전·다음 강, 진도율을 큰 컨트롤로 배치" },
+            ],
+          },
+        ],
       },
     ],
     keyFeatures: [

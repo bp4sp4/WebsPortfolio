@@ -16,9 +16,11 @@ import { project as hanpyeongLms } from "./hanpyeong-lms";
 import { project as hanpyungsaengEdu } from "./hanpyungsaeng-edu";
 import { project as baroCompany } from "./BaroCompany";
 import { project as eduvisors } from "./Eduvisors";
+import { project as baroemp } from "./baroemp";
 
 const allProjects: ProjectEntry[] = [
   korhrdOffice,
+  baroemp,
   hanpyeongLms,
   hanpyungsaengEdu,
   baroCompany,

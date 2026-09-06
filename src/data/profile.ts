@@ -55,15 +55,15 @@ export const skills = [
     icon: "fas fa-code",
     title: "프론트엔드",
     description:
-      "시멘틱 마크업과 모던 CSS, React/Next.js를 활용한 반응형 웹 애플리케이션 개발",
-    tags: ["HTML5", "CSS3", "TypeScript", "React", "Next.js"],
+      "시멘틱 마크업과 모던 CSS, React/Next.js 컴포넌트 설계로 반응형 화면과 UI 상태를 구현",
+    tags: ["HTML5", "CSS3", "React", "Next.js", "Tailwind CSS"],
   },
   {
     icon: "fas fa-server",
-    title: "풀스택 개발",
+    title: "백엔드 · 데이터",
     description:
-      "Next.js 기반 풀스택 개발, API Routes 설계 및 서버 사이드 렌더링",
-    tags: ["Next.js", "API Routes", "SSR", "TypeScript", "REST API"],
+      "Supabase(PostgreSQL) 스키마·권한(RLS) 설계, 인증, 결제·외부 API 연동까지 화면 뒤의 데이터 흐름을 구축",
+    tags: ["Supabase", "PostgreSQL", "Auth · RLS", "Server Actions", "외부 API 연동"],
   },
   {
     icon: "fas fa-paint-brush",
@@ -76,14 +76,14 @@ export const skills = [
     icon: "fas fa-magic",
     title: "인터랙션 & 애니메이션",
     description:
-      "Framer Motion, CSS 애니메이션을 활용한 인터랙티브 웹 경험 구현",
-    tags: ["Framer Motion", "CSS Animation", "GSAP", "Magic UI"],
+      "GSAP·ScrollTrigger 기반 스크롤 인터랙션과 CSS 애니메이션으로 살아 움직이는 웹 경험 구현",
+    tags: ["GSAP", "ScrollTrigger", "Lenis", "Framer Motion", "CSS Animation"],
   },
   {
     icon: "fas fa-tools",
     title: "개발 도구",
-    description: "Git 버전 관리, CI/CD 파이프라인 및 클라우드 배포 환경 구성 데이터베이스 관리",
-    tags: ["Git", "GitHub", "VS Code", "Vercel", "Supabase"],
+    description: "Git 버전 관리, Vercel·Cloudflare 배포 환경 구성과 AI 도구를 활용한 개발 생산성 향상",
+    tags: ["Git", "GitHub", "Vercel", "Cloudflare", "Claude Code"],
   },
   {
     icon: "fas fa-mobile-alt",

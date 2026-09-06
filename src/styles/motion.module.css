@@ -1,0 +1,521 @@
+/* ============================================================
+   motion.module.css — 인터랙션 개편에서 추가된 컴포넌트 스타일
+   (Loader · Marquee · Manifesto · Showcase · Cta · Hero 보조)
+   팔레트: #080808 / #0b0b0b / #171717 / #262626 / #5e5e5e / #808080 / #f2f2f0
+   ============================================================ */
+
+/* ===== LOADER ===== */
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    background: #080808;
+    color: #808080;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader_box {
+    width: min(520px, 86vw);
+}
+
+.loader_line {
+    opacity: 0;
+    line-height: 2;
+    white-space: pre;
+}
+
+.loader_ok {
+    color: #f2f2f0;
+}
+
+.loader_bar {
+    margin-top: 18px;
+    height: 1px;
+    background: #1f1f1f;
+    overflow: hidden;
+}
+
+.loader_bar_fill {
+    height: 100%;
+    background: #f2f2f0;
+    transform-origin: left center;
+    transform: scaleX(0);
+}
+
+/* ===== MARQUEE ===== */
+.mq {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(18px, 2.6vw, 30px) 0;
+    background: #080808;
+    border-top: 1px solid #171717;
+    border-bottom: 1px solid #171717;
+}
+
+.mq_track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.mq_item {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(18px, 2.4vw, 34px);
+    padding: 0 clamp(14px, 1.6vw, 24px);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #e6e6e4;
+}
+
+.mq_item:nth-child(even) {
+    color: transparent;
+    -webkit-text-stroke: 1px #4a4a4a;
+}
+
+.mq_dot {
+    font-size: 0.26em;
+    color: #3a3a3a;
+    -webkit-text-stroke: 0;
+}
+
+/* ===== MANIFESTO ===== */
+.mf {
+    position: relative;
+    background: #080808;
+    color: #cfcfcf;
+    padding: clamp(90px, 16vh, 170px) clamp(20px, 4vw, 56px);
+    overflow: hidden;
+}
+
+/* 데스크톱: 화면 높이에 맞춰 고정(pin)되므로 100vh 안에 들어오게 */
+@media (min-width: 900px) {
+    .mf {
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.mf_inner {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.mf_cmd {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 15px;
+    color: #808080;
+    margin-bottom: clamp(28px, 5vh, 56px);
+}
+
+.mf_p {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-weight: 800;
+    font-size: 52px;
+    line-height: 1.28;
+    letter-spacing: -0.025em;
+    word-break: keep-all;
+    margin: 0 0 clamp(24px, 4vh, 44px);
+}
+
+.mf_p:last-child {
+    margin-bottom: 0;
+}
+
+.mf_w {
+    display: inline-block;
+    color: #262626;
+    margin-right: 0.28em;
+    will-change: color;
+}
+
+/* ===== SHOWCASE (projects) ===== */
+.sc {
+    position: relative;
+    background: #080808;
+    color: #cfcfcf;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.sc_pin {
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 clamp(20px, 4vw, 56px);
+    overflow: hidden;
+}
+
+.sc_head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 1480px;
+    width: 100%;
+    margin: 0 auto 22px;
+}
+
+.sc_mhead {
+    padding: 80px clamp(20px, 4vw, 56px) 0;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.sc_label {
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: #5e5e5e;
+}
+
+.sc_h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1;
+    color: #f4f4f2;
+    margin: 8px 0 0;
+}
+
+.sc_hint {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: #5e5e5e;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+}
+
+.sc_grid {
+    display: grid;
+    /* 왼쪽 GIF(8) · 오른쪽 설명(4) */
+    grid-template-columns: 8fr minmax(320px, 4fr);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+    max-width: 1480px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sc_left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 0;
+}
+
+.sc_counter {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: #808080;
+}
+
+.sc_counter_now {
+    font-size: clamp(40px, 4vw, 60px);
+    font-weight: 700;
+    color: #f2f2f0;
+    line-height: 1;
+    min-width: 2ch;
+}
+
+.sc_bar {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    background: #1f1f1f;
+}
+
+.sc_bar_fill {
+    position: absolute;
+    inset: 0;
+    background: #f2f2f0;
+    transform-origin: left center;
+    transform: scaleX(0);
+}
+
+.sc_metas {
+    position: relative;
+    min-height: 340px;
+}
+
+.sc_meta {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sc_meta_index {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: #5e5e5e;
+}
+
+.sc_meta_title {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 2.8vw, 44px);
+    line-height: 1.2;
+    color: #f4f4f2;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+}
+
+.sc_meta_date {
+    font-size: 14px;
+    color: #5e5e5e;
+}
+
+.sc_meta_desc {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: clamp(15px, 1.15vw, 17px);
+    line-height: 1.8;
+    color: #b4b4b4;
+    word-break: keep-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+.sc_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sc_tag {
+    font-size: 12.5px;
+    color: #8a8a8a;
+    border: 1px solid #2a2a2a;
+    border-radius: 999px;
+    padding: 5px 11px;
+}
+
+.sc_link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    color: #f2f2f0;
+    font-size: 15px;
+    text-decoration: none;
+    border-bottom: 1px solid #3a3a3a;
+    padding-bottom: 4px;
+    width: max-content;
+    transition: border-color 0.3s ease, gap 0.3s ease;
+}
+
+.sc_link:hover {
+    border-color: #f2f2f0;
+    gap: 14px;
+}
+
+.sc_stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 70vh;
+    max-height: 70svh;
+}
+
+.sc_slide {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+    background: #0b0b0b;
+    box-shadow:
+        0 30px 70px -40px rgba(242, 242, 240, 0.25),
+        0 20px 50px -30px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    will-change: clip-path, transform;
+}
+
+.sc_bar_top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 16px;
+    background: #0a0a0a;
+    border-bottom: 1px solid #171717;
+    flex: none;
+}
+
+.sc_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex: none;
+}
+
+.sc_dot_red { background: #ff5f56; }
+.sc_dot_yellow { background: #ffbd2e; }
+.sc_dot_green { background: #27c93f; }
+
+.sc_url {
+    margin-left: 12px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #5e5e5e;
+    font-size: 12.5px;
+}
+
+.sc_img {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+}
+
+.sc_num {
+    position: absolute;
+    right: 18px;
+    bottom: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: rgba(242, 242, 240, 0.65);
+}
+
+/* mobile list */
+.sc_mlist {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 36px clamp(20px, 4vw, 56px) 80px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.sc_mcard {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.sc_mimg {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 14px;
+    border: 1px solid #2a2a2a;
+    display: block;
+}
+
+.sc_mmeta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.sc_mtitle {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #f4f4f2;
+    letter-spacing: -0.02em;
+}
+
+/* ===== CTA ===== */
+.cta {
+    position: relative;
+    background: #080808;
+    padding: clamp(100px, 18vh, 200px) clamp(20px, 4vw, 56px);
+    overflow: hidden;
+    text-align: center;
+}
+
+.cta_label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: #5e5e5e;
+}
+
+.cta_h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(46px, 10.5vw, 168px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    color: #f4f4f2;
+    margin: 18px 0 0;
+}
+
+.cta_btn_wrap {
+    display: inline-block;
+    margin-top: clamp(36px, 6vh, 64px);
+    padding: 24px;
+}
+
+.cta_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 36px;
+    border-radius: 999px;
+    background: #f2f2f0;
+    color: #080808;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    will-change: transform;
+}
+
+.cta_btn_txt {
+    display: inline-block;
+    min-width: 9ch;
+    text-align: left;
+}
+
+.cta_sub {
+    margin-top: 22px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: #5e5e5e;
+}
+
+/* ===== HERO 보조 ===== */
+.hero_clip {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+}
+
+@media (max-width: 899px) {
+    .cta_btn_wrap {
+        padding: 12px;
+    }
+}

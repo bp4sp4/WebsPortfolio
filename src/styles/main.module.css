@@ -3323,6 +3323,14 @@
     border-radius: 50%;
 }
 
+.term_mac_dot_red { background: #ff5f56; }
+.term_mac_dot_yellow { background: #ffbd2e; }
+.term_mac_dot_green { background: #27c93f; }
+
+.term_cmdblock_gap {
+    margin-top: 8px;
+}
+
 .term_topbar_title {
     margin-left: 12px;
     color: #5e5e5e;
@@ -3373,7 +3381,6 @@
     gap: 12px;
     font-size: 14px;
     color: #808080;
-    animation: termFadeUp 0.5s both;
 }
 
 .term_status_pill {
@@ -3398,7 +3405,6 @@
     line-height: 2.1;
     color: #808080;
     margin-top: 28px;
-    animation: termFadeUp 0.6s both;
 }
 
 .term_arrow {
@@ -3887,54 +3893,6 @@
 
 }
 
-/* --- experience timeline reveal interaction --- */
-.term_exp_node {
-    opacity: 0;
-    transform: scale(0.5);
-    transform-box: fill-box;
-    transform-origin: center;
-}
-
-.term_exp_visible .term_exp_node {
-    animation: termTlReveal 0.5s ease forwards;
-    animation-delay: calc(var(--reveal-order) * 0.35s + 0.6s);
-}
-
-@keyframes termTlReveal {
-    0% { opacity: 0; transform: scale(0.5); }
-    70% { transform: scale(1.05); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-.term_exp_rocket {
-    opacity: 0;
-}
-
-.term_exp_visible .term_exp_rocket {
-    animation: termRocketFly 2.2s ease-in-out forwards;
-}
-
-@keyframes termRocketFly {
-    0% { transform: translate(var(--rocket-from), 200px); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translate(40px, 200px); opacity: 0; }
-}
-
-/* --- spine line drawn behind the rocket (right -> left) --- */
-.term_exp_spine_draw {
-    stroke-dasharray: var(--spine-len);
-    stroke-dashoffset: var(--spine-len);
-}
-
-.term_exp_visible .term_exp_spine_draw {
-    animation: termSpineDraw 2.2s ease-in-out forwards;
-}
-
-@keyframes termSpineDraw {
-    to { stroke-dashoffset: 0; }
-}
-
 /* ============================================
    TERMINAL SKILLS SECTION
    ============================================ */
@@ -4016,8 +3974,15 @@
 
 .term_skills_visible .term_skill_card {
     animation: termFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: calc(var(--i) * 0.12s);
 }
+
+.term_skills_visible .term_skill_card:nth-child(2) { animation-delay: 0.12s; }
+.term_skills_visible .term_skill_card:nth-child(3) { animation-delay: 0.24s; }
+.term_skills_visible .term_skill_card:nth-child(4) { animation-delay: 0.36s; }
+.term_skills_visible .term_skill_card:nth-child(5) { animation-delay: 0.48s; }
+.term_skills_visible .term_skill_card:nth-child(6) { animation-delay: 0.6s; }
+.term_skills_visible .term_skill_card:nth-child(7) { animation-delay: 0.72s; }
+.term_skills_visible .term_skill_card:nth-child(8) { animation-delay: 0.84s; }
 
 .term_skill_card:hover {
     border-color: #4a4a4a;
@@ -4137,8 +4102,16 @@
 
 .term_exp_visible .term_exp_mrow {
     animation: termFadeUp 0.5s ease forwards;
-    animation-delay: calc(var(--reveal-order) * 0.15s + 0.2s);
+    animation-delay: 0.2s;
 }
+
+.term_exp_visible .term_exp_mrow:nth-child(2) { animation-delay: 0.35s; }
+.term_exp_visible .term_exp_mrow:nth-child(3) { animation-delay: 0.5s; }
+.term_exp_visible .term_exp_mrow:nth-child(4) { animation-delay: 0.65s; }
+.term_exp_visible .term_exp_mrow:nth-child(5) { animation-delay: 0.8s; }
+.term_exp_visible .term_exp_mrow:nth-child(6) { animation-delay: 0.95s; }
+.term_exp_visible .term_exp_mrow:nth-child(7) { animation-delay: 1.1s; }
+.term_exp_visible .term_exp_mrow:nth-child(8) { animation-delay: 1.25s; }
 
 .term_exp_mnode {
     position: relative;
@@ -4707,6 +4680,22 @@
 .term_ct_out {
     white-space: pre-wrap;
     word-break: keep-all;
+}
+
+.term_ct_out_std { color: #a8a8a8; }
+.term_ct_out_dim { color: #5e5e5e; }
+.term_ct_out_err { color: #e8734f; }
+
+.term_ct_cmd_text {
+    color: #f4f4f2;
+}
+
+.term_ct_blank {
+    height: 9px;
+}
+
+.term_ct_chip_dollar {
+    color: #5e5e5e;
 }
 
 .term_ct_link {

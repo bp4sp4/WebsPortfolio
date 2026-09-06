@@ -15,13 +15,30 @@ export const project: ProjectEntry = {
     period: "2026. 03. 16 ~ 진행 중",
     mainImage: "/main/work__gif/office.png",
     images: [
-      "/detail__main/page3imgs/office_main_blur.png",
-      "/detail__main/page3imgs/office_chart.png",
-      "/detail__main/page3imgs/office_chart2.png",
-      "/detail__main/page3imgs/office_approvals.png",
-      "/detail__main/page3imgs/office_approvals_details.png",
-      "/detail__main/page3imgs/office_approvals_details2.png",
-      "/detail__main/page3imgs/office_maps.png",
+      "/detail__main/page3imgs/office_allinone_admin.png",
+      "/detail__main/page3imgs/office_allinone_staff.png",
+      "/detail__main/page3imgs/office_allinone_staff_detail.png",
+      "/detail__main/page3imgs/office_data_01.png",
+      "/detail__main/page3imgs/office_data_02.png",
+      "/detail__main/page3imgs/office_ai_01.png",
+      "/detail__main/page3imgs/office_ai_02.png",
+      "/detail__main/page3imgs/office_approval_01.png",
+      "/detail__main/page3imgs/office_approval_02.png",
+      "/detail__main/page3imgs/office_contract_web_00.png",
+      "/detail__main/page3imgs/office_contract_web_01.png",
+      "/detail__main/page3imgs/office_contract_web_02.png",
+      "/detail__main/page3imgs/office_contract_web_03.png",
+      "/detail__main/page3imgs/office_contract_web_04.png",
+      "/detail__main/page3imgs/office_contract_m_02.jpg",
+      "/detail__main/page3imgs/office_contract_m_03.jpg",
+      "/detail__main/page3imgs/office_contract_m_04.jpg",
+      "/detail__main/page3imgs/office_contract_m_05.jpg",
+      "/detail__main/page3imgs/office_contract_m_06.jpg",
+      "/detail__main/page3imgs/office_contract_m_07.jpg",
+      "/detail__main/page3imgs/office_contract_m_08.jpg",
+      "/detail__main/page3imgs/office_mail_01.png",
+      "/detail__main/page3imgs/office_mail_02.png",
+      "/detail__main/page3imgs/office_mail_03.png",
     ],
     overview: [
       "⚠️ 한평생오피스는 현재 한평생그룹 사내에서 운영 중인 시스템으로, 외부에 공개된 데모 사이트는 제공되지 않습니다. 또한 본 페이지에 노출된 화면 중 매출·고객·정산 등 회사 기밀 정보가 포함된 영역은 블러 처리되었으니 양해 부탁드립니다.",
@@ -50,36 +67,87 @@ export const project: ProjectEntry = {
         title: "영업단 업무 올인원 통합",
         description:
           "학점은행제 영업단의 상담·매출·정산·계약·중복조회·배정 업무가 엑셀과 메신저에 흩어져 있었습니다. 이 모든 업무를 한 시스템에 합쳐 한 화면에서 끝낼 수 있는 올인원 환경을 구축했습니다.",
-      },
-      {
-        icon: "fas fa-cubes",
-        title: "5개 사업부 + 경영·인사로 확장",
-        description:
-          "영업단을 위해 만든 구조를 자격증·유학·실습·올케어로 확장하고, 전자결재·손익·예산·인사·근태·웹메일까지 흡수하여 전사가 하나의 플랫폼에서 일하는 통합 ERP로 발전시켰습니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/office_allinone_admin.png", tag: "관리자", caption: "관리자용 통합 대시보드 - 사업부의 상담을 한 화면에서 탐색" },
+          { src: "/detail__main/page3imgs/office_allinone_staff.png", tag: "사원", caption: "사원용 업무 화면 - 상담·매출·정산·계약을 한 화면에서 관리" },
+          { src: "/detail__main/page3imgs/office_allinone_staff_detail.png", tag: "사원", caption: "사원용 상세 정보 화면 - 고객 정보와 관련된 모든 데이터를 한 곳에서 확인" },
+        ],
       },
       {
         icon: "fas fa-chart-pie",
         title: "데이터 기반 의사결정",
         description:
           "매출 3종을 통합 집계한 예상손익계산서와 법인 계좌 실시간 조회, 사업부별 매출·손익 대시보드를 제공하여 경영진이 데이터를 직접 보고 빠르게 의사결정할 수 있게 합니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/office_data_01.png", caption: "일일손익계산서 - 매출 3종을 통합 집계" },
+          { src: "/detail__main/page3imgs/office_data_02.png", caption: "예상손익계산서 -  월별 매출·손익 대시보드 — 실시간 데이터 반영" },
+        ],
       },
       {
         icon: "fas fa-wand-magic-sparkles",
         title: "AI 기반 업무 인사이트",
         description:
           "개인에게는 오늘의 우선순위·추천 연락 고객을, 관리자에게는 팀 성과 요약·코칭 대상·권장 액션을 제공해 데이터 확인 시간을 줄이고 실행을 돕습니다.",
+        snippet: {
+          title: "system-prompt.ts",
+          code: "const SYSTEM_PROMPT = `# 한평생 오피스 AI 매출 행동 분석 지침\n\n## 목적\n당신은 데이터를 설명하는 AI가 아니라 **관리자와 팀장이 매출을 높이기 위해 지금 무엇을 해야 하는지 판단하는 AI**다.\n모든 분석은 최종적으로 다음 중 하나로 연결한다: **매출 증가 / 등록 증가 / 매출 손실 방지 / 매출 기회 발견**\n단순 현황 요약보다 **원인 발견과 행동 결정**을 우선한다.\n\n## 1. 매출 흐름으로 분석\n모든 데이터를 \"광고 → 문의 → 유효문의 → 상담 → 가망 → 등록 → 객단가 → 매출\" 흐름으로 연결한다.\n매출 또는 등록에 변화가 발생하면 앞 단계로 역추적하여 병목을 찾는다.\n필요하면 기간/사업부/팀/담당자/채널/캠페인/상품/유입경로로 세분화한다.\n\n## 2. 기간을 고려한다\n최근 문의의 현재 등록률을 최종 성과로 판단하지 않는다.\n- 오늘~3일: 이상징후·초기 상담 상태 / 최근 7일: 현재 운영상태·즉시 행동\n- 최근 30일: 추세·구조 변화 / 이번 달 누적: 목표 달성 가능성\n문의 후 경과기간에 따라 선행지표(접촉·상담연결) → 초기 등록성과 → 등록률 본격 평가 → 장기가망·후속관리 → 최종 평가 순으로 판단 기준을 바꾼다.\n\n## 3. 채널별 등록속도를 고려한다\n모든 채널을 동일한 기간으로 평가하지 않는다. 숙성기간이 지나지 않은 DB는 등록률만으로 저성과라고 판단하지 않는다.\n현재 등록률(실제 발생) / 숙성 완료 등록률 / 예상 최종 등록률(추정)을 구분하며, 예상치는 실제값과 반드시 구분한다.\n\n## 4. 문제와 매출기회를 자동 탐색한다\n매출·등록·문의 감소, 전환율 하락, 담당자·팀별 성과 격차, 채널·캠페인 성과 변화, 목표매출 달성속도 부족, 비정상적으로 높은 성과 등을 탐색한다.\n문제뿐 아니라 **잘되고 있는 담당자·팀·채널도 찾아 성공요인을 확산할 방법을 제시한다.**\n\n## 5. 반드시 구체적인 대상을 특정한다\n행동지침에는 실제 이름·채널명·건수·기간을 명시한다. 사용자가 다시 데이터를 찾아야 하는 추상적 표현(\"저성과 담당자 점검\", \"채널 확인\")은 쓰지 않는다.\n대상은 \"누가 / 어떤 채널 또는 DB / 몇 건 / 무엇이 문제인지 / 무엇을 해야 하는지\" 수준까지 특정한다.\n\n## 6. 담당자 성과는 공정하게 비교한다\n단순 등록건수만으로 고·저성과를 판단하지 않는다. 배정 DB 수·숙성기간·유입채널 등 조건을 보정해 비교하고,\n근거가 충분하지 않으면 단정하는 대신 \"저성과 가능성 — 추가 확인 필요\"로 표시하고 필요한 확인 데이터를 제시한다.\n\n## 7. 매출 영향으로 우선순위를 정한다\n문제를 비율이 아니라 등록건수와 예상 매출로 환산한다.\n여러 문제는 \"예상 매출 영향 × 긴급성 × 개선 가능성\" 순으로 우선순위를 정한다.\n\n## 8. 반드시 행동으로 끝낸다\n모든 분석은 \"그래서 관리자는 오늘 무엇을 해야 하는가?\"에 답한다.\n행동은 중요도 순 최대 3개, 각각 대상/행동/이유/목표/재확인 시점을 포함한다.\n\"관리 필요\", \"개선 필요\", \"지켜볼 필요 있음\"만으로 끝내지 않는다.\n\n## 9. 짧게 출력한다\n브리핑은 5~10초 안에 읽고 행동을 결정할 수 있는 길이로 작성한다. 장문의 원인 설명이나 모든 KPI 나열 금지.\n\n## 10. 판단 안전장치\n- 제공된 집계 숫자만 근거로 판단하고, 반드시 구체적 수치를 인용한다 (예: \"전환율 9.2% → 11.4%\").\n- 데이터에 없는 지표는 추정해서 만들어내지 않는다 — 필요하면 \"추가 확인 필요\"로 남긴다.\n- 표본이 작은 항목은 단정하지 말고 참고 수준으로만 언급한다.\n- 판단은 \"확정 / 가능성 높음 / 추가 확인 필요\"로 구분하고, 사실과 추정을 명확히 구분한다.\n- 모든 텍스트는 한국어, 간결한 보고체.\n// … 내부 데이터 필드명·집계 기준·예외 처리 규칙 등은 기밀로 생략\n\n## 사고 순서\n무슨 일이 발생했는가 → 어디에서 → 누가/어떤 채널이 원인인가 → 왜 → 매출에 얼마나 영향인가 → 지금 개입 가능한가 → 오늘 누가 무엇을 해야 하는가.\n최종 목적은 좋은 보고서가 아니라 **실제 행동을 발생시켜 매출을 증가시키는 것**이다.\n\n## 출력 형식 (JSON 스키마 매핑)\n- headline = 핵심 결론: 가장 중요한 상황을 숫자 포함 최대 2문장.\n- sections = 첫 섹션은 반드시 \"오늘 해야 할 일 TOP 3\" (담당자명·채널명·건수·기간 포함, 대상/행동/이유 순). 필요할 때만 \"확인 필요\" 섹션 추가.\n- recommendation = 예상 매출 기회 / 위험을 한 줄로, 환산 근거를 짧게 병기.`;",
+          note: "실제 운영 중인 Claude 시스템 프롬프트를 발췌한 것입니다. 내부 데이터 필드명과 집계 기준, 데이터 정합성 예외 처리, 마케팅 채널·광고 소재 운영 규칙, 구체적 매출 환산 예시 등 회사 기밀에 해당하는 부분은 제외하거나 일반화했습니다.",
+        },
+        shots: [
+          { src: "/detail__main/page3imgs/office_ai_01.png ", caption: "AI 기반 업무 인사이트 - 매출 증가를 위한 실시간 분석" },
+          { src: "/detail__main/page3imgs/office_ai_02.png", caption: "AI 기반 업무 인사이트 - 문제 및 기회 자동 탐색" },
+        ],
       },
       {
         icon: "fas fa-stamp",
         title: "결재·계약의 완전한 디지털화",
         description:
           "18종 결재 양식과 다단계 결재선 기반 전자결재, OTP 본인인증 전자근로계약으로 종이 기반 업무를 시스템으로 대체합니다.",
+        groups: [
+          {
+            title: "전자결재",
+            layout: "web",
+            shots: [
+              { src: "/detail__main/page3imgs/office_approval_01.png ", caption: "전자결재 시스템 - 결재 요청 및 처리" },
+              { src: "/detail__main/page3imgs/office_approval_02.png", caption: "전자결재 시스템 - 결재 요청 및 처리" },
+            ],
+          },
+          {
+            title: "전자계약 · 웹",
+            layout: "web",
+            shots: [
+              { src: "/detail__main/page3imgs/office_contract_web_00.png", tag: "OTP 인증", caption: "전자근로계약 - OTP 본인인증 후 전자서명" },
+              { src: "/detail__main/page3imgs/office_contract_web_01.png", caption: "전자근로계약 - 전자 첨부" },
+              { src: "/detail__main/page3imgs/office_contract_web_02.png", caption: "전자근로계약 - 전자서명" },
+              { src: "/detail__main/page3imgs/office_contract_web_03.png", caption: "전자근로계약 - 전자서명" },
+              { src: "/detail__main/page3imgs/office_contract_web_04.png", caption: "전자근로계약 - 전자서명" },
+            ],
+          },
+          {
+            title: "전자계약 · 모바일",
+            layout: "mobile",
+            shots: [
+              { src: "/detail__main/page3imgs/office_contract_m_02.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_03.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_04.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_05.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_06.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_07.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_08.jpg" },
+            ],
+          },
+        ],
       },
       {
-        icon: "fas fa-file-excel",
-        title: "엑셀 워크플로우 일원화",
+        icon: "fas fa-envelope",
+        title: "비용 없이 구축한 사내 웹메일",
         description:
-          "비개발자에게 익숙한 엑셀 기반 업무 흐름을 그대로 살려, 템플릿 다운로드 → 대량 업로드 → 자동 검증·저장으로 이어지는 엑셀 파이프라인을 시스템에 연결합니다.",
+          "유료 그룹웨어 메일을 도입하는 대신, 이미 쓰고 있던 다음 스마트워크의 IMAP·SMTP를 직접 연동해 추가 비용 없이 사내 메일을 시스템 안에 구축했습니다. 구성원 대부분이 익숙한 네이버 메일과 비슷한 레이아웃과 동작으로 설계해 별도 교육 없이 바로 쓸 수 있게 했습니다.",
+        shots: [
+          { src: "/detail__main/page3imgs/office_mail_01.png", caption: "보낸편지함 상세 — 첨부파일 다운로드와 서명 블록까지 네이버 메일과 같은 흐름으로 구성" },
+          { src: "/detail__main/page3imgs/office_mail_02.png", caption: "메일 쓰기 — 사내 주소록 자동완성, 서식 도구, 드래그 첨부를 한 화면에 배치" },
+          { src: "/detail__main/page3imgs/office_mail_03.png", tag: "참고", caption: "비교용 실제 네이버 메일 화면 — 구성원이 이미 익숙한 메뉴 구성과 읽기 화면 구조를 참고해 설계" },
+        ],
       },
     ],
     keyFeatures: [

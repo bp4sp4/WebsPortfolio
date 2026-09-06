@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { experiences } from "@/data/data";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import styles from "@/styles/main.module.css";
 
 /* ---------- experience SVG timeline (data-driven) ---------- */
@@ -69,13 +71,13 @@ function ExperienceTimeline() {
       viewBox={`0 0 ${width} 400`}
       width="100%"
       className={styles.term_exp_svg}
-      style={{ "--rocket-from": `${width - 40}px` } as React.CSSProperties}
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* spine */}
       <line x1={60} y1={SPINE_Y} x2={width - 60} y2={SPINE_Y} stroke="#1f1f1f" strokeWidth={2} />
       {/* 로켓이 지나가며 그려지는 초록 선 (오른쪽 → 왼쪽) */}
       <line
+        data-spine
         className={styles.term_exp_spine_draw}
         x1={width - 60}
         y1={SPINE_Y}
@@ -84,11 +86,10 @@ function ExperienceTimeline() {
         stroke="#f2f2f0"
         strokeWidth={2}
         opacity={0.45}
-        style={{ "--spine-len": `${width - 120}px` } as React.CSSProperties}
       />
 
       {/* rocket flying along the spine */}
-      <g className={styles.term_exp_rocket}>
+      <g data-rocket className={styles.term_exp_rocket}>
         <text textAnchor="middle" dominantBaseline="central" fontSize={20} transform="rotate(225)">
           🚀
         </text>
@@ -108,8 +109,8 @@ function ExperienceTimeline() {
         return (
           <g
             key={i}
+            data-node
             className={styles.term_exp_node}
-            style={{ "--reveal-order": experiences.length - 1 - i } as React.CSSProperties}
           >
             {/* stem */}
             {above ? (
@@ -160,10 +161,76 @@ function ExperienceTimeline() {
 /* ---------- about section ---------- */
 
 export default function About() {
+  const sectionRef = useRef<HTMLElement>(null);
   const expRef = useRef<HTMLDivElement>(null);
   const [expVisible, setExpVisible] = useState(false);
+  const desktop = useMediaQuery("(min-width: 901px)");
 
-  // 타임라인이 화면에 보일 때마다 리빌 + 로켓 애니메이션 재생
+  // 소개 문단 리빌 + (데스크톱) 스크롤 진행도에 맞춰 로켓이 날고 선이 그려지고 노드가 켜진다
+  useGSAP(
+    () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      gsap.from("[data-reveal]", {
+        y: 28,
+        autoAlpha: 0,
+        duration: 0.9,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: "[data-intro]", start: "top 80%" },
+      });
+
+      if (!desktop) return;
+
+      const svg = expRef.current?.querySelector<SVGSVGElement>("svg");
+      const spine = svg?.querySelector<SVGLineElement>("[data-spine]");
+      const rocket = svg?.querySelector<SVGGElement>("[data-rocket]");
+      const nodes = svg ? gsap.utils.toArray<SVGGElement>("[data-node]", svg) : [];
+      if (!svg || !spine || !rocket || nodes.length === 0) return;
+
+      const width = svg.viewBox.baseVal.width;
+      const len = spine.getTotalLength();
+
+      gsap.set(spine, { strokeDasharray: len, strokeDashoffset: len });
+      gsap.set(nodes, { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" });
+      gsap.set(rocket, { x: width - 40, y: SPINE_Y, opacity: 0 });
+
+      if (reduce) {
+        gsap.set(spine, { strokeDashoffset: 0 });
+        gsap.set(nodes, { opacity: 1, scale: 1 });
+        return;
+      }
+
+      // 타임라인이 화면에 들어오면 로켓이 오른쪽(과거) → 왼쪽(현재)으로 2초간 "슝" 날아간다.
+      // 위로 스크롤해 벗어나면 리셋되어 다시 내려올 때 한 번 더 재생된다.
+      const FLY = 2.2;
+      const tl = gsap.timeline({
+        paused: true,
+        scrollTrigger: {
+          trigger: expRef.current,
+          start: "top 72%",
+          toggleActions: "restart none none reset",
+        },
+      });
+
+      tl.to(rocket, { x: 40, duration: FLY, ease: "power1.inOut" }, 0)
+        .to(rocket, { opacity: 1, duration: 0.15 }, 0)
+        .to(rocket, { opacity: 0, duration: 0.2 }, FLY - 0.2)
+        .to(spine, { strokeDashoffset: 0, duration: FLY, ease: "power1.inOut" }, 0);
+
+      // 로켓이 지나간 자리마다 노드가 켜진다 (오른쪽 → 왼쪽)
+      [...nodes].reverse().forEach((node, i) => {
+        tl.to(
+          node,
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" },
+          0.15 + (i * (FLY - 0.4)) / nodes.length
+        );
+      });
+    },
+    { scope: sectionRef, dependencies: [desktop], revertOnUpdate: true }
+  );
+
+  // 모바일 세로 타임라인: 화면에 보일 때 CSS 리빌
   useEffect(() => {
     const el = expRef.current;
     if (!el) return;
@@ -182,20 +249,20 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className={styles.term_about}>
+    <section id="about" ref={sectionRef} className={styles.term_about}>
       <div className={styles.term_scanlines} />
 
       <div className={styles.term_about_inner}>
-        <div className={styles.term_about_cmdline}>
+        <div data-reveal className={styles.term_about_cmdline}>
           <span className={styles.term_arrow}>➜</span>{" "}
           <span className={styles.term_path}>~/portfolio</span>{" "}
           <span className={styles.term_cmd}>cat about.md</span>
         </div>
 
         {/* intro row */}
-        <div className={styles.term_about_intro}>
+        <div data-intro className={styles.term_about_intro}>
           {/* profile */}
-          <div className={styles.term_about_profile}>
+          <div data-reveal className={styles.term_about_profile}>
             <div className={styles.term_avatar_ring}>
               <div className={styles.term_avatar_inner}>
                 <img src="/main/myimg.jpg" alt="박상훈 프로필" />
@@ -209,7 +276,7 @@ export default function About() {
           </div>
 
           {/* text */}
-          <div>
+          <div data-reveal>
             <h2 className={styles.term_about_h1}>
               안녕하세요!{" "}
               <span className={styles.term_accent}>배움에 끝이 없는 웹 개발자</span>{" "}
@@ -238,7 +305,7 @@ export default function About() {
         {/* experience */}
         <div
           ref={expRef}
-          className={`${styles.term_exp} ${expVisible ? styles.term_exp_visible : ""}`}
+          className={`${styles.term_exp} ${expVisible && !desktop ? styles.term_exp_visible : ""}`}
         >
           <div className={styles.term_exp_head}>
             <div className={styles.term_exp_title}>Experience</div>
@@ -251,11 +318,7 @@ export default function About() {
           {/* 모바일 세로 타임라인 */}
           <div className={styles.term_exp_mobile}>
             {experiences.map((exp, i) => (
-              <div
-                key={i}
-                className={styles.term_exp_mrow}
-                style={{ "--reveal-order": i } as React.CSSProperties}
-              >
+              <div key={i} className={styles.term_exp_mrow}>
                 <div
                   className={`${styles.term_exp_mnode} ${
                     exp.current ? styles.term_exp_mnode_current : ""

@@ -63,7 +63,7 @@ const DeviceIcon = svg(
 // data.tsx의 fontawesome 아이콘 클래스 → 터미널 테마 SVG 아이콘 + 주석 태그 매핑
 const ICON_MAP: Record<string, { icon: ReactNode; tag: string }> = {
   "fas fa-code": { icon: CodeIcon, tag: "// frontend" },
-  "fas fa-server": { icon: StackIcon, tag: "// fullstack" },
+  "fas fa-server": { icon: StackIcon, tag: "// backend" },
   "fas fa-paint-brush": { icon: BrushIcon, tag: "// design" },
   "fas fa-magic": { icon: SparkIcon, tag: "// motion" },
   "fas fa-tools": { icon: ToolsIcon, tag: "// devops" },
@@ -119,7 +119,7 @@ export default function Skills() {
         <div className={styles.term_skills_rule} />
 
         <div className={styles.term_skills_grid}>
-          {skills.map((skill, i) => {
+          {skills.map((skill) => {
             const mapped = ICON_MAP[skill.icon] ?? {
               icon: CodeIcon,
               tag: "// module",
@@ -128,7 +128,6 @@ export default function Skills() {
               <div
                 key={skill.title}
                 className={styles.term_skill_card}
-                style={{ "--i": i } as React.CSSProperties}
               >
                 <div className={styles.term_skill_topline} />
                 <div className={styles.term_skill_card_head}>

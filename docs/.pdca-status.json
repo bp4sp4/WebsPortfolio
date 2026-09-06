@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-07-11T14:18:55.669Z",
+  "lastUpdated": "2026-09-06T10:06:45.431Z",
   "activeFeatures": [
     "data",
     "[id]",
@@ -11,7 +11,10 @@
     "projects",
     "moim",
     "spaces",
-    "reservations"
+    "reservations",
+    "korhrd_youhak-main",
+    "KorhrdStudyAbroad-main",
+    "apply"
   ],
   "primaryFeature": "data",
   "features": {
@@ -24,9 +27,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:02:53.120Z",
-        "lastUpdated": "2026-07-11T11:16:42.792Z"
+        "lastUpdated": "2026-09-06T09:53:23.938Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\data\\data.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\OneDrive\\바탕 화면\\KorhrdStudyAbroad-main\\src\\data\\prices.ts"
     },
     "[id]": {
       "phase": "do",
@@ -37,9 +40,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-07T15:18:27.380Z",
-        "lastUpdated": "2026-07-11T14:18:27.930Z"
+        "lastUpdated": "2026-09-06T05:57:21.286Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\moim\\src\\app\\spaces\\[id]\\page.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\emp\\WebsPortfolio\\src\\app\\project\\[id]\\page.tsx"
     },
     "WebsPortfolio-master": {
       "phase": "do",
@@ -63,9 +66,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T01:07:56.993Z",
-        "lastUpdated": "2026-07-11T12:25:36.536Z"
+        "lastUpdated": "2026-09-06T09:09:17.586Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\components\\Projects.tsx"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\emp\\WebsPortfolio\\src\\components\\Contact.tsx"
     },
     "ui": {
       "phase": "do",
@@ -89,9 +92,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-07-11T11:15:27.924Z",
-        "lastUpdated": "2026-07-11T11:15:27.924Z"
+        "lastUpdated": "2026-09-06T10:06:45.431Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\AppData\\Local\\Temp\\claude\\C--Users-bp4sp-Downloads-port-WebsPortfolio\\2bf51a78-eff2-4e32-821f-320d5ee88de8\\scratchpad\\split-data.js"
+      "lastFile": "C:\\Users\\bp4sp\\AppData\\Local\\Temp\\claude\\C--Users-bp4sp-Downloads-emp-WebsPortfolio\\c536baa4-cc43-49dd-a0ff-298a0413fdc7\\scratchpad\\apply-youhak.js"
     },
     "projects": {
       "phase": "do",
@@ -102,9 +105,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-07-11T11:16:32.550Z",
-        "lastUpdated": "2026-07-11T12:06:02.632Z"
+        "lastUpdated": "2026-09-06T06:30:36.780Z"
       },
-      "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\WebsPortfolio\\src\\data\\projects\\korhrd-office.ts"
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\emp\\WebsPortfolio\\src\\data\\projects\\index.ts"
     },
     "moim": {
       "phase": "do",
@@ -144,6 +147,45 @@
         "lastUpdated": "2026-07-11T14:18:55.669Z"
       },
       "lastFile": "C:\\Users\\bp4sp\\Downloads\\port\\moim\\src\\app\\reservations\\page.tsx"
+    },
+    "korhrd_youhak-main": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-09-06T09:38:22.485Z",
+        "lastUpdated": "2026-09-06T09:38:27.784Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\Downloads\\korhrd_youhak-main\\lib\\admin-fetch.ts"
+    },
+    "KorhrdStudyAbroad-main": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-09-06T09:53:31.549Z",
+        "lastUpdated": "2026-09-06T09:53:31.549Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\OneDrive\\바탕 화면\\KorhrdStudyAbroad-main\\src\\lib\\rate-limit.ts"
+    },
+    "apply": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-09-06T09:56:07.639Z",
+        "lastUpdated": "2026-09-06T09:56:07.639Z"
+      },
+      "lastFile": "C:\\Users\\bp4sp\\OneDrive\\바탕 화면\\KorhrdStudyAbroad-main\\src\\app\\(main)\\apply\\page.tsx"
     }
   },
   "pipeline": {
@@ -154,7 +196,7 @@
   "session": {
     "startedAt": "2026-03-07T14:48:17.076Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-07-11T14:18:55.669Z"
+    "lastActivity": "2026-09-06T10:06:45.431Z"
   },
   "history": [
     {
@@ -1384,6 +1426,612 @@
     {
       "timestamp": "2026-07-11T14:18:55.669Z",
       "feature": "reservations",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:23:13.795Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:23:16.912Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:23:23.001Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:23:35.993Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:23:45.767Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:23:58.124Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:24:06.689Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:24:34.236Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:24:48.598Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:26:46.074Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:26:47.552Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:26:48.317Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:26:49.853Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:03.926Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:08.588Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:10.107Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:12.393Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:14.675Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:45.331Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:48.265Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:27:52.630Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:32:41.983Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:35:39.340Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:04.264Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:06.224Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:25.740Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:31.349Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:31.638Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:34.611Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:37:37.297Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:40:46.291Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:40:51.783Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T05:40:55.473Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:12:19.727Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:16:21.261Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:23:33.296Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:23:53.252Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:28:07.733Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:28:10.947Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:39.413Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:41.121Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:43.913Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:46.194Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:47.673Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:49.176Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:51.415Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:35:52.481Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:03.048Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:04.496Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:06.010Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:09.024Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:12.807Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:15.499Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:36:17.165Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:37:05.302Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:37:36.962Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:40:47.248Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:40:57.419Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:41:20.034Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:41:24.473Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:45:00.649Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:46:31.885Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:47:48.433Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T06:49:17.715Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:02:51.485Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:10:06.983Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:12:54.054Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:13:57.160Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:26:19.021Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:30:56.615Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:32:19.558Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:32:44.159Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:35:25.419Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:35:27.724Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:35:29.323Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:35:30.823Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-05T17:35:33.071Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T03:24:43.983Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T03:26:09.269Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T03:48:02.200Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T04:16:36.020Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T04:19:25.667Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T04:30:00.764Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T04:54:00.306Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T05:55:22.992Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T05:57:21.286Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T06:12:01.976Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T06:25:33.592Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T06:30:26.444Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T06:30:36.780Z",
+      "feature": "projects",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:08:29.735Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:09:06.437Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:09:17.586Z",
+      "feature": "WebsPortfolio",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:38:22.485Z",
+      "feature": "korhrd_youhak-main",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:38:27.784Z",
+      "feature": "korhrd_youhak-main",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:39:16.785Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:53:23.938Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:53:31.549Z",
+      "feature": "KorhrdStudyAbroad-main",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:54:48.745Z",
+      "feature": "scratchpad",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T09:56:07.639Z",
+      "feature": "apply",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-09-06T10:06:45.431Z",
+      "feature": "scratchpad",
       "phase": "do",
       "action": "updated"
     }
