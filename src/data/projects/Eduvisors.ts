@@ -61,10 +61,10 @@ export const project: ProjectEntry = {
             title: "웹",
             layout: "web",
             shots: [
-              { src: "/detail__main/page3imgs/edu_concern.png", caption: "공감 섹션 — 성과·미래·가능성·보상 네 가지 고민으로 방문자의 상황을 먼저 짚음" },
-              { src: "/detail__main/page3imgs/edu_compare.png", caption: "수익 구조 비교 — 일반 GA의 4단계 수수료(약 80%)와 에듀바이저스의 50% 직접 지급을 같은 매출 1,000만원 기준으로 대비" },
-              { src: "/detail__main/page3imgs/eduvisor_01.png", caption: "지원 혜택 — 매출 50% 보장, 자율 활동, 조직 컨설팅, 개별 CRM 제공을 카드 4장으로 정리" },
-              { src: "/detail__main/page3imgs/edu_faq.png", caption: "FAQ — 지급 이유, 지원 자격, 출근 여부, 초기 비용 등 합류 전 질문을 아코디언으로 제공" },
+              { src: "/detail__main/page3imgs/edu_concern.png", caption: "공감 섹션 - 성과·미래·가능성·보상 네 가지 고민으로 방문자의 상황을 먼저 짚음" },
+              { src: "/detail__main/page3imgs/edu_compare.png", caption: "수익 구조 비교 - 일반 GA의 4단계 수수료(약 80%)와 에듀바이저스의 50% 직접 지급을 같은 매출 1,000만원 기준으로 대비" },
+              { src: "/detail__main/page3imgs/eduvisor_01.png", caption: "지원 혜택 - 매출 50% 보장, 자율 활동, 조직 컨설팅, 개별 CRM 제공을 카드 4장으로 정리" },
+              { src: "/detail__main/page3imgs/edu_faq.png", caption: "FAQ - 지급 이유, 지원 자격, 출근 여부, 초기 비용 등 합류 전 질문을 아코디언으로 제공" },
               { src: "/detail__main/page3imgs/edu_addbranch.png", tag: "지점 모집", caption: "개인이 아닌 지점 단위로 합류하려는 파트너를 위한 별도 랜딩과 문의 흐름" },
             ],
           },
@@ -72,10 +72,10 @@ export const project: ProjectEntry = {
             title: "모바일",
             layout: "mobile",
             shots: [
-              { src: "/detail__main/page3imgs/edu_m_01.png", tag: "홈", caption: "모바일 히어로 — 메시지와 두 CTA를 상단에, 인물 이미지는 아래로 재배치" },
+              { src: "/detail__main/page3imgs/edu_m_01.png", tag: "홈", caption: "모바일 히어로 - 메시지와 두 CTA를 상단에, 인물 이미지는 아래로 재배치" },
               { src: "/detail__main/page3imgs/edu_m_02.png", tag: "비교", caption: "수익 구조 비교를 세로 흐름으로 풀어 한 손 스크롤로 읽히게 구성" },
-              { src: "/detail__main/page3imgs/edu_m_03.png", tag: "소개서", caption: "소개서 받기 모달 — 이름·연락처·이메일 3칸만으로 요청" },
-              { src: "/detail__main/page3imgs/edu_m_popup.png", tag: "팝업", caption: "메인 진입 팝업의 모바일 표시 — 화면 폭에 맞춰 세로형으로 배치" },
+              { src: "/detail__main/page3imgs/edu_m_03.png", tag: "소개서", caption: "소개서 받기 모달 - 이름·연락처·이메일 3칸만으로 요청" },
+              { src: "/detail__main/page3imgs/edu_m_popup.png", tag: "팝업", caption: "메인 진입 팝업의 모바일 표시 - 화면 폭에 맞춰 세로형으로 배치" },
             ],
           },
         ],
@@ -86,7 +86,7 @@ export const project: ProjectEntry = {
         description:
           "소개서 받기 폼이 제출되면 리드를 Supabase에 저장하고, 다음 스마트워크 SMTP로 사람마다 다른 열람 링크를 담은 메일을 보냅니다. 링크를 열면 최초 열람 시각과 열람 횟수가 기록되어 어드민에서 누가 실제로 소개서를 봤는지 확인할 수 있습니다. 메일 발송이 실패해도 리드는 남기고 상태만 failed로 표시합니다.",
         shots: [
-          { src: "/detail__main/page3imgs/edu_brochure_modal.png", tag: "소개서 받기", caption: "소개서 받기 모달 — 입력한 이메일로 열람 링크가 발송된다는 안내를 폼 안에 표시" },
+          { src: "/detail__main/page3imgs/edu_brochure_modal.png", tag: "소개서 받기", caption: "소개서 받기 모달 - 입력한 이메일로 열람 링크가 발송된다는 안내를 폼 안에 표시" },
         ],
       },
       {
@@ -95,7 +95,7 @@ export const project: ProjectEntry = {
         description:
           "파트너 문의·교육 상담·채용 지원 세 가지 폼이 모두 Slack 담당자 채널로 바로 알림을 보냅니다. 클라이언트는 알림 종류와 필드값만 전달하고 메시지 블록은 서버가 조립하므로, 외부에서 임의의 메시지를 주입할 수 없습니다. 교육 상담은 한평생오피스의 학점은행제 문의 DB에도 유입경로와 함께 바로 적재됩니다.",
         shots: [
-          { src: "/detail__main/page3imgs/edu_partner_modal.png", tag: "파트너 문의", caption: "파트너 문의 모달 — 이름·연락처·컨설팅 콘텐츠·현재 상황·궁금한 내용이 그대로 Slack 블록 메시지가 됨" },
+          { src: "/detail__main/page3imgs/edu_partner_modal.png", tag: "파트너 문의", caption: "파트너 문의 모달 - 이름·연락처·컨설팅 콘텐츠·현재 상황·궁금한 내용이 그대로 Slack 블록 메시지가 됨" },
         ],
       },
       {
@@ -108,7 +108,7 @@ export const project: ProjectEntry = {
             title: "웹",
             layout: "web",
             shots: [
-              { src: "/detail__main/page3imgs/edu_popup.png", tag: "팝업", caption: "메인 진입 시 뜨는 모집 팝업 — 어드민에서 등록한 이미지와 문구, 우상단 '오늘 하루 안보기'" },
+              { src: "/detail__main/page3imgs/edu_popup.png", tag: "팝업", caption: "메인 진입 시 뜨는 모집 팝업 - 어드민에서 등록한 이미지와 문구, 우상단 '오늘 하루 안보기'" },
             ],
           },
         ],

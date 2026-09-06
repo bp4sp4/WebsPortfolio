@@ -69,21 +69,21 @@ export const project: ProjectEntry = {
             title: "웹",
             layout: "web",
             shots: [
-              { src: `${P}baroemp_home.png`, tag: "홈", caption: "홈 — 관심 직종 검색과 인기 검색어, 4개 핵심 서비스 카드, 누적 지표 배너" },
-              { src: `${P}baroemp_home_2.png`, caption: "인기 직업 — 채용 건수·평균 연봉·신입 가능 여부를 카드로 비교" },
-              { src: `${P}baroemp_assessment_q.png`, tag: "직업진단", caption: "직업진단 문항 — 프로필에서 이미 아는 항목은 미리 채워 두고 확인만 하게 함 (26문항 5영역)" },
-              { src: `${P}baroemp_support.png`, tag: "지원금", caption: "지원금 찾기 — 민감정보 없이 몇 가지 조건으로 정부·지자체 지원제도와 가능성 등급을 안내" },
+              { src: `${P}baroemp_home.png`, tag: "홈", caption: "홈 - 관심 직종 검색과 인기 검색어, 4개 핵심 서비스 카드, 누적 지표 배너" },
+              { src: `${P}baroemp_home_2.png`, caption: "인기 직업 - 채용 건수·평균 연봉·신입 가능 여부를 카드로 비교" },
+              { src: `${P}baroemp_assessment_q.png`, tag: "직업진단", caption: "직업진단 문항 - 프로필에서 이미 아는 항목은 미리 채워 두고 확인만 하게 함 (26문항 5영역)" },
+              { src: `${P}baroemp_support.png`, tag: "지원금", caption: "지원금 찾기 - 민감정보 없이 몇 가지 조건으로 정부·지자체 지원제도와 가능성 등급을 안내" },
               { src: `${P}baroemp_home_3.png`, caption: "신청 가능한 지원금 카드와 취업 성공 스토리" },
-              { src: `${P}baroemp_mypage.png`, tag: "마이페이지", caption: "5단계 진행 상태 — 완료 단계는 체크, 현재 단계는 다음 행동 버튼, 거주지 근처 공고 알림톡 설정" },
+              { src: `${P}baroemp_mypage.png`, tag: "마이페이지", caption: "5단계 진행 상태 - 완료 단계는 체크, 현재 단계는 다음 행동 버튼, 거주지 근처 공고 알림톡 설정" },
             ],
           },
           {
             title: "모바일",
             layout: "mobile",
             shots: [
-              { src: `${P}baroemp_m_home.png`, tag: "홈", caption: "모바일 홈 — 검색과 인기 검색어를 상단에, 서비스 카드는 2열" },
-              { src: `${P}baroemp_m_assessment.png`, tag: "직업진단", caption: "직업진단 시작 화면 — 큰 글자와 한 개의 시작 버튼" },
-              { src: `${P}baroemp_m_jobs.png`, tag: "일자리", caption: "일자리찾기 — 큐레이션 탭을 가로 스크롤로, 희망직무 미설정 시 설정 유도" },
+              { src: `${P}baroemp_m_home.png`, tag: "홈", caption: "모바일 홈 - 검색과 인기 검색어를 상단에, 서비스 카드는 2열" },
+              { src: `${P}baroemp_m_assessment.png`, tag: "직업진단", caption: "직업진단 시작 화면 - 큰 글자와 한 개의 시작 버튼" },
+              { src: `${P}baroemp_m_jobs.png`, tag: "일자리", caption: "일자리찾기 - 큐레이션 탭을 가로 스크롤로, 희망직무 미설정 시 설정 유도" },
               { src: `${P}baroemp_m_mypage.png`, tag: "마이페이지", caption: "5단계 진행 상태를 세로로 재배치, 다음 행동 버튼은 전체 폭" },
               { src: `${P}baroemp_m_resume.png`, tag: "이력서", caption: "이력서·자기소개서 목록과 새로 만들기" },
             ],
@@ -96,8 +96,8 @@ export const project: ProjectEntry = {
         description:
           "채용공고는 고용24(Work24) 오픈 API를 Provider 패턴으로 받아 지역·직종·연령대 추천을 정규화해 저장하고, 매일 새벽 Vercel Cron이 목록과 상세를 동기화합니다. 회원에게는 맞춤 추천·진단 맞춤 공고·지금 지원가능·자격 따면 열리는 공고·신규·마감임박 6개 탭으로 나눠 보여주고, 비로그인 방문자에게도 잠긴 탭을 보여 가입을 유도합니다.",
         shots: [
-          { src: `${P}baroemp_jobs_user.png`, tag: "회원", caption: "맞춤 추천 탭 — 희망 지역 일치·자격 요건 없음·신입 가능·중장년 추천 배지로 준비도를 표시" },
-          { src: `${P}baroemp_admin_jobs.png`, tag: "관리자", caption: "채용공고 관리 — 현재 Provider와 보유·노출 건수, 동기화 버튼, 연령대별 활동과 많이 본 직종 집계" },
+          { src: `${P}baroemp_jobs_user.png`, tag: "회원", caption: "맞춤 추천 탭 - 희망 지역 일치·자격 요건 없음·신입 가능·중장년 추천 배지로 준비도를 표시" },
+          { src: `${P}baroemp_admin_jobs.png`, tag: "관리자", caption: "채용공고 관리 - 현재 Provider와 보유·노출 건수, 동기화 버튼, 연령대별 활동과 많이 본 직종 집계" },
         ],
       },
       {
@@ -106,9 +106,9 @@ export const project: ProjectEntry = {
         description:
           "양식 선택을 '어떤 기준으로 AI가 첨삭하는가'로 바꿔 표준·경력직·중장년 재취업·복지·돌봄 4종 AI 에이전트로 보여줍니다. 회원 프로필의 경력·자격·희망직무를 불러와 초안을 만들고, 문장 다듬기·전체 점검·공고 맞춤·자소서 초안을 구조화 출력으로 받아 자유 텍스트 파싱을 하지 않습니다. 사용자가 주지 않은 경력이나 수치를 만들어내지 않도록 시스템 프롬프트로 강제합니다.",
         shots: [
-          { src: `${P}baroemp_resume_new.png`, tag: "AI 에이전트", caption: "이력서 만들기 — 표준·경력직·중장년 재취업·복지·돌봄 에이전트 중 선택, 항목 수는 다음 단계에서 조정" },
-          { src: `${P}baroemp_resume.png`, caption: "이력서·자기소개서 홈 — 프로필 정보를 불러와 빠르게 작성하고 AI 첨삭으로 다듬는 흐름 안내" },
-          { src: `${P}baroemp_cover_letter.png`, caption: "자기소개서 — 문항을 자유롭게 추가·삭제·순서 변경하고 AI 초안·첨삭을 받는 편집기" },
+          { src: `${P}baroemp_resume_new.png`, tag: "AI 에이전트", caption: "이력서 만들기 - 표준·경력직·중장년 재취업·복지·돌봄 에이전트 중 선택, 항목 수는 다음 단계에서 조정" },
+          { src: `${P}baroemp_resume.png`, caption: "이력서·자기소개서 홈 - 프로필 정보를 불러와 빠르게 작성하고 AI 첨삭으로 다듬는 흐름 안내" },
+          { src: `${P}baroemp_cover_letter.png`, caption: "자기소개서 - 문항을 자유롭게 추가·삭제·순서 변경하고 AI 초안·첨삭을 받는 편집기" },
         ],
       },
       {
@@ -117,9 +117,9 @@ export const project: ProjectEntry = {
         description:
           "회원의 프로필과 행동 이벤트가 규칙 기반 리드 점수와 A~D 등급으로 환산되어 관리자 회원 목록에 바로 표시됩니다. 직업진단 응답 분포, 지원금 검사 응답, 채용공고·지원제도 동기화 현황을 관리자에서 보고, 영업 리드는 엑셀로 내보내 상담 조직에 전달합니다. /admin은 서버 컴포넌트에서 DB의 역할을 조회해 차단하므로 클라이언트에서 우회할 수 없습니다.",
         shots: [
-          { src: `${P}baroemp_admin_users.png`, tag: "회원·Career DB", caption: "회원 목록 — 지역·취업상태·유입 채널·가입일과 함께 리드 등급(A 85, B 45 …)과 마케팅 동의를 한 줄에 표시 (시드 데이터)" },
-          { src: `${P}baroemp_admin_assessments.png`, tag: "직업진단", caption: "직업진단 집계 — 검사 시작·완료·완료율과 26문항 5영역별 연령대 응답 분포" },
-          { src: `${P}baroemp_admin_support.png`, tag: "지원금", caption: "지원금 카탈로그 — 운영기관·카테고리·관련도 점수·신청기간과 Provider 동기화" },
+          { src: `${P}baroemp_admin_users.png`, tag: "회원·Career DB", caption: "회원 목록 - 지역·취업상태·유입 채널·가입일과 함께 리드 등급(A 85, B 45 …)과 마케팅 동의를 한 줄에 표시 (시드 데이터)" },
+          { src: `${P}baroemp_admin_assessments.png`, tag: "직업진단", caption: "직업진단 집계 - 검사 시작·완료·완료율과 26문항 5영역별 연령대 응답 분포" },
+          { src: `${P}baroemp_admin_support.png`, tag: "지원금", caption: "지원금 카탈로그 - 운영기관·카테고리·관련도 점수·신청기간과 Provider 동기화" },
         ],
       },
     ],

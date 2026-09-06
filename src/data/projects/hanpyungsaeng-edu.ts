@@ -64,11 +64,11 @@ export const project: ProjectEntry = {
             title: "웹",
             layout: "web",
             shots: [
-              { src: "/detail__main/page3imgs/youhak_home.png", tag: "홈", caption: "히어로 — '잘 보내는 것보다, 잘 적응하는 유학' 메시지와 무료상담 CTA, 우측 고정 상담예약·견적요청·유학후기 바" },
+              { src: "/detail__main/page3imgs/youhak_home.png", tag: "홈", caption: "히어로 - '잘 보내는 것보다, 잘 적응하는 유학' 메시지와 무료상담 CTA, 우측 고정 상담예약·견적요청·유학후기 바" },
               { src: "/detail__main/page3imgs/youhak_home_2.png", caption: "유학 진행 과정 5단계(상담 신청 → 1:1 상담 → 맞춤 캠프 → 출국 준비 → 현지 도착)와 국가별 프로그램 카드" },
-              { src: "/detail__main/page3imgs/youhak_program.png", tag: "프로그램", caption: "프로그램 안내 페이지 — 국가·지역·형태·일정·참가 연령·가격을 표로 비교" },
-              { src: "/detail__main/page3imgs/youhak_program_2.png", caption: "가격표 — 나홀로·부모동반 형태와 3주·4주·10주 일정별 금액, 이 표의 금액을 서버 가격표가 그대로 씀" },
-              { src: "/detail__main/page3imgs/youhak_03.png", tag: "참가신청", caption: "결제 후 참가 신청서 — 프로그램·참가자·해외 출국용 정보·보호자·홈스테이·참가 동의 6개 섹션, 여권사본 업로드와 임시저장" },
+              { src: "/detail__main/page3imgs/youhak_program.png", tag: "프로그램", caption: "프로그램 안내 페이지 - 국가·지역·형태·일정·참가 연령·가격을 표로 비교" },
+              { src: "/detail__main/page3imgs/youhak_program_2.png", caption: "가격표 - 나홀로·부모동반 형태와 3주·4주·10주 일정별 금액, 이 표의 금액을 서버 가격표가 그대로 씀" },
+              { src: "/detail__main/page3imgs/youhak_03.png", tag: "참가신청", caption: "결제 후 참가 신청서 - 프로그램·참가자·해외 출국용 정보·보호자·홈스테이·참가 동의 6개 섹션, 여권사본 업로드와 임시저장" },
             ],
           },
         ],
@@ -78,8 +78,8 @@ export const project: ProjectEntry = {
         title: "유학 진행에 필요한 정보 완비",
         description: "여권상 영문 이름·여권번호·만료일·여권사본, 보호자 정보, 영어 수준·알러지·수영 가능 여부 등 홈스테이와 현지 진행에 필요한 정보를 결제 후 신청서에서 수집합니다. 첨부 파일은 비공개 스토리지에 저장하고 어드민은 1시간짜리 서명 URL로만 열람합니다.",
         shots: [
-          { src: "/detail__main/page3imgs/youhak_home_3.png", caption: "한평생유학을 선택하는 이유 — 현지 담당자 연결, 매일 밀착 사진, 출국 전 준비체크, 검증된 학교 추천" },
-          { src: "/detail__main/page3imgs/youhak_02.png", tag: "후기", caption: "학부모 후기 — 프로그램·기간·형태 태그가 붙은 실제 참가 후기 그리드" },
+          { src: "/detail__main/page3imgs/youhak_home_3.png", caption: "한평생유학을 선택하는 이유 - 현지 담당자 연결, 매일 밀착 사진, 출국 전 준비체크, 검증된 학교 추천" },
+          { src: "/detail__main/page3imgs/youhak_02.png", tag: "후기", caption: "학부모 후기 - 프로그램·기간·형태 태그가 붙은 실제 참가 후기 그리드" },
         ],
       },
       {

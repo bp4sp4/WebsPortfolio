@@ -80,7 +80,7 @@ export const project: ProjectEntry = {
           "매출 3종을 통합 집계한 예상손익계산서와 법인 계좌 실시간 조회, 사업부별 매출·손익 대시보드를 제공하여 경영진이 데이터를 직접 보고 빠르게 의사결정할 수 있게 합니다.",
         shots: [
           { src: "/detail__main/page3imgs/office_data_01.png", caption: "일일손익계산서 - 매출 3종을 통합 집계" },
-          { src: "/detail__main/page3imgs/office_data_02.png", caption: "예상손익계산서 -  월별 매출·손익 대시보드 — 실시간 데이터 반영" },
+          { src: "/detail__main/page3imgs/office_data_02.png", caption: "예상손익계산서 - 월별 매출·손익 대시보드 - 실시간 데이터 반영" },
         ],
       },
       {
@@ -144,9 +144,9 @@ export const project: ProjectEntry = {
         description:
           "유료 그룹웨어 메일을 도입하는 대신, 이미 쓰고 있던 다음 스마트워크의 IMAP·SMTP를 직접 연동해 추가 비용 없이 사내 메일을 시스템 안에 구축했습니다. 구성원 대부분이 익숙한 네이버 메일과 비슷한 레이아웃과 동작으로 설계해 별도 교육 없이 바로 쓸 수 있게 했습니다.",
         shots: [
-          { src: "/detail__main/page3imgs/office_mail_01.png", caption: "보낸편지함 상세 — 첨부파일 다운로드와 서명 블록까지 네이버 메일과 같은 흐름으로 구성" },
-          { src: "/detail__main/page3imgs/office_mail_02.png", caption: "메일 쓰기 — 사내 주소록 자동완성, 서식 도구, 드래그 첨부를 한 화면에 배치" },
-          { src: "/detail__main/page3imgs/office_mail_03.png", tag: "참고", caption: "비교용 실제 네이버 메일 화면 — 구성원이 이미 익숙한 메뉴 구성과 읽기 화면 구조를 참고해 설계" },
+          { src: "/detail__main/page3imgs/office_mail_01.png", caption: "보낸편지함 상세 - 첨부파일 다운로드와 서명 블록까지 네이버 메일과 같은 흐름으로 구성" },
+          { src: "/detail__main/page3imgs/office_mail_02.png", caption: "메일 쓰기 - 사내 주소록 자동완성, 서식 도구, 드래그 첨부를 한 화면에 배치" },
+          { src: "/detail__main/page3imgs/office_mail_03.png", tag: "참고", caption: "비교용 실제 네이버 메일 화면 - 구성원이 이미 익숙한 메뉴 구성과 읽기 화면 구조를 참고해 설계" },
         ],
       },
     ],

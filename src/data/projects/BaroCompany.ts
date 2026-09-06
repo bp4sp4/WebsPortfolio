@@ -72,7 +72,7 @@ export const project: ProjectEntry = {
         description:
           "어드민은 공개 사이트와 분리된 별도 로그인 관문을 거치고, super_admin/admin 두 단계 역할은 DB 제약으로 고정한 뒤 서버에서 토큰을 재검증합니다. 데이터 삭제 같은 민감 작업은 super_admin만 할 수 있습니다.",
         shots: [
-          { src: "/detail__main/page3imgs/baro_admin_login.png", tag: "어드민 관문", caption: "/admin 진입 시 나오는 관리자 전용 로그인 — 공개 사이트와 완전히 분리된 화면" },
+          { src: "/detail__main/page3imgs/baro_admin_login.png", tag: "어드민 관문", caption: "/admin 진입 시 나오는 관리자 전용 로그인 - 공개 사이트와 완전히 분리된 화면" },
         ],
         snippet: {
           title: "migrations/create_admins_table.sql · api/admin/check-role",
@@ -89,18 +89,18 @@ export const project: ProjectEntry = {
             title: "웹",
             layout: "web",
             shots: [
-              { src: "/detail__main/page3imgs/baro_02.png", caption: "성공 사례 슬라이더 — 승인 금액을 앞세운 카드형 후기, 우측에는 페이지 어디서나 따라오는 상담 신청 폼" },
-              { src: "/detail__main/page3imgs/baro_03.png", caption: "투자 유치 프로세스 — 5단계 절차를 카드로 정리, 하단에 컨설팅 무료상담 바" },
-              { src: "/detail__main/page3imgs/baro_04.png", caption: "서비스 소개 — 전문가 팀·네트워크·데이터 기반·지속 지원 4가지 강점" },
+              { src: "/detail__main/page3imgs/baro_02.png", caption: "성공 사례 슬라이더 - 승인 금액을 앞세운 카드형 후기, 우측에는 페이지 어디서나 따라오는 상담 신청 폼" },
+              { src: "/detail__main/page3imgs/baro_03.png", caption: "투자 유치 프로세스 - 5단계 절차를 카드로 정리, 하단에 컨설팅 무료상담 바" },
+              { src: "/detail__main/page3imgs/baro_04.png", caption: "서비스 소개 - 전문가 팀·네트워크·데이터 기반·지속 지원 4가지 강점" },
             ],
           },
           {
             title: "모바일",
             layout: "mobile",
             shots: [
-              { src: "/detail__main/page3imgs/baro_m_01.png", tag: "홈", caption: "모바일 히어로 — 데스크톱과 다른 세로 영상을 서빙, 하단에 1:1 전문가 상담·전화 버튼 고정" },
+              { src: "/detail__main/page3imgs/baro_m_01.png", tag: "홈", caption: "모바일 히어로 - 데스크톱과 다른 세로 영상을 서빙, 하단에 1:1 전문가 상담·전화 버튼 고정" },
               { src: "/detail__main/page3imgs/baro_m_02.png", tag: "단계 선택", caption: "대표님 단계 선택과 정책자금 성공사례 카드 슬라이드" },
-              { src: "/detail__main/page3imgs/baro_m_03.png", tag: "상담 신청", caption: "하단 배너를 누르면 뜨는 상담 신청 모달 — 이름·연락처·동의만으로 접수" },
+              { src: "/detail__main/page3imgs/baro_m_03.png", tag: "상담 신청", caption: "하단 배너를 누르면 뜨는 상담 신청 모달 - 이름·연락처·동의만으로 접수" },
             ],
           },
         ],
