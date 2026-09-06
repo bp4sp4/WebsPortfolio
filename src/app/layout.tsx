@@ -7,8 +7,8 @@ import SmoothScroll from "@/components/SmoothScroll";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "SangHun Park | Creative Web Developer",
-  description: "크리에이티브 웹 개발자 박상훈의 포트폴리오",
+  title: "SangHun Park | Web Developer",
+  description: "QA로 시작해 풀스택까지, 사용자가 겪을 일을 먼저 겪어보는 웹 개발자 박상훈의 포트폴리오",
 };
 
 export default function RootLayout({

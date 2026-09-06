@@ -177,7 +177,7 @@ export default function Header() {
             <span className={styles.term_cmd}>whoami</span>
           </div>
           <div className={styles.term_comment}>
-            # 안녕하세요, 저는 SangHun — Frontend Developer 입니다.
+            # 안녕하세요, QA로 시작해 풀스택까지 온 웹 개발자 박상훈입니다.
           </div>
           <div className={styles.term_cmdblock_gap}>
             <span className={styles.term_arrow}>➜</span>{" "}

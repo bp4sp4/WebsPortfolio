@@ -41,7 +41,7 @@ function neofetchLines(): Line[] {
   const info = [
     `${developerInfo.name}@portfolio`,
     "─".repeat(28),
-    "Role      Web Developer · Frontend / Fullstack",
+    "Role      Web Developer · QA 출신 풀스택",
     `Company   ${current ? current.info : "-"}`,
     // 한 줄이 길면 줄바꿈되어 로고 정렬이 깨진다 → 핵심만 짧게
     "Stack     React · Next.js · TypeScript · Supabase · GSAP",
@@ -53,7 +53,7 @@ function neofetchLines(): Line[] {
 }
 
 const WELCOME: Line[] = [
-  { k: "out", t: "프론트엔드·풀스택·사내 ERP까지, 다양한 실무 경험을 쌓아온 개발자 박상훈입니다." },
+  { k: "out", t: "QA로 시작해 풀스택까지, 사용자가 겪을 일을 먼저 겪어보는 웹 개발자 박상훈입니다." },
   { k: "out", t: "명령어를 입력하거나 아래 칩을 눌러보세요. 'help'로 시작." },
   { k: "blank" },
 ];
@@ -155,7 +155,7 @@ export default function Contact() {
         out = [{ k: "err", t: "permission denied: 이 포트폴리오는 지울 수 없습니다 😅" }];
         break;
       case "whoami":
-        out = [{ k: "out", t: "박상훈 — Web Developer · QA · Seoul, KR" }];
+        out = [{ k: "out", t: "박상훈 — Web Developer · QA 출신 풀스택 · Seoul, KR" }];
         break;
       case "email":
         out = [{ k: "link", t: EMAIL, href: `mailto:${EMAIL}` }];
@@ -201,7 +201,7 @@ export default function Contact() {
             함께 <span className={styles.term_accent}>일해요</span>
           </h2>
           <p className={styles.term_ct_sub}>
-            유능한 웹개발자 · QA를 찾고 계신가요? 아래 터미널에 명령을 입력해보세요.
+            사용자 입장에서 먼저 테스트하는 개발자를 찾으신다면, 아래 터미널에 명령을 입력해보세요.
           </p>
         </div>
 

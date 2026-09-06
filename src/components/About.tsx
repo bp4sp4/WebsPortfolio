@@ -278,24 +278,24 @@ export default function About() {
           {/* text */}
           <div data-reveal>
             <h2 className={styles.term_about_h1}>
-              안녕하세요!{" "}
-              <span className={styles.term_accent}>배움에 끝이 없는 웹 개발자</span>{" "}
-              박상훈입니다.
+              <span className={styles.term_accent}>사용자가 겪을 일을 먼저 겪어보는</span>{" "}
+              웹 개발자 박상훈입니다.
             </h2>
             <div className={styles.term_about_paras}>
-              <p>좋아하는 것이기에 재미있게 항상 웹 개발을 진행하고 있습니다.</p>
               <p>
-                어디에서도 잘 보이는 <b className={styles.term_hl}>반응형 웹 접근성</b>과{" "}
-                <b className={styles.term_hl}>웹 표준</b>을 고려한 웹 페이지를 만듭니다.
+                QA 테스터로 처음 서비스를 만났습니다. 버그를 찾던 6개월 동안 배운 건, 사용자는 화면이 아니라{" "}
+                <b className={styles.term_hl}>막히는 순간</b>을 기억한다는 것이었습니다.
               </p>
               <p>
-                항상 개발하면서 <b className={styles.term_hl}>팀워크</b>와 진정한{" "}
-                <b className={styles.term_hl}>소통</b>을 중요시하는 개발자입니다.
+                지금은 한평생그룹에서 웹 디자이너와{" "}
+                <b className={styles.term_hl}>2인 팀</b>으로 ERP·취업 플랫폼·LMS 등{" "}
+                <b className={styles.term_hl}>6개 서비스</b>를 만들고 운영합니다. 개발은 설계부터 배포까지 혼자
+                맡고, 사내 <b className={styles.term_hl}>프론트엔드 개발 표준</b>과{" "}
+                <b className={styles.term_hl}>디자인 시스템 가이드</b>도 직접 만들었습니다.
               </p>
               <p>
-                사내 <b className={styles.term_hl}>프론트엔드 개발 표준</b>과{" "}
-                <b className={styles.term_hl}>디자인 시스템 가이드</b>를 직접
-                구축·운영하고 있습니다.
+                <b className={styles.term_hl}>반응형·접근성·웹 표준</b>은 옵션이 아니라 기본값으로 둡니다. 어떤
+                기기에서 열어도 같은 경험이어야 하니까요.
               </p>
             </div>
 

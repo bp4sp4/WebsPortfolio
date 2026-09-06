@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────
 export const developerInfo = {
   name: "박상훈",
-  role: "Frontend Developer",
+  role: "Web Developer",
   skills: ["React", "Next.js", "TypeScript", "CSS", "HTML"],
   tools: ["Supabase", "Git", "Vercel"],
   passion: "창의적인 웹 경험",
@@ -99,11 +99,11 @@ export const skills = [
 // ─────────────────────────────────────────────
 export const contactInfo = {
   email: "bp4sp4@naver.com",
-  tagline: "유능한 웹개발자, QA 를 찾고 있으신가요?",
+  tagline: "사용자 입장에서 먼저 테스트하는 개발자를 찾으신다면",
   description: [
-    "새로운 기술을 습득하는 것에 대한 두려움이 없는 웹개발자, QA 박상훈 입니다.",
-    "다양한 프로젝트 경험과 기술적 역량을 바탕으로 나만의 홈페이지를 만들어 가고 있습니다.",
-    "저의 성장과 발전을 함께할 동료를 기대합니다.",
+    "QA 테스터로 시작해 풀스택 개발까지 온 웹 개발자 박상훈입니다.",
+    "배포 전에 사용자보다 먼저 겪어보는 습관은 그때 생겼습니다.",
+    "지금은 한평생그룹에서 웹 디자이너와 2인 팀으로 ERP·취업 플랫폼·LMS 등 6개 서비스를 만들고 운영합니다.",
   ],
 };
 
@@ -113,7 +113,83 @@ export const contactInfo = {
 export const footerInfo = {
   copyright: "© 2026 SangHunPark. All Rights Reserved.",
   credit: "coded by : PSH",
-  question: "배움에는 끝이 없다고 생각합니다. 언제든지 연락주세요!",
+  question: "배포 전에 먼저 깨뜨려 보는 개발자입니다. 언제든지 연락주세요.",
   email: "bp4sp4@naver.com",
   brand: "SangHun's Web Portfolio",
 };
+
+// ─────────────────────────────────────────────
+// 매니페스토 × 스택
+// 문장(주장) 하나마다 그 문장을 뒷받침하는 스택(증거)을 붙인다.
+// 순서: 설계 → 데이터 → 퍼블리싱 → 모션 → 워크플로 (skills 6그룹과 1:1에 가깝게)
+// hi: true 인 항목은 흰색으로 강조, 나머지는 회색.
+// ─────────────────────────────────────────────
+export const manifesto = [
+  {
+    statement: "화면을 그리는 게 아니라, 사용자의 흐름을 설계합니다.",
+    label: "design · frontend",
+    stack: [
+      { name: "Figma", hi: true },
+      { name: "Prototyping" },
+      { name: "Design System", hi: true },
+      { name: "Responsive" },
+      { name: "React", hi: true },
+      { name: "Next.js", hi: true },
+    ],
+  },
+  {
+    statement: "화면 뒤의 데이터 흐름까지 설계해야, 화면이 거짓말하지 않습니다.",
+    label: "data · backend",
+    stack: [
+      { name: "Supabase", hi: true },
+      { name: "PostgreSQL", hi: true },
+      { name: "Auth · RLS" },
+      { name: "Server Actions" },
+      { name: "외부 API 연동" },
+    ],
+  },
+  {
+    statement: "픽셀 하나의 어긋남도 결국 사용자는 느낍니다. 그래서 끝까지 맞춥니다.",
+    label: "craft · publishing",
+    stack: [
+      { name: "HTML5", hi: true },
+      { name: "CSS3", hi: true },
+      { name: "Tailwind CSS" },
+      { name: "Pixel Perfect", hi: true },
+      { name: "SEO" },
+    ],
+  },
+  {
+    statement: "QA에서 시작한 습관 하나, 배포 전에 사용자보다 먼저 겪어봅니다.",
+    label: "qa · reliability",
+    stack: [
+      { name: "사용자 인터뷰", hi: true },
+      { name: "Cross-Browser" },
+      { name: "웹 접근성" },
+      { name: "Mock 모드 테스트" },
+      { name: "실운영 모니터링", hi: true },
+    ],
+  },
+  {
+    statement: "움직임은 장식이 아니라, 시선을 안내하는 문장입니다.",
+    label: "motion · interaction",
+    stack: [
+      { name: "GSAP", hi: true },
+      { name: "ScrollTrigger", hi: true },
+      { name: "Lenis" },
+      { name: "Framer Motion" },
+      { name: "CSS Animation" },
+    ],
+  },
+  {
+    statement: "기획·디자인·코드가 한 호흡으로 이어질 때, 좋은 웹이 됩니다.",
+    label: "workflow · tools",
+    stack: [
+      { name: "Git", hi: true },
+      { name: "GitHub" },
+      { name: "Vercel", hi: true },
+      { name: "Cloudflare" },
+      { name: "Claude Code", hi: true },
+    ],
+  },
+];
