@@ -4,6 +4,7 @@ export const project: ProjectEntry = {
   id: "hanpyeong-lms",
   type: "company",
   title: "한평생 직업훈련",
+  headline: "수강신청부터 자격증 발급까지, 한 시스템의 LMS",
   date: "2026. 07. 01 ~ 진행 중",
   description:
     "무료수강신청 → 온라인 강의 → 온라인 시험 → 자격증 발급까지 이어지는 민간자격 온라인 교육기관 LMS입니다. 공개 사이트, 학생 강의실, 어드민 대시보드를 하나의 Next.js 16 프로젝트로 통합하고 Cloudflare 영상 게이트·나이스페이/PayApp 결제·Aligo/SENS SMS·AWS S3 자료 관리까지 풀스택으로 구축했습니다.",
@@ -203,6 +204,37 @@ export const project: ProjectEntry = {
         solution:
           "결제는 주문 생성 시 PG를 선택해 /api/nicepay·/api/payapp로 분리 처리하고, 결제 결과 상태와 취소·환불 로직을 공통 스키마(course_payments)에 통합. SMS는 Aligo와 네이버 클라우드 SENS를 상황에 따라 병행 사용해 발송 안정성을 확보했습니다.",
       },
+    ],
+    // 결과 섹션: Before → After diff (왼쪽 '이전' 문구는 실제 상황에 맞게 다듬어 주세요)
+    changes: [
+      {
+        key: "학습 여정",
+        before: "수강신청·강의·시험·자격증 발급이 서로 다른 도구와 수작업으로 이어짐",
+        after: "무료수강신청 → 강의(약 20시간) → 온라인 시험(60분) → 자격증 발급까지 **한 시스템**에서 처리",
+      },
+      {
+        key: "강의 영상",
+        before: "영상 링크가 새어 나가면 누구나 시청할 수 있음",
+        after: "**Cloudflare video-gate**로 수강 권한이 있는 학습자만 재생",
+      },
+      {
+        key: "결제 · 알림",
+        before: "PG·SMS 채널이 하나뿐이라 장애나 정책 변경에 대응하기 어려움",
+        after: "나이스페이·PayApp **이중 PG**, Aligo·SENS 이중 SMS로 실운영 안정성 확보",
+      },
+      {
+        key: "운영",
+        before: "회원·수강·매출 자료를 수작업으로 정리해 공유",
+        after: "어드민 대시보드에서 **엑셀 내보내기**, 학습 자료는 S3에서 일괄 관리",
+      },
+    ],
+    // diff 아래 숫자 한 줄
+    metrics: [
+      { value: "3", label: "영역 통합 · 공개 사이트 · 강의실 · 어드민", icon: "fas fa-layer-group" },
+      { value: "2", label: "PG 병행", icon: "fas fa-credit-card" },
+      { value: "2", label: "SMS 채널", icon: "fas fa-sms" },
+      { value: "20시간", label: "강의 · 6주 과정", icon: "fas fa-clock" },
+      { value: "2종", label: "자격증 발급 · 상장형 · 카드형", icon: "fas fa-certificate" },
     ],
     outcome: [
       "무료수강신청부터 강의 수강·시험·자격증 발급까지 학습자의 전체 여정을 한 시스템에서 처리하는 민간자격 온라인 교육기관 LMS를 풀스택으로 구축했고, Cloudflare video-gate를 통한 강의 영상 보호와 나이스페이·PayApp 이중 PG 연동으로 실운영에 필요한 안정성과 매출 유연성을 동시에 확보했습니다.",

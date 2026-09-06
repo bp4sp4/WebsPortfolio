@@ -313,6 +313,16 @@
     letter-spacing: -0.025em;
     color: var(--fg);
     word-break: keep-all;
+    text-wrap: balance; /* 두 줄일 때 마지막 단어 하나만 떨어지지 않게 줄 길이를 고르게 */
+}
+
+/* 역할 제목 아래 협업 구성 부제 */
+.role_team {
+    margin: 14px 0 0;
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
 }
 
 .desc {
@@ -768,6 +778,86 @@
     font-size: 13.5px;
     color: var(--dim);
     word-break: keep-all;
+}
+
+/* --- Before → After 비교표 --- */
+.cmp {
+    margin-top: clamp(44px, 7vh, 72px);
+}
+
+.cmp_head,
+.cmp_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 clamp(28px, 4vw, 64px);
+}
+
+.cmp_head {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+.cmp_row {
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+}
+
+.cmp_key {
+    display: block;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+}
+
+.cmp_before {
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: #8f8f8f;
+    word-break: keep-all;
+}
+
+.cmp_after {
+    font-size: 15.5px;
+    line-height: 1.75;
+    font-weight: 700;
+    color: var(--fg);
+    word-break: keep-all;
+}
+
+.cmp_after .cmp_key {
+    color: var(--accent);
+    font-weight: 400;
+}
+
+.cmp_after b {
+    font-weight: 700;
+    color: var(--fg);
+}
+
+@media (max-width: 768px) {
+    .cmp_head {
+        display: none;
+    }
+
+    .cmp_row {
+        grid-template-columns: 1fr;
+        gap: 18px 0;
+        padding: 22px 0;
+    }
+
+    .cmp_before,
+    .cmp_after {
+        font-size: 14.5px;
+    }
 }
 
 /* ---------- NEXT PROJECT ---------- */

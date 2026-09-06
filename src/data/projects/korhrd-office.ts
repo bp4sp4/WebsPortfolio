@@ -4,6 +4,7 @@ export const project: ProjectEntry = {
   id: "korhrd-office",
   type: "company",
   title: "한평생오피스",
+  headline: "5개 사업부가 매일 쓰는 전사 통합 ERP",
   date: "2026. 03. 16 ~ 진행 중",
   description:
     "한국HRD그룹의 사내 업무 통합 관리 시스템(ERP)입니다. 5개 사업부의 매출·정산부터 전자결재·손익 리포트·인사·근태·웹메일까지 통합하고, Claude 기반 AI 개인 브리핑과 팀 성과 분석으로 구성원이 바로 실행할 수 있는 업무 인사이트를 제공합니다.",
@@ -288,27 +289,38 @@ export const project: ProjectEntry = {
           "고정 IP를 가진 별도 Express 프록시 서버를 구축하고, HMAC-SHA256 요청 서명으로 프록시 접근을 보호하며 OAuth 토큰 캐싱으로 은행 API 호출을 최소화했습니다. 조회된 거래내역은 고정비 키워드 매칭으로 자동 분류됩니다.",
       },
     ],
+    // 결과 섹션: Before → After diff (왼쪽 '이전' 문구는 실제 업무 방식에 맞게 수정)
+    changes: [
+      {
+        key: "입력 · 조회",
+        before: "영업단이 엑셀·메신저·수기 장부를 오가며 같은 정보를 여러 번 입력",
+        after: "문의 → 등록 → 매출까지 **한 화면**에서 끝, 입력 누락·중복 작성 감소",
+      },
+      {
+        key: "결재",
+        before: "종이·메신저로 올리고, 어디서 멈췄는지 알 수 없음",
+        after: "**다단계 전자결재 상태 머신**으로 진행 단계·반려 사유를 즉시 확인",
+      },
+      {
+        key: "손익",
+        before: "월말에 매출원 3곳을 엑셀로 모아 수작업 산출",
+        after: "매출 3종 통합 → **예상손익계산서 자동 산출**, 은행 거래내역 자동 분류",
+      },
+      {
+        key: "코칭",
+        before: "팀 성과 파악과 우선순위 판단이 관리자의 감에 의존",
+        after: "**Claude AI** 개인 브리핑·팀 성과 분석, 핵심 수치는 서버 계산값으로 보증",
+      },
+    ],
+    // diff 아래 숫자 한 줄 (changes 가 있으면 타일이 아니라 원장으로 표시)
     metrics: [
-      {
-        value: "개인 · 팀",
-        label: "Claude AI 성과 분석",
-        icon: "fas fa-wand-magic-sparkles",
-      },
-      {
-        value: "68 · 90",
-        label: "페이지 라우트 · DB 테이블",
-        icon: "fas fa-database",
-      },
-      {
-        value: "10+",
-        label: "외부 서비스 연동",
-        icon: "fas fa-link",
-      },
-      {
-        value: "실서비스",
-        label: "전사 운영 중",
-        icon: "fas fa-rocket",
-      },
+      { value: "5", label: "사업부", icon: "fas fa-building" },
+      { value: "6", label: "역할", icon: "fas fa-user-shield" },
+      { value: "40+", label: "권한 섹션", icon: "fas fa-lock" },
+      { value: "68", label: "페이지", icon: "fas fa-file" },
+      { value: "90", label: "DB 테이블", icon: "fas fa-database" },
+      { value: "10+", label: "외부 연동", icon: "fas fa-link" },
+      { value: "1인", label: "개발 · 전사 운영 중", icon: "fas fa-rocket" },
     ],
     outcome: [
       "학점은행제 영업단의 흩어진 업무를 한 시스템으로 합치는 것에서 출발해, 5개 사업부와 경영·인사·협업 기능까지 아우르는 전사 통합 ERP로 발전시켰습니다. 영업단이 여러 도구를 오가던 작업이 한 화면에서 끝나게 되어 입력 누락·중복 작성 같은 일선 비효율이 크게 줄었습니다.",

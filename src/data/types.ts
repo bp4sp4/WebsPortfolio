@@ -9,6 +9,8 @@ export type ProjectDetail = {
   overview: string[];
   role: {
     type: string;
+    /** 협업 구성 등 부제 (제목 아래 작은 글씨). 제목이 길어져 줄이 깨지지 않게 분리 */
+    team?: string;
     parts: string[];
   };
   links: {
@@ -42,6 +44,12 @@ export type ProjectDetail = {
       description: string;
     }[];
   }[];
+  /** 결과 섹션: Before → After diff. 있으면 metrics 타일 대신 diff + 숫자 한 줄로 렌더링 */
+  changes?: {
+    key: string;
+    before: string;
+    after: string;
+  }[];
   metrics?: {
     value: string;
     label: string;
@@ -60,6 +68,8 @@ export type ProjectEntry = {
   type: "company" | "personal"; // 회사/개인 분류
   title: string;
   date: string;
+  /** 상세 OVERVIEW 제목 (2줄 안에 들어가게 30자 안팎). 없으면 description 첫 문장을 사용 */
+  headline?: string;
   description: string;
   tags: string[];
   gifImage: string;
@@ -79,6 +89,8 @@ export type ProjectDetailType = {
   overview: string[];
   role: {
     type: string;
+    /** 협업 구성 등 부제 (제목 아래 작은 글씨). 제목이 길어져 줄이 깨지지 않게 분리 */
+    team?: string;
     parts: string[];
   };
   links: {
@@ -104,6 +116,12 @@ export type ProjectDetailType = {
     gif?: string;
     link?: string;
     category?: string;
+  }[];
+  /** 결과 섹션: Before → After diff. 있으면 metrics 타일 대신 diff + 숫자 한 줄로 렌더링 */
+  changes?: {
+    key: string;
+    before: string;
+    after: string;
   }[];
   metrics?: {
     value: string;

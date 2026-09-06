@@ -6,6 +6,7 @@ export const project: ProjectEntry = {
   id: "baroemp",
   type: "company",
   title: "한평생 바로취업",
+  headline: "중장년 취업을 5단계로 잇는 원스톱 플랫폼",
   date: "2026. 08. 12 ~ 진행 중",
   description:
     "중장년을 위한 취업 원스톱 플랫폼입니다. 직업진단 → 일자리 → 지원금 → 이력서·자소서 → 지원까지 한 사람의 취업 경로를 5단계로 잇고, 회원 행동이 쌓일수록 리드 점수·추천·CRM 상담으로 연결되는 Career DB를 구축했습니다.",
@@ -218,11 +219,37 @@ export const project: ProjectEntry = {
           "행동 이벤트를 신호로 묶고 규칙 목록을 순회하며 점수를 합산하는 리드 스코어링 엔진을 만들어 A~D 등급으로 환산했습니다. 규칙은 데이터로 관리되어 엔진 수정 없이 추가할 수 있고, 관리자 회원 목록과 영업 리드 화면에서 등급을 바로 보고 엑셀로 내보내 상담 조직에 전달합니다.",
       },
     ],
+    // 결과 섹션: Before → After diff (왼쪽 '이전' 문구는 실제 상황에 맞게 다듬어 주세요)
+    changes: [
+      {
+        key: "취업 여정",
+        before: "직업진단·채용 검색·지원금 확인·이력서 작성이 각각 다른 곳에서 끊김",
+        after: "취업 프로필 → 직업진단 → 일자리 → 이력서 → 지원의 **5단계 여정**을 마이페이지 한 곳에서, 다음 할 일을 한 문장으로 안내",
+      },
+      {
+        key: "채용 공고",
+        before: "공고를 직접 찾아다녀야 하고, 집 근처 새 공고를 놓치기 쉬움",
+        after: "고용24 공고를 **매일 자동 동기화**하고 거주지 근처 신규 공고를 알림톡으로 발송",
+      },
+      {
+        key: "이력서 · 자소서",
+        before: "첨삭은 상담사가 일일이 봐야 해서 대기 시간이 생김",
+        after: "**Claude AI 첨삭 4종**, 구조화 출력으로 없는 경력을 지어내지 않도록 제어",
+      },
+      {
+        key: "리드 · 상담",
+        before: "상담 조직이 누구에게 먼저 연락할지 감으로 판단",
+        after: "행동 이벤트 → 리드 점수 → 영업 전달 파이프라인을 규칙 데이터로 관리, 기준을 코드 수정 없이 변경",
+      },
+    ],
+    // diff 아래 숫자 한 줄
     metrics: [
-      { value: "5단계", label: "진단 → 지원까지 취업 여정", icon: "fas fa-route" },
-      { value: "63개", label: "DB 테이블 (마이그레이션 74개)", icon: "fas fa-database" },
-      { value: "4종", label: "Claude AI 첨삭 에이전트", icon: "fas fa-wand-magic-sparkles" },
-      { value: "매일", label: "고용24 동기화 · 알림톡 발송", icon: "fas fa-clock" },
+      { value: "5단계", label: "취업 여정", icon: "fas fa-route" },
+      { value: "63", label: "DB 테이블", icon: "fas fa-database" },
+      { value: "74", label: "마이그레이션", icon: "fas fa-layer-group" },
+      { value: "4종", label: "Claude AI 첨삭", icon: "fas fa-wand-magic-sparkles" },
+      { value: "4", label: "외부 연동 · 고용24 · 지원사업 · Claude · 알림톡", icon: "fas fa-link" },
+      { value: "5.8만", label: "줄 TypeScript", icon: "fas fa-code" },
     ],
     outcome: [
       "직업진단부터 지원까지 끊기던 중장년 취업 준비 과정을 한 플랫폼의 5단계 여정으로 묶었고, 회원은 마이페이지에서 다음 할 일을, 운영자는 같은 데이터를 리드 등급과 CRM으로 봅니다.",

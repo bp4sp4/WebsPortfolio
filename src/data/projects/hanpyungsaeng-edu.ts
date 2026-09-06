@@ -4,6 +4,7 @@ export const project: ProjectEntry = {
   id: "hanpyungsaeng-edu",
   type: "company",
   title: "한평생유학",
+  headline: "결제부터 신청서까지 한 번에 끝나는 유학 신청 플랫폼",
   date: "2026. 03.25 ~ 2026. 03.30",
   description:
     "어린이·청소년 대상 해외 유학(미국·캐나다·영국·필리핀·뉴질랜드) 신청·결제 플랫폼입니다. 카카오·네이버 소셜 로그인, PayApp 간편결제, 결제 후 6개 섹션 신청서 작성, 어드민 검토까지 풀스택으로 구현했습니다.",
@@ -39,7 +40,8 @@ export const project: ProjectEntry = {
       "Next.js 16 App Router + React 19 + Supabase 기반으로 카카오·네이버 소셜 로그인, 네이버 클라우드 SMS 휴대폰 인증, PayApp 간편결제(카드·카카오페이·네이버페이·계좌이체 등), 결제 완료 후 6개 섹션 학생 신청서, 임시저장(draft) 복구, 여권·증명사진 업로드, 어드민 신청서 검토까지 결제·신청 전 흐름을 풀스택으로 구현했습니다.",
     ],
     role: {
-      type: "실무 프로젝트 (사내) · 2인 협업 (개발자 1 + 디자이너 1)",
+      type: "실무 프로젝트 (사내)",
+      team: "2인 협업 · 개발자 1 + 디자이너 1",
       parts: [
         "프론트엔드 개발 100%",
         "디자이너 Figma 시안 기반 퍼블리싱 (CSS Modules · BEM)",
@@ -175,6 +177,37 @@ export const project: ProjectEntry = {
         solution:
           "동영상을 Cloudflare CDN으로 스트리밍하여 글로벌 엣지 캐싱을 적용하고, 영상 첫 프레임 이미지를 썸네일로 미리 노출. 사용자가 영상이 로딩되는 동안에도 빈 화면이 아닌 의미 있는 시각 정보를 보게 만들어 체감 로딩 시간을 크게 줄였습니다.",
       },
+    ],
+    // 결과 섹션: Before → After diff (왼쪽 '이전' 문구는 실제 상황에 맞게 다듬어 주세요)
+    changes: [
+      {
+        key: "신청 접수",
+        before: "상담 후 서류를 이메일·메신저로 주고받으며 신청 정보를 모음",
+        after: "결제 완료 후 **6개 섹션 온라인 신청서**, 여권·증명사진 업로드까지 웹에서 완료",
+      },
+      {
+        key: "결제",
+        before: "계좌 안내 후 입금 확인을 사람이 직접 대조",
+        after: "**PayApp 간편결제**(카드·카카오페이·네이버페이·계좌이체)로 결제 즉시 확인",
+      },
+      {
+        key: "작성 이탈",
+        before: "긴 신청서를 한 번에 못 채우면 처음부터 다시 작성",
+        after: "**임시저장(draft) 복구**로 중단한 곳부터 이어서 작성",
+      },
+      {
+        key: "로그인 · 인증",
+        before: "회원가입 절차가 길어 결제 전에 이탈",
+        after: "카카오·네이버 **소셜 로그인** + 네이버 클라우드 SMS 휴대폰 인증으로 진입 장벽 축소",
+      },
+    ],
+    // diff 아래 숫자 한 줄
+    metrics: [
+      { value: "5+", label: "국가 · 미국 · 캐나다 · 영국 · 필리핀 · 뉴질랜드", icon: "fas fa-globe" },
+      { value: "6", label: "섹션 신청서", icon: "fas fa-file-alt" },
+      { value: "2", label: "소셜 로그인", icon: "fas fa-user" },
+      { value: "4+", label: "결제 수단", icon: "fas fa-credit-card" },
+      { value: "hanyouhak.com", label: "운영 중", icon: "fas fa-rocket" },
     ],
     outcome: [
       "어린이·청소년 대상 해외 유학 신청·결제 플랫폼을 hanyouhak.com에서 운영 중이며, 카카오·네이버 소셜 로그인, PayApp 간편결제, 6개 섹션 신청서, 임시저장 복구, 여권·증명사진 업로드, 어드민 검토까지 결제·신청 전 흐름을 풀스택으로 완성했습니다.",

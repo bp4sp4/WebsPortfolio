@@ -4,6 +4,7 @@ export const project: ProjectEntry = {
   id: "BaroCompany",
   type: "company",
   title: "한평생 바로기업",
+  headline: "마케팅 사이트와 상담 어드민을 하나로 합친 플랫폼",
   date: "2025. 12.19 ~ 2026. 01.21",
   description:
     "정책자금·투자유치·창업 컨설팅 서비스를 소개하는 마케팅 사이트와 사내 상담 관리 어드민을 하나의 Next.js 플랫폼으로 통합했습니다. 광고 채널별 상담 유입 추적부터 이메일 자동 알림, 역할 기반 어드민까지 비즈니스 운영 전반을 디지털화했습니다.",
@@ -16,7 +17,6 @@ export const project: ProjectEntry = {
     mainImage: "/detail__main/page3imgs/baro_main.png",
     images: [
       "/detail__main/page3imgs/baro_main.png",
-      "/detail__main/page3imgs/baro_admin_login.png",
       "/detail__main/page3imgs/baro_02.png",
       "/detail__main/page3imgs/baro_03.png",
       "/detail__main/page3imgs/baro_04.png",
@@ -25,12 +25,13 @@ export const project: ProjectEntry = {
       "/detail__main/page3imgs/baro_m_03.png",
     ],
     overview: [
-      "⚠️ 한평생 바로기업 사이트와 어드민은 현재 운영을 중단한 상태입니다. 아래 화면은 운영 당시의 캡처이며, 상담 데이터가 담긴 어드민 화면은 내부 정보라 코드 발췌로 대신합니다. 사이트 방문 링크는 예고 없이 닫힐 수 있습니다.",
+      "⚠️ 한평생 바로기업 사이트와 어드민은 현재 운영을 중단한 상태입니다. 아래 화면은 운영 당시의 캡처이며, 상담 데이터가 담긴 어드민 화면은 내부 정보라 제외했습니다. 사이트 방문 링크는 예고 없이 닫힐 수 있습니다.",
       "한평생 바로기업은 정책자금·투자유치·경영지원·창업교육 분야의 컨설팅 서비스를 제공하는 기업의 공개 마케팅 사이트와 사내 어드민 대시보드를 단일 Next.js 16 App Router 프로젝트로 통합한 플랫폼입니다. 당근·인스타그램 등 광고 채널에서 유입된 상담 신청자의 소스를 자동으로 추적하여 채널별 전환 효과를 측정할 수 있도록 설계했습니다.",
       "상담 신청이 접수되면 Brevo SMTP를 통해 담당자에게 HTML 이메일이 즉시 발송되고, 어드민 대시보드에서 상태·채널·날짜별로 필터링하며 관리할 수 있습니다. super_admin/admin 두 단계 권한 체계로 민감한 데이터 삭제 권한을 분리하여 운영 안전성을 확보했습니다.",
     ],
     role: {
-      type: "실무 프로젝트 (사내) · 1인 개발,   디자이너 협업 (시안 제공)",
+      type: "실무 프로젝트 (사내)",
+      team: "1인 개발 · 디자이너 협업 (시안 제공)",
       parts: [
         "프론트엔드 개발 100%",
         "마케팅 사이트 기획 및 퍼블리싱",
@@ -44,41 +45,6 @@ export const project: ProjectEntry = {
       demo: "https://xn--ok0bx6qu3cv5m.com/",
     },
     goals: [
-      {
-        icon: "fas fa-chart-bar",
-        title: "광고 채널 성과 측정",
-        description:
-          "당근·인스타그램 등 광고 링크에 붙은 click_source 또는 utm_source 값을 세션에 보관했다가 상담 신청과 함께 저장합니다. 어떤 채널이 실제 상담으로 이어졌는지 어드민에서 필터·집계해 광고 예산을 데이터로 조정할 수 있습니다.",
-        snippet: {
-          title: "app/utils/clickSource.ts",
-          code: "// app/utils/clickSource.ts — 광고 링크의 유입경로를 세션에 보관해 상담 신청에 함께 저장\nexport function getClickSource(): string | null {\n  if (typeof window === \"undefined\") return null;\n  const params = new URLSearchParams(window.location.search);\n\n  // 1) ?click_source=daangn 처럼 직접 지정한 값\n  const direct = params.get(\"click_source\");\n  if (direct) {\n    sessionStorage.setItem(\"click_source\", direct);\n    return direct;\n  }\n\n  // 2) 광고 플랫폼이 붙여 주는 utm_source 도 같은 키로 흡수\n  const utm = params.get(\"utm_source\");\n  if (utm) {\n    const src = utm.toLowerCase();\n    sessionStorage.setItem(\"click_source\", src);\n    return src;\n  }\n\n  // 3) 페이지를 옮겨 다녀도 세션에 남은 값을 유지\n  return sessionStorage.getItem(\"click_source\");\n}\n\n// 저장된 값이 없고 홈에서 신청했다면 \"바로기업 홈페이지\" 로 기록\n// → 상담 신청 API 가 이 값을 consultations.click_source 에 저장\n// → 어드민에서 유입경로별 필터·집계",
-          note: "실제 소스에서 발췌해 주석만 보강했습니다. 상담 데이터는 회사 내부 정보라 어드민 화면 대신 코드로 보여 드립니다.",
-        },
-      },
-      {
-        icon: "fas fa-bell",
-        title: "상담 즉시 알림 자동화",
-        description:
-          "상담 신청이 접수되면 같은 요청 안에서 Slack 웹훅으로 담당자 채널에 바로 알리고, Brevo SMTP로 HTML 이메일도 함께 보냅니다. 리드가 들어온 지 몇 초 안에 첫 연락을 시작할 수 있는 환경입니다.",
-        snippet: {
-          title: "app/api/consultations/route.ts · lib/email.ts",
-          code: "// app/api/consultations/route.ts — 상담 접수 즉시 Slack + 이메일로 담당자에게 알림\nexport const maxDuration = 90; // Vercel 서버리스: 이메일 재시도 여유\n\nasync function sendSlackNotification({ name, contact, click_source, landing_page }) {\n  const text = [\n    \"*새로운 상담 신청이 접수되었습니다.*\",\n    landing_page ? `- 랜딩페이지: ${landing_page}` : \"\",\n    `- 이름/기업명: ${name}`,\n    `- 연락처: ${contact}`,\n    `- 유입경로: ${click_source || \"바로기업 홈페이지\"}`,\n    `- 신청시각: ${new Date().toLocaleString(\"ko-KR\")}`,\n  ].filter(Boolean).join(\"\\n\");\n\n  await fetch(process.env.SLACK_WEBHOOK_URL!, {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({ text }),\n  });\n}\n\n// lib/email.ts — Brevo SMTP(465/SSL) + 10초 타임아웃으로 서버리스에서 안정 동작\nconst transporter = nodemailer.createTransport({\n  host: \"smtp-relay.brevo.com\",\n  port: 465,\n  secure: true,\n  auth: { user: process.env.BREVO_SMTP_LOGIN, pass: process.env.BREVO_SMTP_KEY },\n  connectionTimeout: 10000,\n  greetingTimeout: 10000,\n  socketTimeout: 10000,\n});",
-          note: "웹훅 URL·SMTP 자격증명은 환경 변수로만 다루며 코드에는 포함하지 않았습니다.",
-        },
-      },
-      {
-        icon: "fas fa-shield-alt",
-        title: "역할 기반 접근 제어",
-        description:
-          "어드민은 공개 사이트와 분리된 별도 로그인 관문을 거치고, super_admin/admin 두 단계 역할은 DB 제약으로 고정한 뒤 서버에서 토큰을 재검증합니다. 데이터 삭제 같은 민감 작업은 super_admin만 할 수 있습니다.",
-        shots: [
-          { src: "/detail__main/page3imgs/baro_admin_login.png", tag: "어드민 관문", caption: "/admin 진입 시 나오는 관리자 전용 로그인 - 공개 사이트와 완전히 분리된 화면" },
-        ],
-        snippet: {
-          title: "migrations/create_admins_table.sql · api/admin/check-role",
-          code: "-- migrations/create_admins_table.sql — 관리자 역할을 DB 제약으로 고정\nCREATE TABLE IF NOT EXISTS admins (\n  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email      TEXT UNIQUE NOT NULL,\n  role       TEXT NOT NULL CHECK (role IN ('super_admin', 'admin')),\n  created_at TIMESTAMPTZ DEFAULT NOW(),\n  updated_at TIMESTAMPTZ DEFAULT NOW()\n);\nALTER TABLE admins ENABLE ROW LEVEL SECURITY;  -- 서버(service role)만 접근\n\n-- app/api/admin/check-role/route.ts\n-- 클라이언트가 보낸 토큰을 서버에서 다시 검증한 뒤 역할을 돌려준다\nconst { data: { user } } = await supabaseAdmin.auth.getUser(token);\nconst { data } = await supabaseAdmin\n  .from(\"admins\").select(\"role\").eq(\"email\", user.email).single();\nreturn NextResponse.json({ role: data?.role ?? \"admin\" });\n\n-- 화면: 삭제 버튼은 super_admin 세션에서만 렌더링\n-- 서버: 삭제 API 도 같은 검증을 거쳐 클라이언트 우회를 차단",
-        },
-      },
       {
         icon: "fas fa-layer-group",
         title: "마케팅·운영 통합 플랫폼",
@@ -185,6 +151,36 @@ export const project: ProjectEntry = {
         solution:
           "useIsMobile() 커스텀 훅으로 뷰포트를 감지하여 화면 크기에 맞는 영상만 로드하고, preload 속성으로 미리 버퍼링하여 첫 화면에서 바로 재생되도록 최적화했습니다.",
       },
+    ],
+    // 결과 섹션: Before → After diff (왼쪽 '이전' 문구는 실제 상황에 맞게 다듬어 주세요)
+    changes: [
+      {
+        key: "광고 성과",
+        before: "당근·인스타그램 등 어느 채널에서 상담이 왔는지 알 수 없음",
+        after: "유입 소스 **자동 추적**으로 채널별 상담 전환을 수치로 확인, 광고 예산 조정 근거 확보",
+      },
+      {
+        key: "상담 접수",
+        before: "신청이 들어와도 담당자가 확인할 때까지 대기",
+        after: "접수 즉시 **Brevo SMTP HTML 이메일**이 담당자에게 자동 발송",
+      },
+      {
+        key: "상담 관리",
+        before: "상담 목록을 스프레드시트로 옮겨 수동 정리",
+        after: "어드민 대시보드에서 **상태·채널·날짜 필터**로 바로 관리",
+      },
+      {
+        key: "권한",
+        before: "단일 계정이라 누구나 데이터를 지울 수 있음",
+        after: "**super_admin / admin** 2단계 권한으로 삭제 권한 분리",
+      },
+    ],
+    // diff 아래 숫자 한 줄
+    metrics: [
+      { value: "4", label: "컨설팅 분야 · 정책자금 · 투자유치 · 경영지원 · 창업교육", icon: "fas fa-briefcase" },
+      { value: "1", label: "코드베이스 · 사이트 + 어드민", icon: "fas fa-code-branch" },
+      { value: "2", label: "단계 권한", icon: "fas fa-user-shield" },
+      { value: "즉시", label: "상담 접수 이메일 알림", icon: "fas fa-envelope" },
     ],
     outcome: [
       "광고 채널 소스 추적 기능 도입으로 당근·인스타그램 등 각 채널의 상담 전환 효과를 수치로 파악할 수 있게 되었습니다. 마케팅 담당자가 데이터를 기반으로 광고 예산을 조정할 수 있는 환경이 마련되었습니다.",

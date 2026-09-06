@@ -79,6 +79,16 @@ function Snippet({ title, code, note }: { title: string; code: string; note?: st
 }
 
 /** 섹션 머리: 작은 라벨 → 헤드라인 → 문단 */
+/** "**텍스트**" 를 강조 <b> 로 렌더링 (diff after 문구용) */
+function Emph({ text }: { text: string }) {
+  const parts = text.split(/\*\*(.+?)\*\*/g);
+  return (
+    <>
+      {parts.map((p, i) => (i % 2 === 1 ? <b key={i}>{p}</b> : p))}
+    </>
+  );
+}
+
 function SecHead({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) {
   return (
     <div className={s.sec_head}>
@@ -241,7 +251,9 @@ export default function ProjectDetailPage() {
   const eyebrow = (host ?? id ?? "").toUpperCase();
   const typeLabel = meta?.type === "personal" ? "개인" : "회사";
   const stack = data.technologies[0]?.items.slice(0, 3).map((it) => it.name).join(" · ");
-  const [headline, restDesc] = splitFirstSentence(meta?.description ?? data.title);
+  const [firstSentence, restDesc] = splitFirstSentence(meta?.description ?? data.title);
+  // OVERVIEW 제목: 짧은 headline 이 있으면 그것, 없으면 설명문 첫 문장
+  const headline = meta?.headline ?? firstSentence;
   const heroSub = restDesc || data.tags.slice(0, 4).join(" · ");
 
   const notices = data.overview.filter((p) => p.startsWith("⚠️")).map((p) => p.replace(/^⚠️\s*/, ""));
@@ -505,7 +517,13 @@ export default function ProjectDetailPage() {
         {/* ── 역할과 기술 ── */}
         <section className={`${s.sec} ${++secNo % 2 === 1 ? s.sec_alt : ""}`}>
           <div className={s.inner}>
-            <SecHead eyebrow="ROLE & STACK" title={data.role.type} />
+            <SecHead eyebrow="ROLE & STACK" title={data.role.type}>
+              {data.role.team && (
+                <p className={s.role_team} data-reveal>
+                  {data.role.team}
+                </p>
+              )}
+            </SecHead>
             <div className={s.role_grid}>
               <ul className={s.role_list}>
                 {data.role.parts.map((p, i) => (
@@ -544,7 +562,30 @@ export default function ProjectDetailPage() {
                   </p>
                 ))}
               </SecHead>
-              {data.metrics && data.metrics.length > 0 && (
+              {/* Before → After 비교표 (changes 가 있는 프로젝트) */}
+              {data.changes && data.changes.length > 0 && (
+                <div className={s.cmp}>
+                  <div className={s.cmp_head} data-reveal>
+                    <span>Before</span>
+                    <span>After</span>
+                  </div>
+                  {data.changes.map((c, i) => (
+                    <div key={i} className={s.cmp_row} data-reveal>
+                      <div className={s.cmp_before}>
+                        <span className={s.cmp_key}>{c.key}</span>
+                        {c.before}
+                      </div>
+                      <div className={s.cmp_after}>
+                        <span className={s.cmp_key}>{c.key}</span>
+                        <Emph text={c.after} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* 숫자 타일: changes 가 없는 프로젝트만 */}
+              {!(data.changes && data.changes.length > 0) && data.metrics && data.metrics.length > 0 && (
                 <div className={s.stats}>
                   {data.metrics.map((m, i) => (
                     <div key={i} className={s.stat} data-reveal>
