@@ -34,7 +34,7 @@ export const experiences = [
     icon: "fas fa-laptop-code",
   },
   {
-    date: "2021. 04 — 2022. 04",
+    date: "2021. 10 — 2022. 04",
     info: "와이즈스터디 앱,웹 QA테스터 근무",
     type: "work" as const,
     icon: "fas fa-briefcase",
