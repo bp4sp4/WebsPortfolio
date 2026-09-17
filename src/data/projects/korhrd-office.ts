@@ -7,7 +7,7 @@ export const project: ProjectEntry = {
   headline: "5개 사업부가 매일 쓰는 전사 통합 ERP",
   date: "2026. 03. 16 ~ 진행 중",
   description:
-    "한국HRD그룹의 사내 업무 통합 관리 시스템(ERP)입니다. 5개 사업부의 매출·정산부터 전자결재·손익 리포트·인사·근태·웹메일까지 통합하고, Claude 기반 AI 개인 브리핑과 팀 성과 분석으로 구성원이 바로 실행할 수 있는 업무 인사이트를 제공합니다.",
+    "한평생그룹의 사내 업무 통합 관리 시스템(ERP)입니다. 5개 사업부의 매출·정산부터 전자결재·손익 리포트·인사·근태·웹메일까지 통합하고, Claude 기반 AI 개인 브리핑과 팀 성과 분석으로 구성원이 바로 실행할 수 있는 업무 인사이트를 제공합니다.",
   tags: ["Next.js 16", "TypeScript", "Supabase", "Claude AI", "Recharts", "Naver Cloud Platform"],
   gifImage: "/main/work__gif/office.png",
   github: "#",
