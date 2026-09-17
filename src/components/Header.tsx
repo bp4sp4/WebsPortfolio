@@ -202,26 +202,19 @@ export default function Header() {
           </div>
         </div>
 
-        <div data-intro className={styles.term_tags}>
-          {["#프론트엔드", "#퍼블리싱", "#UI/UX", "#인터랙션", "#QA"].map((t) => (
-            <span key={t} className={styles.term_tag}>
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div data-intro className={styles.term_run_row}>
+        {/* 버튼으로 바로 점프하지 않고, 스크롤하며 인터랙션을 보도록 유도하는 프롬프트 */}
+        <a
+          href="#about"
+          data-intro
+          className={styles.term_run_row}
+          onClick={(e) => goTo(e, "#about")}
+        >
           <span>
             <span className={styles.term_arrow}>➜</span>{" "}
-            <span className={styles.term_path}>~/portfolio</span>
+            <span className={styles.term_path}>~/portfolio</span>{" "}
+            <span className={styles.term_cmd}>scroll --down</span>
           </span>
-          <a href="#projects" className={styles.term_btn_primary} onClick={(e) => goTo(e, "#projects")}>
-            프로젝트 보기 →
-          </a>
-          <a href="#contact" className={styles.term_btn_ghost} onClick={(e) => goTo(e, "#contact")}>
-            연락하기 →
-          </a>
-        </div>
+        </a>
       </div>
 
       <a

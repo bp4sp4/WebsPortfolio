@@ -3470,82 +3470,30 @@
 }
 
 .term_subline {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
     font-size: clamp(22px, 3vw, 42px);
     font-weight: 700;
     color: #dbe4dd;
     letter-spacing: -0.01em;
 }
 
-/* --- tags --- */
-.term_tags {
-    margin-top: 36px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.term_tag {
-    border: 1px solid #2e2e2e;
-    padding: 9px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #a8a8a8;
-    transition: border-color 0.25s ease, color 0.25s ease;
-}
-
-.term_tag:hover {
-    border-color: #f2f2f0;
-    color: #f4f4f2;
-}
-
 /* --- run row / buttons --- */
 .term_run_row {
     margin-top: 40px;
+    width: fit-content;
     font-size: 15px;
     line-height: 2.2;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 24px;
-}
-
-.term_btn_primary {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 500;
-    color: #f2f2f0;
+    gap: 14px;
+    color: inherit;
+    text-decoration: none;
     cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-color: rgba(242, 242, 240, 0.35);
-    transition: color 0.25s ease, text-decoration-color 0.25s ease;
 }
 
-.term_btn_primary:hover {
-    color: #6ef2a3;
-    text-decoration-color: #f2f2f0;
-}
-
-.term_btn_ghost {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
-    font-size: 15px;
-    color: #a8a8a8;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-color: #2e2e2e;
-    transition: color 0.25s ease, text-decoration-color 0.25s ease;
-}
-
-.term_btn_ghost:hover {
+.term_run_row:hover .term_cmd {
     color: #f4f4f2;
-    text-decoration-color: #f2f2f0;
 }
 
 /* --- stat strip --- */

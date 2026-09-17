@@ -439,16 +439,17 @@
 }
 
 .sc_metas {
-    position: relative;
+    /* 모든 meta를 같은 grid 칸에 겹쳐 쌓아, 가장 긴 설명 높이에 맞춰 영역이 늘어난다 */
+    display: grid;
     min-height: 340px;
 }
 
 .sc_meta {
-    position: absolute;
-    inset: 0;
+    grid-area: 1 / 1;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    align-self: start;
 }
 
 .sc_meta_index {
@@ -478,10 +479,6 @@
     line-height: 1.8;
     color: #b4b4b4;
     word-break: keep-all;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     margin: 0;
 }
 
