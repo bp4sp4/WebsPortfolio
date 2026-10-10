@@ -63,28 +63,25 @@
 
 .blink { display: none; }
 
+/* 링크: 버튼 대신 텍스트 링크. 마우스를 올리면 밑줄이 왼쪽부터 그어진다 */
 .pill {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    height: 48px;
-    padding: 0 22px;
-    border-radius: 14px;
-    background: var(--blue);
-    color: #fff;
-    font-size: 16px;
+    gap: 4px;
+    padding: 0 0 3px;
+    font-size: 17px;
     font-weight: 600;
+    color: var(--blue);
     text-decoration: none;
-    transition: background 0.2s ease, transform 0.15s ease;
+    background: linear-gradient(currentColor, currentColor) left bottom / 0% 1.5px no-repeat;
+    transition: background-size 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s ease;
 }
-.pill:hover { background: #1b64da; }
-.pill:active { transform: scale(0.97); }
+.pill:hover { background-size: 100% 1.5px; }
 
 .pill_ghost {
-    background: var(--card);
-    color: var(--body);
+    color: var(--sub);
 }
-.pill_ghost:hover { background: var(--line); }
+.pill_ghost:hover { color: var(--ink); }
 
 .textlink {
     display: inline-block;
@@ -153,24 +150,16 @@
 }
 
 /* 역할 배지 */
+/* 역할: 배지 대신 회색 텍스트 한 줄 */
 .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 18px;
-    padding: 8px 15px;
-    border-radius: 999px;
-    background: var(--blue-soft);
-    color: var(--blue);
-    font-size: 14px;
-    font-weight: 700;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sub);
 }
 
 .badge i {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--blue);
+    display: none;
 }
 
 .title {
@@ -194,7 +183,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px 28px;
     margin-top: 36px;
 }
 
