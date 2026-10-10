@@ -2,6 +2,8 @@ import type { ProjectEntry } from "../types";
 
 export const project: ProjectEntry = {
   id: "Eduvisors",
+  badge: "개발 100% · 9일 출시",
+  tint: "#e4ebf7",
   type: "company",
   title: "에듀바이저스",
   headline: "보상 구조를 한 흐름으로 전달하는 GA 리크루팅 사이트",
@@ -9,7 +11,7 @@ export const project: ProjectEntry = {
   description:
     "교육 전문가·GA 모집을 위한 리크루팅 사이트입니다. 50% 수익 구조를 비교 콘텐츠로 전달하고, 소개서 자동 발송·열람 추적, Slack 즉시 알림, 팝업 관리 어드민까지 리드 접수 뒤의 운영 흐름을 함께 구축했습니다.",
   tags: ["Next.js 15", "TypeScript", "Supabase", "Slack Webhook", "Tailwind CSS 4"],
-  gifImage: "/main/work__gif/eduvisor.gif",
+  gifImage: "/detail__main/page3imgs/eduvisor_main.png",
   github: "https://github.com/bp4sp4/korhrdbusiness",
   demo: "https://www.eduvisor.kr/",
   detail: {

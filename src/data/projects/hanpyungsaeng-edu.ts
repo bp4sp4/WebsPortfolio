@@ -2,6 +2,8 @@ import type { ProjectEntry } from "../types";
 
 export const project: ProjectEntry = {
   id: "hanpyungsaeng-edu",
+  badge: "프론트엔드 100% · 6일 출시",
+  tint: "#e2f1fd",
   type: "company",
   title: "한평생유학",
   headline: "결제부터 신청서까지 한 번에 끝나는 유학 신청 플랫폼",
@@ -9,7 +11,7 @@ export const project: ProjectEntry = {
   description:
     "어린이·청소년 대상 해외 유학(미국·캐나다·영국·필리핀·뉴질랜드) 신청·결제 플랫폼입니다. 카카오·네이버 소셜 로그인, PayApp 간편결제, 결제 후 6개 섹션 신청서 작성, 어드민 검토까지 풀스택으로 구현했습니다.",
   tags: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PayApp", "Tailwind 4"],
-  gifImage: "/main/work__gif/youhak.gif",
+  gifImage: "/detail__main/page3imgs/youhak_main.png",
   github: "https://github.com/bp4sp4/KorhrdStudyAbroad",
   demo: "https://www.hanyouhak.com/",
   detail: {

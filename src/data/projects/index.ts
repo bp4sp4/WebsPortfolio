@@ -41,6 +41,13 @@ export const projects = allProjects.map((p) => ({
   tags: p.tags,
   image: p.gifImage,
   gifImage: p.gifImage,
+  // 정지 스크린샷 (상세의 대표 이미지). GIF보다 가볍고 브라우저 테두리가 없다
+  cover: p.detail?.mainImage ?? p.gifImage,
+  // 모바일 화면: goals 안 "mobile" 그룹의 첫 장 (홈에서 브라우저 위에 폰으로 겹쳐 보여준다)
+  mobileImage: p.detail?.goals.flatMap((g) => g.groups ?? []).find((g) => g.layout === "mobile")?.shots[0]?.src,
+  badge: p.badge,
+  tint: p.tint,
+  story: p.story,
   github: p.github,
   demo: p.demo,
   ...(p.figma ? { figma: p.figma } : {}),

@@ -76,6 +76,18 @@ export type ProjectEntry = {
   github: string;
   demo: string;
   figma?: string;
+  /** 홈 프로젝트 화면 위에 띄우는 짧은 역할 배지 (예: "1인 개발 · 운영 중") */
+  badge?: string;
+  /** 홈 프로젝트 화면 뒤 배경색 (프로젝트 브랜드 톤의 연한 색) */
+  tint?: string;
+  /** 홈 대표작 스토리 (있으면 홈에서 "문제 → 해결" 스크롤 장면으로 크게 보여준다)
+   *  problem: 줄 단위. { muted } 줄은 회색으로 흐리게 (흩어진 것들의 나열) */
+  story?: {
+    problem: (string | { muted: string })[];
+    answer: string;
+    web: string;
+    phone?: string;
+  };
   detail?: ProjectDetail; // 없으면 카드만 표시, 있으면 상세 페이지도 생성
 };
 

@@ -4,6 +4,15 @@ const P = "/detail__main/page3imgs/";
 
 export const project: ProjectEntry = {
   id: "baroemp",
+  badge: "1인 개발 · 운영 중",
+  tint: "#e6ecfa",
+  story: {
+    problem: ["중장년 구직자의 취업 준비는", { muted: "진단, 채용 검색, 지원금, 이력서가" }, "각각 다른 곳에서 끊겨 있었습니다."],
+    answer:
+      "직업진단 → 일자리 → 지원금 → 이력서 → 지원을 5단계 여정으로 잇고, 마이페이지가 다음에 할 일을 한 문장으로 안내합니다. 고용24 채용공고는 매일 자동으로 동기화됩니다.",
+    web: "/detail__main/page3imgs/baroemp_mypage.png",
+    phone: "/detail__main/page3imgs/baroemp_m_mypage.png",
+  },
   type: "company",
   title: "한평생 바로취업",
   headline: "중장년 취업을 5단계로 잇는 원스톱 플랫폼",

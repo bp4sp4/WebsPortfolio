@@ -8,7 +8,7 @@ export const project: ProjectEntry = {
   description:
     "당근·페이스북·인스타그램 광고와 연결되는 모바일 전용 랜딩페이지 8종입니다. 디자이너와 협업하여 주부·청년·여성 사장님·소상공인 등 타겟별 맞춤 메시지와 CTA를 구성, 실제 상담 전환을 극대화하는 퍼포먼스 마케팅 페이지들입니다.",
   tags: ["Next.js", "TypeScript", "모바일 전용", "마케팅 랜딩페이지", "Vercel"],
-  gifImage: "/main/work__gif/landing_page.gif",
+  gifImage: "",
   github: "#",
   demo: "https://recruit-jubu.vercel.app/",
   detail: {

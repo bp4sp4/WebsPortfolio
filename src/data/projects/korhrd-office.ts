@@ -2,6 +2,15 @@ import type { ProjectEntry } from "../types";
 
 export const project: ProjectEntry = {
   id: "korhrd-office",
+  badge: "1인 개발 · 전사 운영 중",
+  tint: "#e3eeff",
+  story: {
+    problem: ["영업단은 같은 고객 정보를", { muted: "엑셀에, 메신저에, 수기 장부에" }, "여러 번 적고 있었습니다."],
+    answer:
+      "담당자 인터뷰로 하루 업무 흐름을 정리하고, 상담 · 매출 · 정산 · 계약이 한 화면에서 끝나는 ERP로 묶었습니다. 학점은행제 한 곳에서 시작해 지금은 5개 사업부가 매일 씁니다.",
+    web: "/detail__main/page3imgs/office_allinone_admin.png",
+    phone: "/detail__main/page3imgs/office_contract_m_03.jpg",
+  },
   type: "company",
   title: "한평생오피스",
   headline: "5개 사업부가 매일 쓰는 전사 통합 ERP",
@@ -128,13 +137,13 @@ export const project: ProjectEntry = {
             title: "전자계약 · 모바일",
             layout: "mobile",
             shots: [
-              { src: "/detail__main/page3imgs/office_contract_m_02.jpg" },
-              { src: "/detail__main/page3imgs/office_contract_m_03.jpg" },
-              { src: "/detail__main/page3imgs/office_contract_m_04.jpg" },
-              { src: "/detail__main/page3imgs/office_contract_m_05.jpg" },
-              { src: "/detail__main/page3imgs/office_contract_m_06.jpg" },
-              { src: "/detail__main/page3imgs/office_contract_m_07.jpg" },
-              { src: "/detail__main/page3imgs/office_contract_m_08.jpg" },
+              { src: "/detail__main/page3imgs/office_contract_m_02.jpg", caption: "증명사진 업로드 - 비율 · 용량 안내, 다시 올리기와 삭제" },
+              { src: "/detail__main/page3imgs/office_contract_m_03.jpg", caption: "주민등록번호 입력 - 뒷자리는 가리고 생년월일 · 성별 · 나이를 자동으로 채움" },
+              { src: "/detail__main/page3imgs/office_contract_m_04.jpg", caption: "연락처 · 이메일 입력 - 앞에서 입력한 항목은 위에 요약으로 쌓임" },
+              { src: "/detail__main/page3imgs/office_contract_m_05.jpg", caption: "학력 추가 - 학위는 칩으로 고르고, 여러 개 추가 · 삭제" },
+              { src: "/detail__main/page3imgs/office_contract_m_06.jpg", caption: "작성한 이력서를 문서 형태로 확인하고 서명" },
+              { src: "/detail__main/page3imgs/office_contract_m_07.jpg", caption: "개인정보 수집 · 이용 동의서를 읽고 동의 여부 선택" },
+              { src: "/detail__main/page3imgs/office_contract_m_08.jpg", caption: "제출 완료 - 이력서 · 동의서 · 확약서를 PDF로 내려받기" },
             ],
           },
         ],

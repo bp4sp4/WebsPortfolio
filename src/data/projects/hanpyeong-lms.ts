@@ -2,6 +2,8 @@ import type { ProjectEntry } from "../types";
 
 export const project: ProjectEntry = {
   id: "hanpyeong-lms",
+  badge: "개발 100% · 운영 중",
+  tint: "#fff0e0",
   type: "company",
   title: "한평생 직업훈련",
   headline: "수강신청부터 자격증 발급까지, 한 시스템의 LMS",
@@ -9,7 +11,7 @@ export const project: ProjectEntry = {
   description:
     "무료수강신청 → 온라인 강의 → 온라인 시험 → 자격증 발급까지 이어지는 민간자격 온라인 교육기관 LMS입니다. 공개 사이트, 학생 강의실, 어드민 대시보드를 하나의 Next.js 16 프로젝트로 통합하고 Cloudflare 영상 게이트·나이스페이/PayApp 결제·Aligo/SENS SMS·AWS S3 자료 관리까지 풀스택으로 구축했습니다.",
   tags: ["Next.js 16", "React 19", "TypeScript", "Supabase", "Tailwind 4", "Cloudflare", "AWS S3"],
-  gifImage: "/main/work__gif/lms.gif",
+  gifImage: "/detail__main/page3imgs/lms_main.png",
   github: "https://github.com/KorhrdGroup/KorhrdLMS",
   demo: "https://www.korhrd.co.kr/",
   detail: {

@@ -144,16 +144,36 @@ export default function ProjectDetailPage() {
     };
   }, [lightbox, lenis]);
 
-  /* 홈(Showcase)에서 들어왔으면 history.back()으로 슬라이드 위치까지 복원,
-     링크로 바로 진입했으면 외부 사이트로 빠지지 않도록 홈 프로젝트 섹션으로 이동 */
+  /* 닫기(X): 항상 홈 프로젝트 섹션으로 나간다.
+     history.back() 을 쓰면 "다음 프로젝트"로 넘어온 경우 이전 프로젝트 상세로 돌아가 버린다 */
   const goBack = () => {
-    let fromHome = false;
     try {
-      fromHome = sessionStorage.getItem(FROM_HOME_KEY) === "1";
+      sessionStorage.removeItem(FROM_HOME_KEY);
     } catch {}
-    if (fromHome && window.history.length > 1) router.back();
-    else router.push("/#projects");
+    router.push("/#projects");
   };
+
+  /* 상단 진행 막대: 스크롤할 때마다 "그 순간의" 페이지 길이로 계산한다.
+     (처음 한 번만 재면 이미지가 늦게 불러와져 페이지가 길어진 뒤 중간에서 이미 꽉 차 버린다) */
+  useEffect(() => {
+    const bar = rootRef.current?.querySelector<HTMLElement>("[data-progress]");
+    if (!bar) return;
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    // 스크롤이 멈춘 사이 이미지가 불러와져 페이지가 길어져도 다시 계산
+    const ro = new ResizeObserver(update);
+    ro.observe(document.body);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      ro.disconnect();
+    };
+  }, [id]);
 
   /* ── GSAP ─────────────────────────────────── */
   useGSAP(
@@ -162,11 +182,6 @@ export default function ProjectDetailPage() {
       if (!root || !data) return;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      const prog = root.querySelector("[data-progress]");
-      if (prog) {
-        gsap.set(prog, { scaleX: 0 });
-        ScrollTrigger.create({ start: 0, end: "max", onUpdate: (self) => gsap.set(prog, { scaleX: self.progress }) });
-      }
 
       if (reduce) {
         gsap.set("[data-reveal], [data-title]", { autoAlpha: 1 });
@@ -194,15 +209,25 @@ export default function ProjectDetailPage() {
         onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.85, ease: "power3.out", stagger: 0.08, overwrite: true }),
       });
 
-      // 히어로 메인 화면: 살짝 떠오르며 지나감
-      const hero = root.querySelector("[data-hero]");
-      if (hero) {
+      // 메인 화면 무대: 양옆 여백이 걷히며 화면 폭 전체로 펼쳐진다 (홈 히어로와 같은 모션)
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 769px)", () => {
+        const stageST = { trigger: "[data-stage]", start: "top 85%", end: "top 10%", scrub: true };
         gsap.fromTo(
-          "[data-mock]",
-          { y: 80 },
-          { y: -40, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } }
+          "[data-stage]",
+          { clipPath: "inset(0% 7% 0% 7% round 36px)" },
+          { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: stageST }
         );
-      }
+        gsap.fromTo("[data-mock]", { scale: 0.9, y: 40 }, { scale: 1, y: 0, ease: "none", scrollTrigger: { ...stageST } });
+        // 섹션 스크린샷: 아래에서 들어올 때 살짝 작은 상태에서 제 크기로
+        root.querySelectorAll<HTMLElement>("[data-zoom]").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { scale: 0.92 },
+            { scale: 1, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top 45%", scrub: true } }
+          );
+        });
+      });
 
       // 숫자 카운트업
       root.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
@@ -295,7 +320,7 @@ export default function ProjectDetailPage() {
   /* 웹 화면 한 장 (맥바 프레임 + 캡션) */
   const renderShot = (img: string) => (
     <figure key={img} className={s.shot} data-reveal onClick={() => setLightbox(img)}>
-      <div className={s.shot_frame}>
+      <div className={s.shot_frame} data-zoom>
         <MacBar label={`${label} · ${shotNo(img)}`} tag={tagOf(img)} />
         <img src={img} alt={`${data.title} 화면 ${shotNo(img)}`} className={s.shot_pic} loading="lazy" />
       </div>
@@ -321,17 +346,13 @@ export default function ProjectDetailPage() {
       <div className={s.phone_frame}>
         <img src={img} alt={`${data.title} 모바일 화면 ${shotNo(img)}`} className={s.phone_pic} loading="lazy" />
       </div>
-      <figcaption className={`${s.phone_cap} ${captionOf(img) ? s.caption_custom : ""}`}>
-        {captionOf(img) ? (
-          <>
-            <span className={s.caption_no}>{shotNo(img)}</span>
-            {captionOf(img)}
-          </>
-        ) : (
-          shotNo(img)
-        )}
-        {tagOf(img) && <span className={s.caption_tag}>{tagOf(img)}</span>}
-      </figcaption>
+      {/* 모바일 캡션은 번호 없이 설명만. 설명이 없으면 비워 둔다 */}
+      {(captionOf(img) || tagOf(img)) && (
+        <figcaption className={`${s.phone_cap} ${s.caption_custom}`}>
+          {captionOf(img)}
+          {tagOf(img) && <span className={s.caption_tag}>{tagOf(img)}</span>}
+        </figcaption>
+      )}
     </figure>
   );
 
@@ -353,6 +374,12 @@ export default function ProjectDetailPage() {
             <p className={s.eyebrow} data-reveal>
               {eyebrow}
             </p>
+            {meta?.badge && (
+              <div className={s.badge} data-reveal>
+                <i />
+                {meta.badge}
+              </div>
+            )}
             <h1 className={s.title} data-title>
               {data.title}
             </h1>
@@ -377,10 +404,12 @@ export default function ProjectDetailPage() {
               )}
             </div>
           </div>
-          <figure data-mock className={s.visual_img} onClick={() => setLightbox(data.mainImage)}>
-            <MacBar label={label} />
-            <img src={data.mainImage} alt={`${data.title} 메인 화면`} className={s.visual_pic} />
-          </figure>
+          <div data-stage className={s.stage} style={meta?.tint ? { background: meta.tint } : undefined}>
+            <figure data-mock className={s.visual_img} onClick={() => setLightbox(data.mainImage)}>
+              <MacBar label={label} />
+              <img src={data.mainImage} alt={`${data.title} 메인 화면`} className={s.visual_pic} />
+            </figure>
+          </div>
         </section>
 
         {/* ── OVERVIEW ── */}
@@ -608,17 +637,19 @@ export default function ProjectDetailPage() {
         <section className={s.next}>
           {next && (
             <Link href={`/project/${next.id}`} className={s.next_link}>
-              <span className={s.next_label}>NEXT PROJECT</span>
-              <span className={s.next_arrow} aria-hidden>
-                ↓
+              <img src={next.cover} alt="" className={s.next_img} aria-hidden />
+              <span className={s.next_body}>
+                <span className={s.next_label}>다음 프로젝트</span>
+                <span className={s.next_title}>{next.title}</span>
+                <span className={s.next_arrow} aria-hidden>
+                  →
+                </span>
               </span>
-              <span className={s.next_title}>{next.title}</span>
             </Link>
           )}
           <div className={`${s.inner} ${s.next_foot}`}>
             <span className={s.crumb}>
-              <span className={s.arrow}>➜</span> <span className={s.path}>~/projects</span>/{id}
-              <span className={s.blink} />
+              {pad2(idx + 1)} / {pad2(total)} · {data.title}
             </span>
             <Link href="/#projects" className={s.pill}>
               목록으로

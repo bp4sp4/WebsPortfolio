@@ -1,26 +1,27 @@
-import Loader from '@/components/Loader';
 import HashScroll from '@/components/HashScroll';
-import Header from '@/components/Header';
-import Marquee from '@/components/Marquee';
-import About from '@/components/About';
-import Stack from '@/components/Stack';
-import Showcase from '@/components/Showcase';
-import Cta from '@/components/Cta';
-import Footer from '@/components/Footer';
+import HomeNav from '@/components/home/HomeNav';
+import HomeHero from '@/components/home/HomeHero';
+import HomeIntro from '@/components/home/HomeIntro';
+import HomeProjects from '@/components/home/HomeProjects';
+import HomeCareer from '@/components/home/HomeCareer';
+import HomeSkills from '@/components/home/HomeSkills';
+import HomeProblems from '@/components/home/HomeProblems';
+import HomeContact from '@/components/home/HomeContact';
+import s from '@/styles/home.module.css';
 
+// 토스(toss.im) 스타일 라이트 테마 홈
 export default function Home() {
   return (
-    <main>
-      <Loader />
+    <main className={s.home}>
       <HashScroll />
-      <Header />
-      <Marquee />
-      <About />
-      <Stack />
-      <Showcase />
-      <Marquee reverse />
-      <Cta />
-      <Footer />
+      <HomeNav />
+      <HomeHero />
+      <HomeIntro />
+      <HomeProjects />
+      <HomeProblems />
+      <HomeCareer />
+      <HomeSkills />
+      <HomeContact />
     </main>
   );
 }

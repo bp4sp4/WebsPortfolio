@@ -8,7 +8,7 @@ export const project: ProjectEntry = {
   description:
     "돌봄 서비스 제공자와 이용자를 연결하는 위치 기반 매칭 플랫폼입니다. 네이버 지도 기반 검색, PayApp SDK 기반 구독 결제 시스템, AI 챗봇 상담 기능을 제공하며, Next.js 16과 Supabase를 활용해 풀스택으로 구축했습니다.",
   tags: ["Next.js 16", "TypeScript", "Supabase", "Naver Maps API"],
-  gifImage: "/main/work__gif/allcare.gif",
+  gifImage: "/detail__main/page3imgs/allcare_main.png",
   github: "https://github.com/bp4sp4/allcare",
   demo: "https://www.hanallcare.com/",
   detail: {

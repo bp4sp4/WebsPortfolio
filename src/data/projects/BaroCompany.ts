@@ -2,6 +2,8 @@ import type { ProjectEntry } from "../types";
 
 export const project: ProjectEntry = {
   id: "BaroCompany",
+  badge: "프론트엔드 100% · 운영",
+  tint: "#e9e7fb",
   type: "company",
   title: "한평생 바로기업",
   headline: "마케팅 사이트와 상담 어드민을 하나로 합친 플랫폼",
@@ -9,7 +11,7 @@ export const project: ProjectEntry = {
   description:
     "정책자금·투자유치·창업 컨설팅 서비스를 소개하는 마케팅 사이트와 사내 상담 관리 어드민을 하나의 Next.js 플랫폼으로 통합했습니다. 광고 채널별 상담 유입 추적부터 이메일 자동 알림, 역할 기반 어드민까지 비즈니스 운영 전반을 디지털화했습니다.",
   tags: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Supabase", "GSAP"],
-  gifImage: "/main/work__gif/barocompany.gif",
+  gifImage: "/detail__main/page3imgs/baro_main.png",
   github: "https://github.com/bp4sp4/BaroCompany",
   demo: "https://xn--ok0bx6qu3cv5m.com/",
   detail: {
