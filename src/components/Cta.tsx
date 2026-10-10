@@ -87,7 +87,7 @@ export default function Cta() {
   );
 
   return (
-    <section ref={rootRef} className={s.cta}>
+    <section id="contact" ref={rootRef} className={s.cta}>
       <div data-fade className={s.cta_label}>NEXT STEP</div>
       <h2 data-h2 className={s.cta_h2}>
         Ready to

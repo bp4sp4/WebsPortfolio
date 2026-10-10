@@ -15,7 +15,7 @@ export {
   developerInfo,
   experiences,
   skills,
-  manifesto,
+  stack,
   contactInfo,
   footerInfo,
 } from "./profile";

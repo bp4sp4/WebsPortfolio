@@ -250,7 +250,8 @@ export default function ProjectDetailPage() {
   const label = host ?? data.title;
   const eyebrow = (host ?? id ?? "").toUpperCase();
   const typeLabel = meta?.type === "personal" ? "개인" : "회사";
-  const stack = data.technologies[0]?.items.slice(0, 3).map((it) => it.name).join(" · ");
+  // 카드와 같은 대표 태그를 보여준다 (technologies 첫 그룹은 프로젝트마다 성격이 달라 들쭉날쭉했다)
+  const stack = data.tags.slice(0, 4).join(" · ");
   const [firstSentence, restDesc] = splitFirstSentence(meta?.description ?? data.title);
   // OVERVIEW 제목: 짧은 headline 이 있으면 그것, 없으면 설명문 첫 문장
   const headline = meta?.headline ?? firstSentence;
@@ -287,7 +288,9 @@ export default function ProjectDetailPage() {
   const currentTab = tab || categories[0] || "";
   const shownFeatures = categories.length ? features.filter((f) => f.category === currentTab) : features;
 
-  let secNo = sections.length;
+  // 섹션 배경을 렌더 순서대로 번갈아 칠한다 (조건부 섹션은 렌더될 때만 센다)
+  let secNo = 0;
+  const alt = () => (++secNo % 2 === 1 ? s.sec_alt : "");
 
   /* 웹 화면 한 장 (맥바 프레임 + 캡션) */
   const renderShot = (img: string) => (
@@ -401,7 +404,7 @@ export default function ProjectDetailPage() {
               </div>
               <div>
                 <dt>ROLE</dt>
-                <dd>{data.role.type}</dd>
+                <dd>{data.role.parts[0] ?? data.role.type}</dd>
               </div>
               {stack && (
                 <div>
@@ -418,142 +421,9 @@ export default function ProjectDetailPage() {
           </div>
         </section>
 
-        {/* ── 번호 섹션: 목표 + 화면 ── */}
-        {sections.map((g, i) => {
-          const shots = shotsPerSection[i];
-          return (
-            <section key={i} className={`${s.sec} ${i % 2 === 0 ? s.sec_alt : ""}`}>
-              <div className={s.inner}>
-                <SecHead eyebrow={`${pad2(i + 1)} / ${pad2(sections.length)}`} title={g.title}>
-                  <p className={s.desc} data-reveal>
-                    {g.description}
-                  </p>
-                </SecHead>
-                {g.snippet && <Snippet title={g.snippet.title} code={g.snippet.code} note={g.snippet.note} />}
-              </div>
-              {shots.length > 0 && <div className={`${s.inner} ${s.shots}`}>{shots.map(renderShot)}</div>}
-              {g.groups?.map((grp) => (
-                <div key={grp.title} className={`${s.inner} ${s.group}`}>
-                  <div className={s.group_head} data-reveal>
-                    <span className={s.group_title}>{grp.title}</span>
-                    <span className={s.group_count}>{pad2(grp.shots.length)} screens</span>
-                  </div>
-                  {grp.layout === "mobile" ? (
-                    <div className={s.mgrid}>{grp.shots.map((sh) => renderPhone(sh.src))}</div>
-                  ) : (
-                    <div className={s.shots}>{grp.shots.map((sh) => renderShot(sh.src))}</div>
-                  )}
-                </div>
-              ))}
-            </section>
-          );
-        })}
-
-        {/* ── 핵심 기능 ── */}
-        {features.length > 0 && (
-          <section className={`${s.sec} ${++secNo % 2 === 1 ? s.sec_alt : ""}`}>
-            <div className={s.inner}>
-              <SecHead eyebrow="FEATURES" title="핵심 기능">
-                <p className={s.desc} data-reveal>
-                  사용자와 운영자가 실제로 매일 쓰는 기능들입니다.
-                </p>
-                {categories.length > 0 && (
-                  <div className={s.tabs} data-reveal>
-                    {categories.map((c) => (
-                      <button key={c} type="button" className={`${s.tab} ${currentTab === c ? s.tab_on : ""}`} onClick={() => setTab(c)}>
-                        {c}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </SecHead>
-              <div className={s.feats}>
-                {shownFeatures.map((f, i) => (
-                  <article key={f.title} className={s.feat} data-reveal>
-                    <span className={s.num}>{pad2(i + 1)}</span>
-                    <h3>{f.title}</h3>
-                    <p>{f.description}</p>
-                    {f.link && (
-                      <a href={f.link} target="_blank" rel="noopener noreferrer" className={s.textlink}>
-                        사이트 보기 ↗
-                      </a>
-                    )}
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ── 문제와 해결 ── */}
-        {data.challenges.length > 0 && (
-          <section className={`${s.sec} ${++secNo % 2 === 1 ? s.sec_alt : ""}`}>
-            <div className={s.inner}>
-              <SecHead eyebrow="CHALLENGES" title="문제와 해결" />
-              <div className={s.chals}>
-                {data.challenges.map((c, i) => (
-                  <div key={i} className={s.chal} data-reveal>
-                    <span className={s.chal_num}>{pad2(i + 1)}</span>
-                    <div className={s.chal_body}>
-                      <h3>{c.title}</h3>
-                      <div className={s.chal_cols}>
-                        <div>
-                          <span className={s.tag}>Problem</span>
-                          <p>{c.challenge}</p>
-                        </div>
-                        <div>
-                          <span className={`${s.tag} ${s.tag_on}`}>Solution</span>
-                          <p>{c.solution}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ── 역할과 기술 ── */}
-        <section className={`${s.sec} ${++secNo % 2 === 1 ? s.sec_alt : ""}`}>
-          <div className={s.inner}>
-            <SecHead eyebrow="ROLE & STACK" title={data.role.type}>
-              {data.role.team && (
-                <p className={s.role_team} data-reveal>
-                  {data.role.team}
-                </p>
-              )}
-            </SecHead>
-            <div className={s.role_grid}>
-              <ul className={s.role_list}>
-                {data.role.parts.map((p, i) => (
-                  <li key={i} data-reveal>
-                    <span className={s.num}>{pad2(i + 1)}</span>
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className={s.tech}>
-                {data.technologies.map((t) => (
-                  <div key={t.category} className={s.tech_row} data-reveal>
-                    <span className={s.tech_cat}>{t.category}</span>
-                    <div className={s.tech_tags}>
-                      {t.items.map((it) => (
-                        <span key={it.name} className={s.tech_tag} title={it.description}>
-                          {it.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ── 결과 ── */}
         {(data.outcome.length > 0 || (data.metrics && data.metrics.length > 0)) && (
-          <section className={`${s.sec} ${++secNo % 2 === 1 ? s.sec_alt : ""}`}>
+          <section className={`${s.sec} ${alt()}`}>
             <div className={s.inner}>
               <SecHead eyebrow="RESULT" title="결과와 성과">
                 {data.outcome.map((p, i) => (
@@ -600,6 +470,139 @@ export default function ProjectDetailPage() {
             </div>
           </section>
         )}
+
+        {/* ── 문제와 해결 ── */}
+        {data.challenges.length > 0 && (
+          <section className={`${s.sec} ${alt()}`}>
+            <div className={s.inner}>
+              <SecHead eyebrow="CHALLENGES" title="문제와 해결" />
+              <div className={s.chals}>
+                {data.challenges.map((c, i) => (
+                  <div key={i} className={s.chal} data-reveal>
+                    <span className={s.chal_num}>{pad2(i + 1)}</span>
+                    <div className={s.chal_body}>
+                      <h3>{c.title}</h3>
+                      <div className={s.chal_cols}>
+                        <div>
+                          <span className={s.tag}>Problem</span>
+                          <p>{c.challenge}</p>
+                        </div>
+                        <div>
+                          <span className={`${s.tag} ${s.tag_on}`}>Solution</span>
+                          <p>{c.solution}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── 번호 섹션: 목표 + 화면 ── */}
+        {sections.map((g, i) => {
+          const shots = shotsPerSection[i];
+          return (
+            <section key={i} className={`${s.sec} ${alt()}`}>
+              <div className={s.inner}>
+                <SecHead eyebrow={`${pad2(i + 1)} / ${pad2(sections.length)}`} title={g.title}>
+                  <p className={s.desc} data-reveal>
+                    {g.description}
+                  </p>
+                </SecHead>
+                {g.snippet && <Snippet title={g.snippet.title} code={g.snippet.code} note={g.snippet.note} />}
+              </div>
+              {shots.length > 0 && <div className={`${s.inner} ${s.shots}`}>{shots.map(renderShot)}</div>}
+              {g.groups?.map((grp) => (
+                <div key={grp.title} className={`${s.inner} ${s.group}`}>
+                  <div className={s.group_head} data-reveal>
+                    <span className={s.group_title}>{grp.title}</span>
+                    <span className={s.group_count}>{pad2(grp.shots.length)} screens</span>
+                  </div>
+                  {grp.layout === "mobile" ? (
+                    <div className={s.mgrid}>{grp.shots.map((sh) => renderPhone(sh.src))}</div>
+                  ) : (
+                    <div className={s.shots}>{grp.shots.map((sh) => renderShot(sh.src))}</div>
+                  )}
+                </div>
+              ))}
+            </section>
+          );
+        })}
+
+        {/* ── 핵심 기능 ── */}
+        {features.length > 0 && (
+          <section className={`${s.sec} ${alt()}`}>
+            <div className={s.inner}>
+              <SecHead eyebrow="FEATURES" title="핵심 기능">
+                <p className={s.desc} data-reveal>
+                  사용자와 운영자가 실제로 매일 쓰는 기능들입니다.
+                </p>
+                {categories.length > 0 && (
+                  <div className={s.tabs} data-reveal>
+                    {categories.map((c) => (
+                      <button key={c} type="button" className={`${s.tab} ${currentTab === c ? s.tab_on : ""}`} onClick={() => setTab(c)}>
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </SecHead>
+              <div className={s.feats}>
+                {shownFeatures.map((f, i) => (
+                  <article key={f.title} className={s.feat} data-reveal>
+                    <span className={s.num}>{pad2(i + 1)}</span>
+                    <h3>{f.title}</h3>
+                    <p>{f.description}</p>
+                    {f.link && (
+                      <a href={f.link} target="_blank" rel="noopener noreferrer" className={s.textlink}>
+                        사이트 보기 ↗
+                      </a>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── 역할과 기술 ── */}
+        <section className={`${s.sec} ${alt()}`}>
+          <div className={s.inner}>
+            <SecHead eyebrow="ROLE & STACK" title={data.role.type}>
+              {data.role.team && (
+                <p className={s.role_team} data-reveal>
+                  {data.role.team}
+                </p>
+              )}
+            </SecHead>
+            <div className={s.role_grid}>
+              <ul className={s.role_list}>
+                {data.role.parts.map((p, i) => (
+                  <li key={i} data-reveal>
+                    <span className={s.num}>{pad2(i + 1)}</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className={s.tech}>
+                {data.technologies.map((t) => (
+                  <div key={t.category} className={s.tech_row} data-reveal>
+                    <span className={s.tech_cat}>{t.category}</span>
+                    <div className={s.tech_tags}>
+                      {t.items.map((it) => (
+                        <span key={it.name} className={s.tech_tag} title={it.description}>
+                          {it.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ── NEXT PROJECT ── */}
         <section className={s.next}>

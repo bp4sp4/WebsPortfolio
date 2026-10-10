@@ -7,8 +7,18 @@ import SmoothScroll from "@/components/SmoothScroll";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "SangHun Park | Web Developer",
-  description: "QA로 시작해 풀스택까지, 사용자가 겪을 일을 먼저 겪어보는 웹 개발자 박상훈의 포트폴리오",
+  metadataBase: new URL("https://webs-portfolio.vercel.app"),
+  title: "박상훈 | 프론트엔드 개발자 포트폴리오",
+  description: "React · Next.js · TypeScript 프론트엔드 개발자 박상훈. 사내 ERP, 취업 플랫폼, LMS 등 실서비스를 설계부터 운영까지 맡고 있습니다.",
+  openGraph: {
+    title: "박상훈 | 프론트엔드 개발자 포트폴리오",
+    description: "React · Next.js · TypeScript로 사내 ERP, 취업 플랫폼, LMS 등 실서비스를 만들고 운영합니다.",
+    url: "/",
+    siteName: "박상훈 포트폴리오",
+    locale: "ko_KR",
+    type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "박상훈 프론트엔드 개발자 포트폴리오" }],
+  },
 };
 
 export default function RootLayout({

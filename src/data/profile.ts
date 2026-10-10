@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────
 export const developerInfo = {
   name: "박상훈",
-  role: "Web Developer",
+  role: "Frontend Developer",
   skills: ["React", "Next.js", "TypeScript", "CSS", "HTML"],
   tools: ["Supabase", "Git", "Vercel"],
   passion: "창의적인 웹 경험",
@@ -16,26 +16,26 @@ export const developerInfo = {
 export const experiences = [
   {
     date: "2025. 04 — 현재 재직 중",
-    info: "한평생그룹 마케팅 개발본부 웹 개발자",
+    info: "한평생그룹 개발본부 프론트엔드 개발자",
     type: "work" as const,
     icon: "fas fa-briefcase",
     current: true,
   },
   {
     date: "2023. 02 — 2023. 05",
-    info: "새롱정보시스템 빅데이터그룹파트원",
+    info: "새롬정보시스템 AI빅데이터그룹 연구원",
     type: "work" as const,
     icon: "fas fa-briefcase",
   },
   {
     date: "2022. 05 — 2022. 12",
-    info: "한국 ICT인재개발원",
+    info: "한국ICT인재개발원 웹 개발 과정",
     type: "education" as const,
     icon: "fas fa-laptop-code",
   },
   {
     date: "2021. 10 — 2022. 04",
-    info: "와이즈스터디 앱,웹 QA테스터 근무",
+    info: "와이즈스톤티 앱·웹 QA 테스터",
     type: "work" as const,
     icon: "fas fa-briefcase",
   },
@@ -101,7 +101,7 @@ export const contactInfo = {
   email: "bp4sp4@naver.com",
   tagline: "사용자 입장에서 먼저 테스트하는 개발자를 찾으신다면",
   description: [
-    "QA 테스터로 시작해 풀스택 개발까지 온 웹 개발자 박상훈입니다.",
+    "QA 테스터로 시작한 프론트엔드 개발자 박상훈입니다.",
     "배포 전에 사용자보다 먼저 겪어보는 습관은 그때 생겼습니다.",
     "지금은 한평생그룹에서 웹 디자이너와 2인 팀으로 ERP·취업 플랫폼·LMS 등 6개 서비스를 만들고 운영합니다.",
   ],
@@ -119,77 +119,33 @@ export const footerInfo = {
 };
 
 // ─────────────────────────────────────────────
-// 매니페스토 × 스택
-// 문장(주장) 하나마다 그 문장을 뒷받침하는 스택(증거)을 붙인다.
-// 순서: 설계 → 데이터 → 퍼블리싱 → 모션 → 워크플로 (skills 6그룹과 1:1에 가깝게)
-// hi: true 인 항목은 흰색으로 강조, 나머지는 회색.
+// 기술 스택 (홈 ~/skills 섹션 · 이력서와 같은 구성)
+// where: 그 기술을 실제로 쓴 프로젝트 — 검토자가 근거를 바로 찾을 수 있게
 // ─────────────────────────────────────────────
-export const manifesto = [
+export const stack = [
   {
-    statement: "화면을 그리는 게 아니라, 사용자의 흐름을 설계합니다.",
-    label: "design · frontend",
-    stack: [
-      { name: "Figma", hi: true },
-      { name: "Prototyping" },
-      { name: "Design System", hi: true },
-      { name: "Responsive" },
-      { name: "React", hi: true },
-      { name: "Next.js", hi: true },
-    ],
+    group: "Frontend",
+    items: ["React 19", "Next.js 15·16 (App Router)", "TypeScript", "Tailwind CSS 4", "CSS Modules"],
+    where: "전 프로젝트",
   },
   {
-    statement: "화면 뒤의 데이터 흐름까지 설계해야, 화면이 거짓말하지 않습니다.",
-    label: "data · backend",
-    stack: [
-      { name: "Supabase", hi: true },
-      { name: "PostgreSQL", hi: true },
-      { name: "Auth · RLS" },
-      { name: "Server Actions" },
-      { name: "외부 API 연동" },
-    ],
+    group: "UI · 퍼블리싱",
+    items: ["시맨틱 마크업", "반응형 · 모바일 우선", "웹 접근성", "크로스 브라우저", "GSAP", "Framer Motion"],
+    where: "한평생유학 · 에듀바이저스 · 바로기업 · 이 포트폴리오",
   },
   {
-    statement: "픽셀 하나의 어긋남도 결국 사용자는 느낍니다. 그래서 끝까지 맞춥니다.",
-    label: "craft · publishing",
-    stack: [
-      { name: "HTML5", hi: true },
-      { name: "CSS3", hi: true },
-      { name: "Tailwind CSS" },
-      { name: "Pixel Perfect", hi: true },
-      { name: "SEO" },
-    ],
+    group: "Data",
+    items: ["Supabase (PostgreSQL · Auth · RLS)", "Server Actions", "Route Handlers", "Vercel Cron"],
+    where: "한평생오피스 · 바로취업 · 직업훈련 LMS",
   },
   {
-    statement: "QA에서 시작한 습관 하나, 배포 전에 사용자보다 먼저 겪어봅니다.",
-    label: "qa · reliability",
-    stack: [
-      { name: "사용자 인터뷰", hi: true },
-      { name: "Cross-Browser" },
-      { name: "웹 접근성" },
-      { name: "Mock 모드 테스트" },
-      { name: "실운영 모니터링", hi: true },
-    ],
+    group: "연동",
+    items: ["PayApp · 나이스페이", "고용24 API", "신한은행 오픈API", "Claude API", "알림톡 · SMS"],
+    where: "한평생오피스 · 바로취업 · 직업훈련 LMS · 한평생유학",
   },
   {
-    statement: "움직임은 장식이 아니라, 시선을 안내하는 문장입니다.",
-    label: "motion · interaction",
-    stack: [
-      { name: "GSAP", hi: true },
-      { name: "ScrollTrigger", hi: true },
-      { name: "Lenis" },
-      { name: "Framer Motion" },
-      { name: "CSS Animation" },
-    ],
-  },
-  {
-    statement: "기획·디자인·코드가 한 호흡으로 이어질 때, 좋은 웹이 됩니다.",
-    label: "workflow · tools",
-    stack: [
-      { name: "Git", hi: true },
-      { name: "GitHub" },
-      { name: "Vercel", hi: true },
-      { name: "Cloudflare" },
-      { name: "Claude Code", hi: true },
-    ],
+    group: "협업 · 배포",
+    items: ["Git · GitHub", "Figma", "Vercel", "Cloudflare", "AWS S3"],
+    where: "디자이너와 Figma 시안 협업 · Vercel 배포",
   },
 ];

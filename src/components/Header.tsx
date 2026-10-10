@@ -4,10 +4,11 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useLenis } from "lenis/react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 import { intro } from "@/lib/intro";
+import { contactInfo } from "@/data/profile";
 import styles from "@/styles/main.module.css";
 import m from "@/styles/motion.module.css";
 
-const ROTATING_WORDS = ["사용자 경험을", "UI·UX를", "화면을", "흐름을", "퍼블리싱을", "웹을"];
+const ROTATING_WORDS = ["사용자 흐름을", "반응형 UI를", "인터랙션을", "실서비스를"];
 const ROTATE_MS = 2200;
 
 const NAV_ITEMS = [
@@ -16,6 +17,13 @@ const NAV_ITEMS = [
   { href: "#skills", label: "~/skills" },
   { href: "#projects", label: "~/projects" },
   { href: "#contact", label: "~/contact" },
+];
+
+/** 첫 화면에서 바로 읽히는 사실 요약 (포지션 · 현재 · 출신) */
+const PROFILE_ROWS = [
+  { k: "role", v: "Frontend Developer · React · Next.js · TypeScript" },
+  { k: "now", v: "한평생그룹 개발본부 (2025.04 ~) · 사내 ERP · 취업 플랫폼 · LMS 개발 · 운영" },
+  { k: "from", v: "QA 테스터 출신 · 배포 전에 사용자 흐름을 직접 검증합니다" },
 ];
 
 export default function Header() {
@@ -177,7 +185,7 @@ export default function Header() {
             <span className={styles.term_cmd}>whoami</span>
           </div>
           <div className={styles.term_comment}>
-            # 안녕하세요, QA로 시작해 풀스택까지 온 웹 개발자 박상훈입니다.
+            # 안녕하세요, 프론트엔드 개발자 박상훈입니다.
           </div>
           <div className={styles.term_cmdblock_gap}>
             <span className={styles.term_arrow}>➜</span>{" "}
@@ -202,19 +210,23 @@ export default function Header() {
           </div>
         </div>
 
-        {/* 버튼으로 바로 점프하지 않고, 스크롤하며 인터랙션을 보도록 유도하는 프롬프트 */}
-        <a
-          href="#about"
-          data-intro
-          className={styles.term_run_row}
-          onClick={(e) => goTo(e, "#about")}
-        >
-          <span>
-            <span className={styles.term_arrow}>➜</span>{" "}
-            <span className={styles.term_path}>~/portfolio</span>{" "}
-            <span className={styles.term_cmd}>scroll --down</span>
-          </span>
-        </a>
+        <dl data-intro className={m.hero_facts}>
+          {PROFILE_ROWS.map((r) => (
+            <div key={r.k}>
+              <dt>{r.k}</dt>
+              <dd>{r.v}</dd>
+            </div>
+          ))}
+        </dl>
+
+        {/* 검토자가 바로 프로젝트·연락처로 갈 수 있는 링크 */}
+        <div data-intro className={m.hero_links}>
+          <a href="#projects" onClick={(e) => goTo(e, "#projects")} className={m.hero_link_main}>
+            <span className={styles.term_arrow}>➜</span> 프로젝트 보기
+          </a>
+          <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+          <a href="https://github.com/bp4sp4" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
       </div>
 
       <a

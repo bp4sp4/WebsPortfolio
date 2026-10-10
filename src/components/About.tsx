@@ -271,7 +271,7 @@ export default function About() {
             <div className={styles.term_about_name}>박상훈</div>
             <div className={styles.term_about_role}>
               <span className={styles.term_status_dot} />
-              Web Developer
+              Frontend Developer
             </div>
           </div>
 
@@ -283,7 +283,7 @@ export default function About() {
             </h2>
             <div className={styles.term_about_paras}>
               <p>
-                QA 테스터로 처음 서비스를 만났습니다. 버그를 찾던 6개월 동안 배운 건, 사용자는 화면이 아니라{" "}
+                QA 테스터로 처음 서비스를 만났습니다. 버그를 찾던 7개월 동안 배운 건, 사용자는 화면이 아니라{" "}
                 <b className={styles.term_hl}>막히는 순간</b>을 기억한다는 것이었습니다.
               </p>
               <p>
