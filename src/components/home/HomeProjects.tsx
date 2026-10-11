@@ -205,9 +205,17 @@ function FeatureStory({ p, no, desktop }: { p: Project; no: number; desktop: boo
             {p.date.includes("진행") ? " — 진행 중" : ""}
             {host ? ` · ${host}` : " · 사내 전용"}
           </div>
-          <a href={`/project/${p.id}`} onClick={(e) => open(e, p.id)} className={s.st_more}>
-            프로젝트 보기 →
-          </a>
+          <div className={s.st_links}>
+            <a href={`/project/${p.id}`} onClick={(e) => open(e, p.id)} className={s.st_more}>
+              프로젝트 보기 →
+            </a>
+            {/* 공개된 사이트가 있으면 실제 서비스로 바로 이동 (사내 전용은 없음) */}
+            {host && (
+              <a href={p.demo} target="_blank" rel="noopener noreferrer" className={`${s.st_more} ${s.st_more_sub}`}>
+                사이트 방문 ↗
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </section>
@@ -339,7 +347,7 @@ export default function HomeProjects() {
       <div ref={headRef} className={s.st_head}>
         <div className={s.eyebrow}>Projects</div>
         <h2 className={s.st_head_title}>
-          {["어떤 문제를 풀었는지부터", "말씀드릴게요"].map((line, i) => (
+          {["현장의 불편에서", "시작한 서비스들"].map((line, i) => (
             <span key={i} className={s.st_line}>
               {line.split(" ").map((w, j) => (
                 <Fragment key={j}>
@@ -349,7 +357,7 @@ export default function HomeProjects() {
             </span>
           ))}
         </h2>
-        <p className={s.sub}>대표작 두 개는 문제부터, 나머지는 한 줄로 정리했어요.</p>
+        <p className={s.sub}>쓰는 사람이 어디서 막히는지부터 듣고 만들었습니다.</p>
       </div>
 
       {featured.map((p, i) => (

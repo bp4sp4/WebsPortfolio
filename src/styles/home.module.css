@@ -661,6 +661,16 @@
     color: var(--blue) !important;
 }
 
+.st_links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 22px;
+}
+
+.st_more_sub {
+    color: var(--sub) !important;
+}
+
 .st_more:hover {
     text-decoration: underline !important;
 }
