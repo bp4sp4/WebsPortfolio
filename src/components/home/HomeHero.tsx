@@ -98,7 +98,7 @@ export default function HomeHero() {
             <h2 className={s.hero_title}>
               설계부터 운영까지,
               <br />
-              직접 만든 실서비스 {projects.length}개
+              직접 만든 실서비스 {projects.filter((p) => p.type === "company").length}개
             </h2>
             <p>React · Next.js · TypeScript</p>
           </div>
