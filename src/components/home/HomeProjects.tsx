@@ -178,6 +178,7 @@ function FeatureStory({ p, no, desktop }: { p: Project; no: number; desktop: boo
           onClick={(e) => open(e, p.id)}
           className={s.st_visual}
           aria-label={`${p.title} 프로젝트 보기`}
+          data-stuckpoint-label={`${p.title} · 대표 화면`}
         >
           <div className={s.st_bar}>
             <i />
@@ -206,12 +207,23 @@ function FeatureStory({ p, no, desktop }: { p: Project; no: number; desktop: boo
             {host ? ` · ${host}` : " · 사내 전용"}
           </div>
           <div className={s.st_links}>
-            <a href={`/project/${p.id}`} onClick={(e) => open(e, p.id)} className={s.st_more}>
+            <a
+              href={`/project/${p.id}`}
+              onClick={(e) => open(e, p.id)}
+              className={s.st_more}
+              data-stuckpoint-label={`${p.title} · 프로젝트 보기`}
+            >
               프로젝트 보기 →
             </a>
             {/* 공개된 사이트가 있으면 실제 서비스로 바로 이동 (사내 전용은 없음) */}
             {host && (
-              <a href={p.demo} target="_blank" rel="noopener noreferrer" className={`${s.st_more} ${s.st_more_sub}`}>
+              <a
+                href={p.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${s.st_more} ${s.st_more_sub}`}
+                data-stuckpoint-label={`${p.title} · 사이트 방문`}
+              >
                 사이트 방문 ↗
               </a>
             )}
@@ -279,6 +291,7 @@ function ProjectIndex({ list, startNo, desktop }: { list: Project[]; startNo: nu
             onClick={(e) => open(e, p.id)}
             onMouseEnter={() => setHover(i)}
             className={`${s.ix_row} ${hover === i ? s.ix_on : ""}`}
+            data-stuckpoint-label={`${p.title} · 목록`}
           >
             <i data-rule className={s.ix_rule} />
             <span data-cell className={s.ix_date}>

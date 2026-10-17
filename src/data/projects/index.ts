@@ -17,7 +17,6 @@ import { project as hanpyungsaengEdu } from "./hanpyungsaeng-edu";
 import { project as baroCompany } from "./BaroCompany";
 import { project as eduvisors } from "./Eduvisors";
 import { project as baroemp } from "./baroemp";
-import { project as stuckpoint } from "./stuckpoint";
 
 const allProjects: ProjectEntry[] = [
   korhrdOffice,
@@ -26,7 +25,6 @@ const allProjects: ProjectEntry[] = [
   hanpyungsaengEdu,
   baroCompany,
   eduvisors,
-  stuckpoint,
 ];
 
 // ─────────────────────────────────────────────────────────────────────────

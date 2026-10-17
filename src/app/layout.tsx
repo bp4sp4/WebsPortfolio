@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import SmoothScroll from "@/components/SmoothScroll";
+import Script from "next/script";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -36,6 +37,10 @@ export default function RootLayout({
       </head>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        {/* 방문자가 어디를 누르는지 · 어디서 막히는지 기록 (직접 만든 Stuckpoint). 운영 배포에서만 켠다 */}
+        {process.env.VERCEL_ENV === "production" && (
+          <Script src="https://stuckpoint.vercel.app/stuckpoint.global.js" data-key="portfolio" data-clicks="true" strategy="afterInteractive" />
+        )}
       </body>
     </html>
   );
